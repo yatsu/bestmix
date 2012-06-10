@@ -3,7 +3,7 @@ Bestmix
 
 __NOTE: Bestmix is under development. Caching and error handling are not implemented yet.__
 
-Bestmix is a set of boilerplate to build both Rails-based web app and iOS app integrated with each other.
+Bestmix is a boilerplate to build both Rails-based web app and iOS app integrated with each other.
 They are connected with JSON REST API supporting OAuth2 authentication, pagination and caching.
 You can build your own server-side and client-side quickly by extending it.
 
@@ -38,7 +38,7 @@ See [Podfile](http://github.com/yatsu/bestmix/blob/master/ios/Podfile ) for more
 Setup
 -----
 
-### Server-side
+### Server-Side
 
 1. Install [Ruby on Rails](http://rubyonrails.org/ ) and [RVM](https://rvm.io/ ) if you don't have them.
 2. Copy server/config/database.yml.example to server/config/database.yml and modify it.
@@ -61,3 +61,10 @@ Bestmix itself is provided under
 and it uses many other libraries.
 See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) and
 [Podfile](http://github.com/yatsu/bestmix/blob/master/ios/Podfile ).
+
+To Do
+-----
+
+* Creating/Updating/Deleting objects (currently only reading is supported)
+* Push Notification
+* Twitter/Facebook Integration
