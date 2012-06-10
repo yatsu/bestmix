@@ -3,6 +3,14 @@
 #import "Config.h"
 #import "BestmixDataModel.h"
 #import "Task.h"
+#import "AFNetworking.h"
+#import "PrivateTasksViewController.h"
+
+@interface AppDelegate ()
+
+- (PrivateTasksViewController *)privateTasksViewController;
+
+@end
 
 @implementation AppDelegate
 
@@ -20,7 +28,7 @@
         [context save:nil];
     }
     */
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    [application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 
     return YES;
 }
@@ -50,6 +58,24 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    NSLog(@"handle URL: %@", url);
+    NSInteger index = [[NSString stringWithFormat:@"%@?code=", RedirectURL] length];
+    NSString *code = [[url absoluteString] substringFromIndex:index];
+    NSLog(@"code: %@", code);
+    [[self privateTasksViewController] authWithCode:code];
+
+    return YES;
+}
+
+- (PrivateTasksViewController *)privateTasksViewController
+{
+    UITabBarController *tbc = (UITabBarController *)self.window.rootViewController;
+    UINavigationController *nc = [tbc.viewControllers objectAtIndex:tbc.viewControllers.count - 1];
+    return [nc.viewControllers objectAtIndex:0];
 }
 
 @end

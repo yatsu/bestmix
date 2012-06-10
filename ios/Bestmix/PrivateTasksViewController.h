@@ -3,4 +3,6 @@
 
 @interface PrivateTasksViewController : TasksViewController
 
+- (void)authWithCode:(NSString *)code;
+
 @end

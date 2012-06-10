@@ -8,13 +8,13 @@
 #import "SVPullToRefresh.h"
 #import "AFOAuth2Client.h"
 
-@interface PrivateTasksViewController ()
-{
-    BOOL _loggedIn;
-}
+@interface PrivateTasksViewController () <UIAlertViewDelegate>
+
+@property (nonatomic) NSString *token;
 
 - (void)fetchTasks;
 - (void)login;
+- (void)openLoginURL;
 
 @end
 
@@ -24,7 +24,7 @@
 
 - (void)fetch
 {
-    if (!_loggedIn) {
+    if (!self.token) {
         [self login];
     } else {
         [self fetchTasks];
@@ -40,6 +40,20 @@
 - (void)becomeUnreachable
 {
     NSLog(@"unreachable");
+}
+
+#pragma mark Accessors
+
+- (NSString *)token
+{
+    return [[NSUserDefaults standardUserDefaults] valueForKey:@"token"];
+}
+
+- (void)setToken:(NSString *)token
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:token forKey:@"token"];
+    [defaults synchronize];
 }
 
 #pragma mark Local Methods
@@ -58,10 +72,15 @@
 
     TasksApiClient *client = [TasksApiClient sharedClient];
 
+    // set header
+    // Authorization: Bearer <token>
+    NSLog(@"token: %@", self.token);
+    [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", self.token]];
+
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:[NSNumber numberWithInteger:_currentPage] forKey:@"page"];
 
-    [client getPath:@"tasks/public"
+    [client getPath:@"tasks/my"
          parameters:params
             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
@@ -92,14 +111,55 @@
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"error %@", error);
-
+                self.token = nil;
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             }];
 }
 
 - (void)login
 {
-    [self getAccessToken];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login"
+                                                    message:@"Please login to view your private tasks."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Login", nil];
+    [alert show];
+}
+
+- (void)openLoginURL
+{
+    NSString *path = [NSString stringWithFormat:@"%@oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@",
+                      AuthBaseURL, ClientID, RedirectURL];
+    NSURL *url = [NSURL URLWithString:path];
+    NSLog(@"login URL: %@", url);
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)authWithCode:(NSString *)code
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=authorization_code&code=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
+                                       AuthBaseURL, code, ClientID, ClientSecret, RedirectURL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+        NSLog(@"success: %@", json);
+        // {"access_token":"...","token_type":"bearer","expires_in":7200}
+        NSString *token = [json objectForKey:@"access_token"];
+        NSLog(@"token: %@", token);
+        [self setToken:token];
+
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+        NSLog(@"error: %@", json);
+    }];
+    [operation start];
+}
+
+#pragma mark UIALertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [self openLoginURL];
 }
 
 @end

@@ -134,7 +134,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
     Task *task = [_tasks objectAtIndex:indexPath.row];
     cell.textLabel.text = task.name;
-    if (task.pub)
+    if ([task.pub boolValue])
         cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
     else
         cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
