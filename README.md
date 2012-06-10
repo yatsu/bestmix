@@ -1,10 +1,10 @@
 Bestmix
 =======
 
-__NOTE: Bestmix is under development. It works currently without authentication and caching.__
+__NOTE: Bestmix is under development. Caching and error handling are not implemented yet.__
 
 Bestmix is a set of boilerplate to build both Rails-based web app and iOS app integrated with each other.
-They are connected with JSON REST API supporting authentication, pagination and caching.
+They are connected with JSON REST API supporting OAuth2 authentication, pagination and caching.
 You can build your own server-side and client-side quickly by extending it.
 
 Libraries
