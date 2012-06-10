@@ -9,7 +9,7 @@ class Api::V1::TasksController < Api::ApiController
 
   def my
     page = (params[:page] || 1).to_i
-    @tasks = Task.pub.page(page)
+    @tasks = Task.my(current_user).page(page)
   end
 
   def show

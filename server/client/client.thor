@@ -12,9 +12,10 @@ class Client < Thor
   desc "my_tasks BASE_URL, APP_ID, SECRET, TOKEN", "get my tasks"
   def my_tasks(base_url, app_id, secret, token)
     client = OAuth2::Client.new(app_id, secret, site: base_url)
+    # client.connection.proxy("http://127.0.0.1:8888") # for Charles
     access = OAuth2::AccessToken.new(client, token)
     res = access.get("/api/v1/tasks/my")
-    puts res
+    puts res.inspect
   end
 
   desc "auth BASE_URL APP_ID SECRET REDIRECT_URL", "authenticate"
