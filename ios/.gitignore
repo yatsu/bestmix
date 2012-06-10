@@ -1,0 +1,11 @@
+*.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+*.xcodeproj/xcuserdata/*.xcuserdatad/
+*.xcodeproj/*.pbxuser
+*.xcodeproj/*.mode*
+build/Debug-*
+build/Release-*
+build/*.build
+DerivedData
+Bestmix.xcworkspace
+Pods
+/Bestmix/Config.h

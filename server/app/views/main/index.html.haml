@@ -1,0 +1,19 @@
+- if @my_tasks
+  %h2 My Tasks
+  - if @my_tasks.empty?
+    no task
+  - else
+    %ul
+      = render partial: "tasks/task", collection: @my_tasks
+
+  %p= link_to "New Task", new_task_path
+
+%h2 Public Tasks
+- if @public_tasks.empty?
+  no task
+- else
+  %ul
+    - @public_tasks.each do |task|
+      %li{ :class => task.public? ? "public" : "private" }
+        .name= task.name
+        .user= task.user.email

@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @task.name
+
+%p
+  %b Public:
+  = @task.public
+
+= link_to 'Edit', edit_task_path(@task)
+|
+= link_to 'Back', tasks_path

@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		008735F20059421B97C66099 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B90085EA242E88A9E748D /* libPods.a */; };
+		1C1E5069157C988600D62584 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1E5068157C988600D62584 /* CoreData.framework */; };
+		1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */; };
+		1C1E5071157C9C8700D62584 /* BestmixDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5070157C9C8700D62584 /* BestmixDataModel.m */; };
+		1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5076157CCC1300D62584 /* TasksApiClient.m */; };
+		1C7ABC8915775C6700327DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8815775C6700327DEB /* UIKit.framework */; };
+		1C7ABC8B15775C6700327DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8A15775C6700327DEB /* Foundation.framework */; };
+		1C7ABC8D15775C6700327DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8C15775C6700327DEB /* CoreGraphics.framework */; };
+		1C7ABC9315775C6700327DEB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABC9115775C6700327DEB /* InfoPlist.strings */; };
+		1C7ABC9515775C6700327DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7ABC9415775C6700327DEB /* main.m */; };
+		1C7ABC9915775C6700327DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C7ABC9815775C6700327DEB /* AppDelegate.m */; };
+		1C7ABC9C15775C6700327DEB /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABC9A15775C6700327DEB /* MainStoryboard_iPhone.storyboard */; };
+		1C7ABC9F15775C6700327DEB /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABC9D15775C6700327DEB /* MainStoryboard_iPad.storyboard */; };
+		1C7ABCA415775C6700327DEB /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCA315775C6700327DEB /* first.png */; };
+		1C7ABCA615775C6700327DEB /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCA515775C6700327DEB /* first@2x.png */; };
+		1C7ABCAB15775C6700327DEB /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCAA15775C6700327DEB /* second.png */; };
+		1C7ABCAD15775C6700327DEB /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCAC15775C6700327DEB /* second@2x.png */; };
+		1CA74BF815836BC900DDE84D /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BF715836BC900DDE84D /* TasksViewController.m */; };
+		1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */; };
+		1CA8E73E1579FDD50062C93F /* PublicTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E73D1579FDD50062C93F /* PublicTasksViewController.m */; };
+		1CA8E7441579FFFC0062C93F /* PrivateTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */; };
+		1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */; };
+		1CA8E74D157A2CCC0062C93F /* _Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E74A157A2CCC0062C93F /* _Task.m */; };
+		1CA8E74E157A2CCC0062C93F /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E74C157A2CCC0062C93F /* Task.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1C1E5068157C988600D62584 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1C1E506C157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectForKeyOrNil.h"; sourceTree = "<group>"; };
+		1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKeyOrNil.m"; sourceTree = "<group>"; };
+		1C1E506F157C9C8700D62584 /* BestmixDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BestmixDataModel.h; sourceTree = "<group>"; };
+		1C1E5070157C9C8700D62584 /* BestmixDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BestmixDataModel.m; sourceTree = "<group>"; };
+		1C1E5075157CCC1300D62584 /* TasksApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksApiClient.h; sourceTree = "<group>"; };
+		1C1E5076157CCC1300D62584 /* TasksApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksApiClient.m; sourceTree = "<group>"; };
+		1C7ABC8415775C6700327DEB /* Bestmix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bestmix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C7ABC8815775C6700327DEB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1C7ABC8A15775C6700327DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1C7ABC8C15775C6700327DEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1C7ABC9015775C6700327DEB /* Bestmix-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bestmix-Info.plist"; sourceTree = "<group>"; };
+		1C7ABC9215775C6700327DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1C7ABC9415775C6700327DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1C7ABC9615775C6700327DEB /* Bestmix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bestmix-Prefix.pch"; sourceTree = "<group>"; };
+		1C7ABC9715775C6700327DEB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1C7ABC9815775C6700327DEB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1C7ABC9B15775C6700327DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		1C7ABC9E15775C6700327DEB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		1C7ABCA315775C6700327DEB /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
+		1C7ABCA515775C6700327DEB /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
+		1C7ABCAA15775C6700327DEB /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
+		1C7ABCAC15775C6700327DEB /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
+		1C7ABCC515776A3C00327DEB /* PublicTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicTasksViewController.h; sourceTree = "<group>"; };
+		1C7ABCC915776BAE00327DEB /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		1CA74BF615836BC900DDE84D /* TasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksViewController.h; sourceTree = "<group>"; };
+		1CA74BF715836BC900DDE84D /* TasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksViewController.m; sourceTree = "<group>"; };
+		1CA74BF915837C5900DDE84D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		1CA8E73D1579FDD50062C93F /* PublicTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicTasksViewController.m; sourceTree = "<group>"; };
+		1CA8E7421579FFFC0062C93F /* PrivateTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateTasksViewController.h; sourceTree = "<group>"; };
+		1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateTasksViewController.m; sourceTree = "<group>"; };
+		1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bestmix.xcdatamodel; sourceTree = "<group>"; };
+		1CA8E749157A2CCC0062C93F /* _Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Task.h; sourceTree = "<group>"; };
+		1CA8E74A157A2CCC0062C93F /* _Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Task.m; sourceTree = "<group>"; };
+		1CA8E74B157A2CCC0062C93F /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		1CA8E74C157A2CCC0062C93F /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD4A8059D94C425B85738933 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1C7ABC8115775C6700327DEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C1E5069157C988600D62584 /* CoreData.framework in Frameworks */,
+				1C7ABC8915775C6700327DEB /* UIKit.framework in Frameworks */,
+				1C7ABC8B15775C6700327DEB /* Foundation.framework in Frameworks */,
+				1C7ABC8D15775C6700327DEB /* CoreGraphics.framework in Frameworks */,
+				008735F20059421B97C66099 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C7ABC7915775C6700327DEB = {
+			isa = PBXGroup;
+			children = (
+				1CA8E745157A2A2E0062C93F /* DataModel */,
+				1CA8E7381579FD320062C93F /* Categories */,
+				1C7ABC8E15775C6700327DEB /* Bestmix */,
+				1C7ABC8715775C6700327DEB /* Frameworks */,
+				1C7ABC8515775C6700327DEB /* Products */,
+				BD4A8059D94C425B85738933 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		1C7ABC8515775C6700327DEB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C7ABC8415775C6700327DEB /* Bestmix.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C7ABC8715775C6700327DEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1C7ABC8815775C6700327DEB /* UIKit.framework */,
+				1C7ABC8A15775C6700327DEB /* Foundation.framework */,
+				1C7ABC8C15775C6700327DEB /* CoreGraphics.framework */,
+				1C1E5068157C988600D62584 /* CoreData.framework */,
+				828B90085EA242E88A9E748D /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1C7ABC8E15775C6700327DEB /* Bestmix */ = {
+			isa = PBXGroup;
+			children = (
+				1C7ABCC915776BAE00327DEB /* Config.h */,
+				1C7ABC9715775C6700327DEB /* AppDelegate.h */,
+				1C7ABC9815775C6700327DEB /* AppDelegate.m */,
+				1C7ABC9A15775C6700327DEB /* MainStoryboard_iPhone.storyboard */,
+				1C7ABC9D15775C6700327DEB /* MainStoryboard_iPad.storyboard */,
+				1C7ABCA315775C6700327DEB /* first.png */,
+				1C7ABCA515775C6700327DEB /* first@2x.png */,
+				1C7ABCAA15775C6700327DEB /* second.png */,
+				1C7ABCAC15775C6700327DEB /* second@2x.png */,
+				1CA8E7421579FFFC0062C93F /* PrivateTasksViewController.h */,
+				1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */,
+				1C7ABCC515776A3C00327DEB /* PublicTasksViewController.h */,
+				1CA8E73D1579FDD50062C93F /* PublicTasksViewController.m */,
+				1C1E5075157CCC1300D62584 /* TasksApiClient.h */,
+				1C1E5076157CCC1300D62584 /* TasksApiClient.m */,
+				1CA74BF615836BC900DDE84D /* TasksViewController.h */,
+				1CA74BF715836BC900DDE84D /* TasksViewController.m */,
+				1C7ABC8F15775C6700327DEB /* Supporting Files */,
+			);
+			path = Bestmix;
+			sourceTree = "<group>";
+		};
+		1C7ABC8F15775C6700327DEB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1C7ABC9015775C6700327DEB /* Bestmix-Info.plist */,
+				1C7ABC9115775C6700327DEB /* InfoPlist.strings */,
+				1C7ABC9415775C6700327DEB /* main.m */,
+				1C7ABC9615775C6700327DEB /* Bestmix-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1CA8E7381579FD320062C93F /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				1CA74BF915837C5900DDE84D /* UIColor+Hex.h */,
+				1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */,
+				1C1E506C157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.h */,
+				1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		1CA8E745157A2A2E0062C93F /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */,
+				1C1E506F157C9C8700D62584 /* BestmixDataModel.h */,
+				1C1E5070157C9C8700D62584 /* BestmixDataModel.m */,
+				1CA8E749157A2CCC0062C93F /* _Task.h */,
+				1CA8E74A157A2CCC0062C93F /* _Task.m */,
+				1CA8E74B157A2CCC0062C93F /* Task.h */,
+				1CA8E74C157A2CCC0062C93F /* Task.m */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1C7ABC8315775C6700327DEB /* Bestmix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C7ABCB015775C6700327DEB /* Build configuration list for PBXNativeTarget "Bestmix" */;
+			buildPhases = (
+				1C1E506B157C992B00D62584 /* Mogenerator */,
+				1C7ABC8015775C6700327DEB /* Sources */,
+				1C7ABC8115775C6700327DEB /* Frameworks */,
+				1C7ABC8215775C6700327DEB /* Resources */,
+				A2CB01C8E8F942EAAD67FAA5 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bestmix;
+			productName = Bestmix;
+			productReference = 1C7ABC8415775C6700327DEB /* Bestmix.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1C7ABC7B15775C6700327DEB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 1C7ABC7E15775C6700327DEB /* Build configuration list for PBXProject "Bestmix" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1C7ABC7915775C6700327DEB;
+			productRefGroup = 1C7ABC8515775C6700327DEB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1C7ABC8315775C6700327DEB /* Bestmix */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1C7ABC8215775C6700327DEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C7ABC9315775C6700327DEB /* InfoPlist.strings in Resources */,
+				1C7ABC9C15775C6700327DEB /* MainStoryboard_iPhone.storyboard in Resources */,
+				1C7ABC9F15775C6700327DEB /* MainStoryboard_iPad.storyboard in Resources */,
+				1C7ABCA415775C6700327DEB /* first.png in Resources */,
+				1C7ABCA615775C6700327DEB /* first@2x.png in Resources */,
+				1C7ABCAB15775C6700327DEB /* second.png in Resources */,
+				1C7ABCAD15775C6700327DEB /* second@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C1E506B157C992B00D62584 /* Mogenerator */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/DataModel/Bestmix.xcdataModeld/Bestmix.xcdatamodel",
+			);
+			name = Mogenerator;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}/DataModel\nmogenerator --template-var arc=true -m Bestmix.xcdatamodeld/Bestmix.xcdatamodel";
+		};
+		A2CB01C8E8F942EAAD67FAA5 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1C7ABC8015775C6700327DEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C7ABC9515775C6700327DEB /* main.m in Sources */,
+				1C7ABC9915775C6700327DEB /* AppDelegate.m in Sources */,
+				1CA8E73E1579FDD50062C93F /* PublicTasksViewController.m in Sources */,
+				1CA8E7441579FFFC0062C93F /* PrivateTasksViewController.m in Sources */,
+				1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */,
+				1CA8E74D157A2CCC0062C93F /* _Task.m in Sources */,
+				1CA8E74E157A2CCC0062C93F /* Task.m in Sources */,
+				1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */,
+				1C1E5071157C9C8700D62584 /* BestmixDataModel.m in Sources */,
+				1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */,
+				1CA74BF815836BC900DDE84D /* TasksViewController.m in Sources */,
+				1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1C7ABC9115775C6700327DEB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C7ABC9215775C6700327DEB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1C7ABC9A15775C6700327DEB /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C7ABC9B15775C6700327DEB /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		1C7ABC9D15775C6700327DEB /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C7ABC9E15775C6700327DEB /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1C7ABCAE15775C6700327DEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1C7ABCAF15775C6700327DEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1C7ABCB115775C6700327DEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD4A8059D94C425B85738933 /* Pods.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bestmix/Bestmix-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Bestmix/Bestmix-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1C7ABCB215775C6700327DEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD4A8059D94C425B85738933 /* Pods.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/xcodeproj.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bestmix/Bestmix-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				INFOPLIST_FILE = "Bestmix/Bestmix-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C7ABC7E15775C6700327DEB /* Build configuration list for PBXProject "Bestmix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C7ABCAE15775C6700327DEB /* Debug */,
+				1C7ABCAF15775C6700327DEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C7ABCB015775C6700327DEB /* Build configuration list for PBXNativeTarget "Bestmix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C7ABCB115775C6700327DEB /* Debug */,
+				1C7ABCB215775C6700327DEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */,
+			);
+			currentVersion = 1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */;
+			path = Bestmix.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 1C7ABC7B15775C6700327DEB /* Project object */;
+}

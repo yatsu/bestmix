@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <development defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller - Public-->
+        <scene sceneID="Xio-Sj-KNJ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gms-T4-VY1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController title="Public" definesPresentationContext="YES" id="7oV-3R-m4C" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Public Tasks" id="S85-0N-reY"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="l6K-V0-AtP">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ZVQ-Bf-IqI" kind="relationship" relationship="rootViewController" id="8gf-bP-ef3"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="561" y="-231"/>
+        </scene>
+        <!--Public Tasks View Controller - Public Tasks-->
+        <scene sceneID="zVh-wK-TPo">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hoa-xn-sp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="ZVQ-Bf-IqI" customClass="PublicTasksViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8oO-c3-acG">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="wLg-jl-try">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZVQ-Bf-IqI" id="cmc-Na-Zl0"/>
+                            <outlet property="delegate" destination="ZVQ-Bf-IqI" id="jp9-ar-hyZ"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Public Tasks" image="first" id="h0B-LX-N34"/>
+                    <navigationItem key="navigationItem" title="Public Tasks" id="U92-bH-Xp3"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1038" y="-231"/>
+        </scene>
+        <!--Navigation Controller - My Tasks-->
+        <scene sceneID="tQv-JD-gE0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dKg-bU-rGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="sRd-5j-Z40" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Tasks" id="b2E-CK-Ja4"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="JIC-yf-hYY">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FG6-tS-TCS" kind="relationship" relationship="rootViewController" id="PbI-vL-dRk"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="561" y="558"/>
+        </scene>
+        <!--Private Tasks View Controller - Private Tasks-->
+        <scene sceneID="dtK-ER-66p">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tOb-Yh-10o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="FG6-tS-TCS" customClass="PrivateTasksViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2gR-Jh-gB3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="HYF-GB-dn5">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FG6-tS-TCS" id="rfg-7i-CA4"/>
+                            <outlet property="delegate" destination="FG6-tS-TCS" id="mVe-V2-tiN"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Private Tasks" image="second" id="b9h-bA-2mY"/>
+                    <navigationItem key="navigationItem" title="Private Tasks" id="kjU-dd-rh2"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1038" y="558"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="15">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="14" sceneMemberID="firstResponder"/>
+                <tabBarController id="4" sceneMemberID="viewController">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="5">
+                        <rect key="frame" x="0.0" y="431" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="7oV-3R-m4C" kind="relationship" relationship="viewControllers" id="EUz-jF-ubv"/>
+                        <segue destination="sRd-5j-Z40" kind="relationship" relationship="viewControllers" id="W9A-2v-Bbo"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="132" y="180"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="first" width="16" height="16"/>
+        <image name="second" width="16" height="16"/>
+    </resources>
+    <classes>
+        <class className="PrivateTasksViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateTasksViewController.h"/>
+        </class>
+        <class className="PublicTasksViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicTasksViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

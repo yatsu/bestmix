@@ -1,0 +1,12 @@
+platform :ios
+
+dependency 'AFNetworking', '~> 1.0RC1'
+dependency 'SDURLCache', '~> 1.2'
+dependency 'JSONKit', '~> 1.4'
+dependency 'AFOAuth2Client', '~> 0.0.1'
+dependency 'MBProgressHUD', '~> 0.5'
+dependency 'TestFlightSDK', '~> 1.0'
+dependency 'MessagePack', '~> 1.0.0'
+dependency 'ISO8601DateFormatter', '~> 0.6'
+dependency 'SVPullToRefresh', '~> 0.1'
+dependency 'Reachability', '~> 3.0.0'

@@ -1,0 +1,15 @@
+// Place all the styles related to the tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.private .name {
+  color: red;
+}
+
+.public .name {
+  color: green;
+}
+
+.user {
+  color: #888888;
+}
