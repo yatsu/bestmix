@@ -65,9 +65,7 @@ const NSInteger kLoadingCellTag = 9999;
     };
     [_reach startNotifier];
 
-    _currentPage = 1;
-    _totalPages = 1;
-    _tasks = [NSMutableArray array];
+    [self clearTasks];
 
     [self.tableView addPullToRefreshWithActionHandler:^{
         [bself fetch];
@@ -171,6 +169,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)fetch
 {
+}
+
+- (void)clearTasks
+{
+    _currentPage = 1;
+    _totalPages = 1;
+    _tasks = [NSMutableArray array];
 }
 
 @end

@@ -8,24 +8,45 @@
 #import "SVPullToRefresh.h"
 #import "AFOAuth2Client.h"
 
+const NSInteger kAlertLogin = 1;
+const NSInteger kAlertLogout = 2;
+
 @interface PrivateTasksViewController () <UIAlertViewDelegate>
 
 @property (nonatomic) NSString *token;
 
 - (void)fetchTasks;
+- (void)loginConfirm;
+- (void)logoutConfirm;
 - (void)login;
+- (void)logout;
+- (BOOL)loggedIn;
 - (void)openLoginURL;
+- (void)updateLoginButton;
 
 @end
 
 @implementation PrivateTasksViewController
+
+@synthesize loginButton = _loginButton;
+
+#pragma mark UIViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    [self updateLoginButton];
+}
 
 #pragma mark TaskViewController
 
 - (void)fetch
 {
     if (!self.token) {
-        [self login];
+        [self.tableView.pullToRefreshView stopAnimating];
+        [self loginConfirm];
+
     } else {
         [self fetchTasks];
     }
@@ -106,24 +127,56 @@
                 [self.tableView reloadData];
 
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-
                 [self.tableView.pullToRefreshView stopAnimating];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"error %@", error);
-                self.token = nil;
+                // TODO check error
+                [self logout];
+
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.tableView.pullToRefreshView stopAnimating];
             }];
 }
 
-- (void)login
+- (void)loginConfirm
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login"
                                                     message:@"Please login to view your private tasks."
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Login", nil];
+    alert.tag = kAlertLogin;
     [alert show];
+}
+
+- (void)logoutConfirm
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logout"
+                                                    message:@"Are you sure?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Logout", nil];
+    alert.tag = kAlertLogout;
+    [alert show];
+}
+
+- (void)login
+{
+    [self openLoginURL];
+}
+
+- (void)logout
+{
+    self.token = nil;
+    [self updateLoginButton];
+    [self clearTasks];
+    [self.tableView reloadData];
+}
+
+- (BOOL)loggedIn
+{
+    return [self token] != nil;
 }
 
 - (void)openLoginURL
@@ -142,11 +195,12 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-        NSLog(@"success: %@", json);
         // {"access_token":"...","token_type":"bearer","expires_in":7200}
         NSString *token = [json objectForKey:@"access_token"];
-        NSLog(@"token: %@", token);
-        [self setToken:token];
+        NSLog(@"logged in - token: %@", token);
+        self.token = token;
+        [self updateLoginButton];
+        [self fetchTasks];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
         NSLog(@"error: %@", json);
@@ -154,12 +208,38 @@
     [operation start];
 }
 
+- (void)updateLoginButton
+{
+    if ([self loggedIn]) {
+        _loginButton.title = @"Logout";
+    } else {
+        _loginButton.title = @"Login";
+    }
+}
+
 #pragma mark UIALertView
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
-        [self openLoginURL];
+    if (alertView.tag == kAlertLogin) {
+        if (buttonIndex == 1)
+            [self openLoginURL];
+    } else {
+        if (buttonIndex == 1)
+            [self logout];
+    }
+}
+
+#pragma mark UI Actions
+
+- (IBAction)loginTapped:(id)sender
+{
+    if (![self loggedIn]) {
+        [self login];
+    } else {
+        [self logoutConfirm];
+
+    }
 }
 
 @end

@@ -22,5 +22,6 @@
 - (UITableViewCell *)loadingCell;
 
 - (void)fetch;
+- (void)clearTasks;
 
 @end

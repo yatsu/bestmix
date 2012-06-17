@@ -75,8 +75,17 @@
                         </prototypes>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Private Tasks" image="second" id="70L-t3-YCx"/>
-                    <navigationItem key="navigationItem" title="Private Tasks" id="KSY-9Z-SCH"/>
+                    <navigationItem key="navigationItem" title="Private Tasks" id="KSY-9Z-SCH">
+                        <barButtonItem key="rightBarButtonItem" title="Login" id="R6L-TL-qMJ">
+                            <connections>
+                                <action selector="loginTapped:" destination="0gn-0C-6DP" id="NkN-OX-NFE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="loginButton" destination="R6L-TL-qMJ" id="Loo-6k-i2H"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="817" y="799"/>
@@ -119,11 +128,18 @@
         <image name="second" width="16" height="16"/>
     </resources>
     <classes>
-        <class className="PrivateTasksViewController" superclassName="UITableViewController">
+        <class className="PrivateTasksViewController" superclassName="TasksViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateTasksViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loginTapped:"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
         </class>
-        <class className="PublicTasksViewController" superclassName="UITableViewController">
+        <class className="PublicTasksViewController" superclassName="TasksViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicTasksViewController.h"/>
+        </class>
+        <class className="TasksViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TasksViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
