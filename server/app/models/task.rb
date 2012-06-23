@@ -3,11 +3,11 @@ class Task < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :name, :presence => true, :length => { :maximum => 255 }
+  validates :name, :presence => true, :length => { :minimum => 3, :maximum => 255 }
 
-  scope :pub, where(:public => true)
+  scope :pub, where(:public => true).order("updated_at DESC")
 
   scope :my, lambda { |user|
-    where(:user_id => user.id)
+    where(:user_id => user.id).order("updated_at DESC")
   }
 end

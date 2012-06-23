@@ -15,4 +15,25 @@ class Api::V1::TasksController < Api::ApiController
   def show
     @task = Task.find_by_id(params[:id])
   end
+
+  def create
+    @task = current_user.tasks.create(
+      :name => params[:name],
+      :public => params[:public]
+    )
+    logger.debug "create task: #{@task.inspect} valid: #{@task.valid?}"
+
+    unless @task.valid?
+      logger.debug @task.errors.inspect
+      @error = ApiError.new(
+        :invalid_parameter,
+        "Parameter Error",
+        @task.errors.messages
+      )
+      render :action => :error
+      return
+    end
+
+    render :action => :show
+  end
 end
