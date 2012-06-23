@@ -14,6 +14,9 @@
 }
 
 @property (nonatomic) BOOL reachable;
+@property (nonatomic) NSUInteger currentPage;
+@property (nonatomic) NSUInteger totalPages;
+@property (nonatomic) NSUInteger totalCount;
 
 - (void)becomeReachable;
 - (void)becomeUnreachable;

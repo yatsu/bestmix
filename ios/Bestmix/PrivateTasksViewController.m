@@ -22,13 +22,14 @@ const NSInteger kAlertLogout = 2;
 - (void)logout;
 - (BOOL)loggedIn;
 - (void)openLoginURL;
-- (void)updateLoginButton;
+- (void)updateButtons;
 
 @end
 
 @implementation PrivateTasksViewController
 
 @synthesize loginButton = _loginButton;
+@synthesize addButton = _addButton;
 
 #pragma mark UIViewController
 
@@ -36,7 +37,16 @@ const NSInteger kAlertLogout = 2;
 {
     [super viewDidLoad];
 
-    [self updateLoginButton];
+    [self updateButtons];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"viewDidAppear: %d", _currentPage);
+    [super viewDidAppear:animated];
+
+    if (_currentPage == 1)
+        [self fetch];
 }
 
 #pragma mark TaskViewController
@@ -50,17 +60,6 @@ const NSInteger kAlertLogout = 2;
     } else {
         [self fetchTasks];
     }
-}
-
-- (void)becomeReachable
-{
-    NSLog(@"reachable");
-    [self fetch];
-}
-
-- (void)becomeUnreachable
-{
-    NSLog(@"unreachable");
 }
 
 #pragma mark Accessors
@@ -95,7 +94,7 @@ const NSInteger kAlertLogout = 2;
 
     // set header
     // Authorization: Bearer <token>
-    NSLog(@"token: %@", self.token);
+    NSLog(@"fetchTasks - token: %@", self.token);
     [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", self.token]];
 
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -105,6 +104,9 @@ const NSInteger kAlertLogout = 2;
          parameters:params
             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
+                if (_currentPage == 1)
+                    [self clearTasks];
+
                 id elem = [response objectForKey:@"num_pages"];
                 if (elem && [elem isKindOfClass:[NSNumber class]])
                     _totalPages = [elem integerValue];
@@ -130,9 +132,11 @@ const NSInteger kAlertLogout = 2;
                 [self.tableView.pullToRefreshView stopAnimating];
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error %@", error);
-                // TODO check error
-                [self logout];
+                NSLog(@"error %@ status code: %d", error, operation.response.statusCode);
+                if (operation.response.statusCode == 401) {
+                    [self logout];
+                    [self loginConfirm];
+                }
 
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.tableView.pullToRefreshView stopAnimating];
@@ -168,8 +172,9 @@ const NSInteger kAlertLogout = 2;
 
 - (void)logout
 {
+    NSLog(@"logout");
     self.token = nil;
-    [self updateLoginButton];
+    [self updateButtons];
     [self clearTasks];
     [self.tableView reloadData];
 }
@@ -199,7 +204,7 @@ const NSInteger kAlertLogout = 2;
         NSString *token = [json objectForKey:@"access_token"];
         NSLog(@"logged in - token: %@", token);
         self.token = token;
-        [self updateLoginButton];
+        [self updateButtons];
         [self fetchTasks];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
@@ -208,12 +213,15 @@ const NSInteger kAlertLogout = 2;
     [operation start];
 }
 
-- (void)updateLoginButton
+- (void)updateButtons
 {
     if ([self loggedIn]) {
         _loginButton.title = @"Logout";
+        _addButton.enabled = YES;
+
     } else {
         _loginButton.title = @"Login";
+        _addButton.enabled = NO;
     }
 }
 

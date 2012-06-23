@@ -12,6 +12,7 @@
 		1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */; };
 		1C1E5071157C9C8700D62584 /* BestmixDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5070157C9C8700D62584 /* BestmixDataModel.m */; };
 		1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5076157CCC1300D62584 /* TasksApiClient.m */; };
+		1C695D53158E0B290009BE7C /* NewTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C695D52158E0B290009BE7C /* NewTaskViewController.m */; };
 		1C7ABC8915775C6700327DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8815775C6700327DEB /* UIKit.framework */; };
 		1C7ABC8B15775C6700327DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8A15775C6700327DEB /* Foundation.framework */; };
 		1C7ABC8D15775C6700327DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8C15775C6700327DEB /* CoreGraphics.framework */; };
@@ -31,6 +32,7 @@
 		1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */; };
 		1CA8E74D157A2CCC0062C93F /* _Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E74A157A2CCC0062C93F /* _Task.m */; };
 		1CA8E74E157A2CCC0062C93F /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E74C157A2CCC0062C93F /* Task.m */; };
+		1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		1C1E5070157C9C8700D62584 /* BestmixDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BestmixDataModel.m; sourceTree = "<group>"; };
 		1C1E5075157CCC1300D62584 /* TasksApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksApiClient.h; sourceTree = "<group>"; };
 		1C1E5076157CCC1300D62584 /* TasksApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksApiClient.m; sourceTree = "<group>"; };
+		1C695D51158E0B290009BE7C /* NewTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskViewController.h; sourceTree = "<group>"; };
+		1C695D52158E0B290009BE7C /* NewTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTaskViewController.m; sourceTree = "<group>"; };
 		1C7ABC8415775C6700327DEB /* Bestmix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bestmix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7ABC8815775C6700327DEB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1C7ABC8A15775C6700327DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -71,6 +75,8 @@
 		1CA8E74A157A2CCC0062C93F /* _Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Task.m; sourceTree = "<group>"; };
 		1CA8E74B157A2CCC0062C93F /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		1CA8E74C157A2CCC0062C93F /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		1CE166DF1595835800ED8736 /* UIAlertView+SimpleAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+SimpleAlert.h"; sourceTree = "<group>"; };
+		1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+SimpleAlert.m"; sourceTree = "<group>"; };
 		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A8059D94C425B85738933 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -135,6 +141,8 @@
 				1C7ABCA515775C6700327DEB /* first@2x.png */,
 				1C7ABCAA15775C6700327DEB /* second.png */,
 				1C7ABCAC15775C6700327DEB /* second@2x.png */,
+				1C695D51158E0B290009BE7C /* NewTaskViewController.h */,
+				1C695D52158E0B290009BE7C /* NewTaskViewController.m */,
 				1CA8E7421579FFFC0062C93F /* PrivateTasksViewController.h */,
 				1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */,
 				1C7ABCC515776A3C00327DEB /* PublicTasksViewController.h */,
@@ -166,6 +174,8 @@
 				1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */,
 				1C1E506C157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.h */,
 				1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */,
+				1CE166DF1595835800ED8736 /* UIAlertView+SimpleAlert.h */,
+				1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -297,6 +307,8 @@
 				1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */,
 				1CA74BF815836BC900DDE84D /* TasksViewController.m in Sources */,
 				1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */,
+				1C695D53158E0B290009BE7C /* NewTaskViewController.m in Sources */,
+				1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

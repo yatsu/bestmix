@@ -4,15 +4,21 @@ Bestmix
 __NOTE: Bestmix is under development. Caching and error handling are not implemented yet.__
 
 Bestmix is a boilerplate to build both Rails-based web app and iOS app integrated with each other.
-They are connected with JSON REST API supporting OAuth2 authentication, pagination and caching.
-You can build your own server-side and client-side quickly by extending it.
+They are connected with JSON REST API supporting CRUD, OAuth2 authentication, pagination and caching.
+
+You can build your own app quickly by extending it.
+
+How It Works
+------------
+
+
 
 Libraries
 ---------
 
 Bestmix uses following libraries and frameworks.
 
-### Server-side
+### Server-Side
 
 * [Ruby on Rails](http://rubyonrails.org/ ) - Web Framework
 * [Devise](https://github.com/plataformatec/devise ) - Authentication
@@ -62,9 +68,19 @@ and it uses many other libraries.
 See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) and
 [Podfile](http://github.com/yatsu/bestmix/blob/master/ios/Podfile ).
 
-To Do
------
+Future Plan
+-----------
 
 * Creating/Updating/Deleting objects (currently only reading is supported)
 * Push Notification
 * Twitter/Facebook Integration
+
+Contributing to Bestmix
+-----------------------
+
+Send me pull requests.
+
+[Using Pull Requests · github:help](https://help.github.com/articles/using-pull-requests )
+
+
+

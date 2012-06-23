@@ -36,6 +36,9 @@
          parameters:params
             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
+                if (_currentPage == 1)
+                    [self clearTasks];
+
                 id elem = [response objectForKey:@"num_pages"];
                 if (elem && [elem isKindOfClass:[NSNumber class]])
                     _totalPages = [elem integerValue];
@@ -66,17 +69,6 @@
 
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             }];
-}
-
-- (void)becomeReachable
-{
-    NSLog(@"reachable");
-    [self fetch];
-}
-
-- (void)becomeUnreachable
-{
-    NSLog(@"unreachable");
 }
 
 @end

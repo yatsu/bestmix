@@ -16,6 +16,9 @@ const NSInteger kLoadingCellTag = 9999;
 @implementation TasksViewController
 
 @synthesize reachable = _reachable;
+@synthesize currentPage = _currentPage;
+@synthesize totalPages = _totalPages;
+@synthesize totalCount = _totalCount;
 
 #pragma mark NSObject
 
@@ -68,11 +71,9 @@ const NSInteger kLoadingCellTag = 9999;
     [self clearTasks];
 
     [self.tableView addPullToRefreshWithActionHandler:^{
+        bself.currentPage = 1;
         [bself fetch];
     }];
-
-    // [self fetch];
-    // [self.tableView.pullToRefreshView triggerRefresh];
 }
 
 - (void)viewDidUnload
@@ -89,6 +90,7 @@ const NSInteger kLoadingCellTag = 9999;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"num - currentPage: %d totalPages: %d tasks.count: %d", _currentPage, _totalPages, _tasks.count);
     if (_currentPage < _totalPages)
         return _tasks.count + 1;
 
@@ -98,6 +100,7 @@ const NSInteger kLoadingCellTag = 9999;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"willDisplayCell - row %d tag: %d", indexPath.row, cell.tag);
     if (cell.tag == kLoadingCellTag) {
         _currentPage += 1;
         [self fetch];
@@ -114,21 +117,25 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)becomeReachable
 {
+    NSLog(@"reachable");
+    // _currentPage = 1;
+    [self fetch];
 }
 
 - (void)becomeUnreachable
 {
+    NSLog(@"unreachable");
 }
 
 - (UITableViewCell *)taskCellForIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TaskCell";
+    static NSString *TaskCellIdentifier = @"Task";
     UITableViewCell *cell;
-    cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:CellIdentifier];
-    }
+    cell = [self.tableView dequeueReusableCellWithIdentifier:TaskCellIdentifier];
+    // if (cell == nil) {
+    //     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+    //                                   reuseIdentifier:TaskCellIdentifier];
+    // }
 
     Task *task = [_tasks objectAtIndex:indexPath.row];
     cell.textLabel.text = task.name;
@@ -150,25 +157,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (UITableViewCell *)loadingCell
 {
+    static NSString *LoadingCellIdentifier = @"Loading";
     UITableViewCell *cell;
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                  reuseIdentifier:nil];
+    cell = [self.tableView dequeueReusableCellWithIdentifier:LoadingCellIdentifier];
+    // if (cell == nil) {
+    //     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+    //                               reuseIdentifier:nil];
 
-    UIActivityIndicatorView *indicator;
-    indicator = [[UIActivityIndicatorView alloc]
-                 initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.center = cell.center;
-    [cell addSubview:indicator];
+    //     UIActivityIndicatorView *indicator;
+    //     indicator = [[UIActivityIndicatorView alloc]
+    //                  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    //     indicator.center = cell.center;
+    //     [cell addSubview:indicator];
 
-    [indicator startAnimating];
+    //     [indicator startAnimating];
 
-    cell.tag = kLoadingCellTag;
+    //     cell.tag = kLoadingCellTag;
+    // }
 
     return cell;
 }
 
 - (void)fetch
 {
+    NSLog(@"fetch - currentPage: %d", _currentPage);
 }
 
 - (void)clearTasks
