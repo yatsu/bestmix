@@ -3,6 +3,9 @@
 #import "SVPullToRefresh.h"
 #import "Task.h"
 #import "UIColor+Hex.h"
+#import "MBProgressHUD.h"
+#import "TasksApiClient.h"
+#import "CoreData+MagicalRecord.h"
 
 const NSInteger kLoadingCellTag = 9999;
 
@@ -90,17 +93,22 @@ const NSInteger kLoadingCellTag = 9999;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"num - currentPage: %d totalPages: %d tasks.count: %d", _currentPage, _totalPages, _tasks.count);
-    if (_currentPage < _totalPages)
-        return _tasks.count + 1;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    NSInteger count = [sectionInfo numberOfObjects];
+    NSLog(@"currentPage: %d totalPages: %d count: %d", _currentPage, _totalPages, count);
+    if (count == 0)
+        return 0;
 
-    return _tasks.count;
+    if (_currentPage < _totalPages)
+        return count + 1;
+
+    return count;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"willDisplayCell - row %d tag: %d", indexPath.row, cell.tag);
+    // NSLog(@"willDisplayCell - row %d tag: %d", indexPath.row, cell.tag);
     if (cell.tag == kLoadingCellTag) {
         _currentPage += 1;
         [self fetch];
@@ -109,7 +117,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == _tasks.count)
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:indexPath.section];
+    NSInteger count = [sectionInfo numberOfObjects];
+    if (indexPath.row == count)
         return [self loadingCell];
 
     return [self taskCellForIndexPath:indexPath];
@@ -137,7 +147,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     //                                   reuseIdentifier:TaskCellIdentifier];
     // }
 
-    Task *task = [_tasks objectAtIndex:indexPath.row];
+    Task *task = [_fetchedResultsController objectAtIndexPath:indexPath];
+    // NSLog(@"taskCellForIndexPath - indexPath: %@ task: %@ %@", indexPath, task.name, task.updatedAt);
     cell.textLabel.text = task.name;
     if ([task.pub boolValue])
         cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
@@ -180,14 +191,90 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)fetch
 {
-    NSLog(@"fetch - currentPage: %d", _currentPage);
+    if (_reachable)
+        [self fetchFromWebApi];
+    else
+        [self fetchFromCoreData];
+}
+
+- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params
+{
+    [self fetchFromWebApiPath:path parameters:params token:nil];
+}
+
+- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params token:(NSString *)token
+{
+    if (!_reachable) {
+        NSLog(@"unable to fetch");
+        return;
+    }
+
+    if ([self.tableView numberOfRowsInSection:0] == 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading...";
+    }
+
+    TasksApiClient *client = [TasksApiClient sharedClient];
+    [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", token]];
+
+    [client getPath:path
+         parameters:params
+            success:^(AFHTTPRequestOperation *operation, id response) {
+                NSLog(@"response: %@", response);
+
+                if (_currentPage == 1)
+                    [self clearTasks];
+
+                id elem = [response objectForKey:@"num_pages"];
+                if (elem && [elem isKindOfClass:[NSNumber class]])
+                    _totalPages = [elem integerValue];
+                elem = [response objectForKey:@"total_count"];
+                if (elem && [elem isKindOfClass:[NSNumber class]])
+                    _totalCount = [elem integerValue];
+                NSLog(@"currentPage: %d totalPages: %d totalCount: %d", _currentPage, _totalPages, _totalCount);
+
+                elem = [response objectForKey:@"tasks"];
+                if (elem && [elem isKindOfClass:[NSArray class]]) {
+                    [MagicalRecord saveInBackgroundUsingCurrentContextWithBlock:^(NSManagedObjectContext *context) {
+                        NSArray *tasks = [Task MR_importFromArray:elem inContext:context];
+                        NSLog(@"store tasks: %@", tasks);
+
+                    } completion:^{
+                        [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts]; // why is this required to store data in SQLite?
+                        NSLog(@"core data saved");
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        [self.tableView.pullToRefreshView stopAnimating];
+                        [self fetchFromCoreData];
+                        [self.tableView reloadData];
+
+                    } errorHandler:^(NSError *error) {
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        [self.tableView.pullToRefreshView stopAnimating];
+                        NSLog(@"core data save error: %@ %@", error.localizedDescription, error.userInfo);
+                    }];
+                }
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"error %@", error);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.tableView.pullToRefreshView stopAnimating];
+            }];
+}
+
+- (void)fetchFromWebApi
+{
+    NSLog(@"fetchFromWebApi - currentPage: %d", _currentPage);
+}
+
+- (void)fetchFromCoreData
+{
+    NSLog(@"fetchFromCoreData");
 }
 
 - (void)clearTasks
 {
     _currentPage = 1;
     _totalPages = 1;
-    _tasks = [NSMutableArray array];
 }
 
 @end

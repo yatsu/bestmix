@@ -2,6 +2,4 @@
 
 @interface Task : _Task {}
 
-+ (id)taskWithDictionary:(NSDictionary *)dictionary;
-
 @end

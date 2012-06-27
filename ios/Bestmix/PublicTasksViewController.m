@@ -6,6 +6,8 @@
 #import "MBProgressHUD.h"
 #import "TasksApiClient.h"
 #import "SVPullToRefresh.h"
+#import "UIAlertView+SimpleAlert.h"
+#import "CoreData+MagicalRecord.h"
 
 @interface PublicTasksViewController ()
 
@@ -15,60 +17,30 @@
 
 #pragma mark TaskViewController
 
-- (void)fetch
+- (void)fetchFromWebApi
 {
-    if (!_reachable) {
-        NSLog(@"unable to fetch");
-        return;
+    [self fetchFromWebApiPath:@"tasks/public"
+                   parameters:[NSDictionary dictionaryWithObjectsAndKeys:
+                               [NSNumber numberWithInteger:_currentPage], @"page", nil]];
+}
+
+- (void)fetchFromCoreData
+{
+    _fetchedResultsController = [Task MR_fetchAllGroupedBy:nil
+                                             withPredicate:[NSPredicate predicateWithFormat:@"pub = 1"]
+                                                  sortedBy:@"updatedAt"
+                                                 ascending:NO];
+
+    [_fetchedResultsController performFetch:nil];
+}
+
+- (void)clearTasks
+{
+    [super clearTasks];
+
+    for (Task *task in [Task MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"pub = 1"]]) {
+        [task MR_deleteEntity];
     }
-
-    if (_tasks.count == 0) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Loading...";
-    }
-
-    TasksApiClient *client = [TasksApiClient sharedClient];
-
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:[NSNumber numberWithInteger:_currentPage] forKey:@"page"];
-
-    [client getPath:@"tasks/public"
-         parameters:params
-            success:^(AFHTTPRequestOperation *operation, id response) {
-                NSLog(@"response: %@", response);
-                if (_currentPage == 1)
-                    [self clearTasks];
-
-                id elem = [response objectForKey:@"num_pages"];
-                if (elem && [elem isKindOfClass:[NSNumber class]])
-                    _totalPages = [elem integerValue];
-                elem = [response objectForKey:@"total_count"];
-                if (elem && [elem isKindOfClass:[NSNumber class]])
-                    _totalCount = [elem integerValue];
-                NSLog(@"currentPage: %d totalPages: %d totalCount: %d", _currentPage, _totalPages, _totalCount);
-
-                elem = [response objectForKey:@"tasks"];
-                if (elem && [elem isKindOfClass:[NSArray class]]) {
-                    for (id dict in elem) {
-                        if (dict && [dict isKindOfClass:[NSDictionary class]]) {
-                            Task *task = [Task taskWithDictionary:dict];
-                            // NSLog(@"task: %@", task);
-                            [_tasks addObject:task];
-                        }
-                    }
-                }
-
-                [self.tableView reloadData];
-
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-
-                [self.tableView.pullToRefreshView stopAnimating];
-            }
-            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error %@", error);
-
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            }];
 }
 
 @end

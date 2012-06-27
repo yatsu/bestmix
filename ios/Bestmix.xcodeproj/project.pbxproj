@@ -10,7 +10,6 @@
 		008735F20059421B97C66099 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B90085EA242E88A9E748D /* libPods.a */; };
 		1C1E5069157C988600D62584 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1E5068157C988600D62584 /* CoreData.framework */; };
 		1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */; };
-		1C1E5071157C9C8700D62584 /* BestmixDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5070157C9C8700D62584 /* BestmixDataModel.m */; };
 		1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5076157CCC1300D62584 /* TasksApiClient.m */; };
 		1C695D53158E0B290009BE7C /* NewTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C695D52158E0B290009BE7C /* NewTaskViewController.m */; };
 		1C7ABC8915775C6700327DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8815775C6700327DEB /* UIKit.framework */; };
@@ -39,8 +38,6 @@
 		1C1E5068157C988600D62584 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1C1E506C157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectForKeyOrNil.h"; sourceTree = "<group>"; };
 		1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKeyOrNil.m"; sourceTree = "<group>"; };
-		1C1E506F157C9C8700D62584 /* BestmixDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BestmixDataModel.h; sourceTree = "<group>"; };
-		1C1E5070157C9C8700D62584 /* BestmixDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BestmixDataModel.m; sourceTree = "<group>"; };
 		1C1E5075157CCC1300D62584 /* TasksApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksApiClient.h; sourceTree = "<group>"; };
 		1C1E5076157CCC1300D62584 /* TasksApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksApiClient.m; sourceTree = "<group>"; };
 		1C695D51158E0B290009BE7C /* NewTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskViewController.h; sourceTree = "<group>"; };
@@ -184,8 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */,
-				1C1E506F157C9C8700D62584 /* BestmixDataModel.h */,
-				1C1E5070157C9C8700D62584 /* BestmixDataModel.m */,
 				1CA8E749157A2CCC0062C93F /* _Task.h */,
 				1CA8E74A157A2CCC0062C93F /* _Task.m */,
 				1CA8E74B157A2CCC0062C93F /* Task.h */,
@@ -303,7 +298,6 @@
 				1CA8E74D157A2CCC0062C93F /* _Task.m in Sources */,
 				1CA8E74E157A2CCC0062C93F /* Task.m in Sources */,
 				1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */,
-				1C1E5071157C9C8700D62584 /* BestmixDataModel.m in Sources */,
 				1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */,
 				1CA74BF815836BC900DDE84D /* TasksViewController.m in Sources */,
 				1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */,

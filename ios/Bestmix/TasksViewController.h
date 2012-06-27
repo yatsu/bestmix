@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 #import "Reachability.h"
 
 @interface TasksViewController : UITableViewController
@@ -7,10 +8,11 @@
     Reachability *_reach;
     BOOL _reachable;
 
-    NSMutableArray *_tasks;
     NSUInteger _currentPage;
     NSUInteger _totalPages;
     NSUInteger _totalCount;
+
+    NSFetchedResultsController *_fetchedResultsController;
 }
 
 @property (nonatomic) BOOL reachable;
@@ -25,6 +27,10 @@
 - (UITableViewCell *)loadingCell;
 
 - (void)fetch;
+- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params token:(NSString *)token;
+- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params;
+- (void)fetchFromWebApi;
+- (void)fetchFromCoreData;
 - (void)clearTasks;
 
 @end

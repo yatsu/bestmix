@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E2620" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Task" representedClassName="Task" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="created_at"/>
+            </userInfo>
+        </attribute>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="pub" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
-        <attribute name="taskID" optional="YES" attributeType="Integer 32" indexed="YES" syncable="YES"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="pub" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="public"/>
+            </userInfo>
+        </attribute>
+        <attribute name="taskID" optional="YES" attributeType="Integer 32" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="updated_at"/>
+            </userInfo>
+        </attribute>
     </entity>
     <elements>
         <element name="Task" positionX="-4133" positionY="-2313" width="128" height="120"/>

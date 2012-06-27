@@ -1,10 +1,10 @@
 #import <CoreData/CoreData.h>
 #import "AppDelegate.h"
 #import "Config.h"
-#import "BestmixDataModel.h"
 #import "Task.h"
 #import "AFNetworking.h"
 #import "PrivateTasksViewController.h"
+#import "CoreData+MagicalRecord.h"
 
 @interface AppDelegate ()
 
@@ -29,6 +29,8 @@
     }
     */
     [application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Bestmix.sqlite"];
 
     return YES;
 }
@@ -58,6 +60,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [MagicalRecord cleanUp];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
