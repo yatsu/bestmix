@@ -1,0 +1,4 @@
+%li{ :class => post.published ? "public" : "private" }
+  .title= post.title
+  = link_to 'edit', edit_post_path(post)
+  = link_to 'destroy', post, confirm: 'Are you sure?', method: :delete

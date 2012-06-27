@@ -1,19 +1,19 @@
-- if @my_tasks
-  %h2 My Tasks
-  - if @my_tasks.empty?
-    no task
+- if @my_posts
+  %h2 My Posts
+  - if @my_posts.empty?
+    no post
   - else
     %ul
-      = render partial: "tasks/task", collection: @my_tasks
+      = render partial: "posts/post", collection: @my_posts
 
-  %p= link_to "New Task", new_task_path
+  %p= link_to "New Post", new_post_path
 
-%h2 Public Tasks
-- if @public_tasks.empty?
-  no task
+%h2 Public Posts
+- if @public_posts.empty?
+  no post
 - else
   %ul
-    - @public_tasks.each do |task|
-      %li{ :class => task.public? ? "public" : "private" }
-        .name= task.name
-        .user= task.user.email
+    - @public_posts.each do |post|
+      %li{ :class => post.published ? "public" : "private" }
+        .title= post.title
+        .user= post.user.email

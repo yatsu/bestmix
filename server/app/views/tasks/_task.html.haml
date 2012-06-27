@@ -1,4 +1,0 @@
-%li{ :class => task.public? ? "public" : "private" }
-  .name= task.name
-  = link_to 'edit', edit_task_path(task)
-  = link_to 'destroy', task, confirm: 'Are you sure?', method: :delete

@@ -1,4 +1,4 @@
-class TasksController < InheritedResources::Base
+class PostsController < InheritedResources::Base
   before_filter :authenticate_user!
 
   def index
@@ -7,7 +7,7 @@ class TasksController < InheritedResources::Base
 
   def create
     create! { root_path }
-    @task.user = current_user
-    @task.save
+    @post.user = current_user
+    @post.save
   end
 end

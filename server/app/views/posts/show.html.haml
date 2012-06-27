@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @post.title
+
+%p
+  %b Content:
+  = @post.content
+
+%p
+  %b Public:
+  = @post.public
+
+= link_to 'Edit', edit_post_path(@post)
+|
+= link_to 'Back', posts_path
