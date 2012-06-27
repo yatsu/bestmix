@@ -6,7 +6,6 @@
 #import "MBProgressHUD.h"
 #import "TasksApiClient.h"
 #import "SVPullToRefresh.h"
-#import "AFOAuth2Client.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
 

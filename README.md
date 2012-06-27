@@ -8,11 +8,6 @@ They are connected with JSON REST API supporting CRUD, OAuth2 authentication, pa
 
 You can build your own app quickly by extending it.
 
-How It Works
-------------
-
-
-
 Libraries
 ---------
 
@@ -38,6 +33,8 @@ See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) for m
 * [MBProgressHUD](https://github.com/jdg/MBProgressHUD ) - Progress HUD
 * [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh ) - Pull-to-Refresh
 * [Reachability](https://github.com/tonymillion/Reachability ) - Network Reachability
+* [MagicalRecord](https://github.com/magicalpanda/MagicalRecord ) - Active Record for Core Data
+* [mogenerator](https://github.com/rentzsch/mogenerator ) - Core Data Code Generation
 
 See [Podfile](http://github.com/yatsu/bestmix/blob/master/ios/Podfile ) for more details.
 
@@ -54,10 +51,11 @@ Setup
 
 ### iOS App
 
-1. Install [CocoaPods](http://cocoapods.org/ ) if you don't have it.
-2. Copy ios/Bestmix/Config.h.example to ios/Bestmix/Config.h and modify it.
-3. cd ios; pod install Bestmix.xcodeproj
-4. Open Bestmix.xcworkspace and build the app
+1. Install [mogenerator](https://github.com/rentzsch/mogenerator ) and make it executable from Xcode (e.g. ln -s /opt/brew/bin/mogenerator /usr/bin/mogenerator)
+2. Install [CocoaPods](http://cocoapods.org/ )
+3. Copy ios/Bestmix/Config.h.example to ios/Bestmix/Config.h and modify it.
+4. cd ios; pod install Bestmix.xcodeproj
+5. Open Bestmix.xcworkspace and build the app
 
 License
 -------

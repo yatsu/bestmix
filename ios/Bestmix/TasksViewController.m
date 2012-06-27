@@ -236,8 +236,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                 elem = [response objectForKey:@"tasks"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
                     [MagicalRecord saveInBackgroundUsingCurrentContextWithBlock:^(NSManagedObjectContext *context) {
-                        NSArray *tasks = [Task MR_importFromArray:elem inContext:context];
-                        NSLog(@"store tasks: %@", tasks);
+                        [Task MR_importFromArray:elem inContext:context];
+                        //NSArray *tasks = [Task MR_importFromArray:elem inContext:context];
+                        //NSLog(@"store tasks: %@", tasks);
 
                     } completion:^{
                         [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts]; // why is this required to store data in SQLite?
