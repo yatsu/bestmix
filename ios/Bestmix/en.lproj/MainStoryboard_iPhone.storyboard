@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E2620" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
@@ -11,7 +11,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gms-T4-VY1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="Public" definesPresentationContext="YES" id="7oV-3R-m4C" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Public Tasks" id="S85-0N-reY"/>
+                    <tabBarItem key="tabBarItem" title="Public Posts" id="S85-0N-reY"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="l6K-V0-AtP">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
@@ -24,17 +24,17 @@
             </objects>
             <point key="canvasLocation" x="561" y="-231"/>
         </scene>
-        <!--Public Tasks View Controller - Public Tasks-->
+        <!--Public Posts View Controller - Public Posts-->
         <scene sceneID="zVh-wK-TPo">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hoa-xn-sp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="ZVQ-Bf-IqI" customClass="PublicTasksViewController" sceneMemberID="viewController">
+                <tableViewController id="ZVQ-Bf-IqI" customClass="PublicPostsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8oO-c3-acG">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell tag="1" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task" textLabel="Q2c-E7-3nl" detailTextLabel="v0R-nt-Cx6" style="IBUITableViewCellStyleSubtitle" id="wLg-jl-try">
+                            <tableViewCell tag="1" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Post" textLabel="Q2c-E7-3nl" detailTextLabel="v0R-nt-Cx6" style="IBUITableViewCellStyleSubtitle" id="wLg-jl-try">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -80,18 +80,18 @@
                             <outlet property="delegate" destination="ZVQ-Bf-IqI" id="jp9-ar-hyZ"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Public Tasks" image="first" id="h0B-LX-N34"/>
-                    <navigationItem key="navigationItem" title="Public Tasks" id="U92-bH-Xp3"/>
+                    <tabBarItem key="tabBarItem" title="Public Posts" image="first" id="h0B-LX-N34"/>
+                    <navigationItem key="navigationItem" title="Public Posts" id="U92-bH-Xp3"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1038" y="-231"/>
         </scene>
-        <!--New Task View Controller - New Task-->
+        <!--Edit Post View Controller - New Post-->
         <scene sceneID="LJ5-XK-Ebb">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Im-KT-9IN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="eMa-wC-4Q5" customClass="NewTaskViewController" sceneMemberID="viewController">
+                <tableViewController id="eMa-wC-4Q5" customClass="EditPostViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="b6N-5H-ox5">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -142,7 +142,7 @@
                             </tableViewSection>
                         </sections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Task" id="Rtm-aW-5Af">
+                    <navigationItem key="navigationItem" title="New Post" id="Rtm-aW-5Af">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="tHH-j0-UHa">
                             <connections>
                                 <action selector="cancelTapped:" destination="eMa-wC-4Q5" id="Zjf-35-Ugx"/>
@@ -179,12 +179,12 @@
             </objects>
             <point key="canvasLocation" x="1516" y="558"/>
         </scene>
-        <!--Navigation Controller - My Tasks-->
+        <!--Navigation Controller - My Posts-->
         <scene sceneID="tQv-JD-gE0">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dKg-bU-rGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="sRd-5j-Z40" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Tasks" id="b2E-CK-Ja4"/>
+                    <tabBarItem key="tabBarItem" title="My Posts" id="b2E-CK-Ja4"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="JIC-yf-hYY">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
@@ -197,17 +197,17 @@
             </objects>
             <point key="canvasLocation" x="561" y="558"/>
         </scene>
-        <!--Private Tasks View Controller - Private Tasks-->
+        <!--Private Posts View Controller - Private Posts-->
         <scene sceneID="dtK-ER-66p">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tOb-Yh-10o" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="FG6-tS-TCS" customClass="PrivateTasksViewController" sceneMemberID="viewController">
+                <tableViewController id="FG6-tS-TCS" customClass="PrivatePostsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2gR-Jh-gB3">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell tag="1" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task" textLabel="iMA-QS-w08" detailTextLabel="R14-Mp-LVw" style="IBUITableViewCellStyleSubtitle" id="HYF-GB-dn5">
+                            <tableViewCell tag="1" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Post" textLabel="iMA-QS-w08" detailTextLabel="R14-Mp-LVw" style="IBUITableViewCellStyleSubtitle" id="HYF-GB-dn5">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -253,8 +253,8 @@
                             <outlet property="delegate" destination="FG6-tS-TCS" id="mVe-V2-tiN"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Private Tasks" image="second" id="b9h-bA-2mY"/>
-                    <navigationItem key="navigationItem" title="Private Tasks" id="kjU-dd-rh2">
+                    <tabBarItem key="tabBarItem" title="My Posts" image="second" id="b9h-bA-2mY"/>
+                    <navigationItem key="navigationItem" title="Private Posts" id="kjU-dd-rh2">
                         <barButtonItem key="leftBarButtonItem" title="Login" id="HDN-81-qdJ">
                             <connections>
                                 <action selector="loginTapped:" destination="FG6-tS-TCS" id="vZX-6y-hdH"/>
@@ -301,8 +301,8 @@
         <image name="second" width="16" height="16"/>
     </resources>
     <classes>
-        <class className="NewTaskViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewTaskViewController.h"/>
+        <class className="EditPostViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EditPostViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelTapped:"/>
                 <relationship kind="action" name="saveTapped:"/>
@@ -310,19 +310,19 @@
                 <relationship kind="outlet" name="pubSwitch" candidateClass="UISwitch"/>
             </relationships>
         </class>
-        <class className="PrivateTasksViewController" superclassName="TasksViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivateTasksViewController.h"/>
+        <class className="PostsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PostsViewController.h"/>
+        </class>
+        <class className="PrivatePostsViewController" superclassName="PostsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PrivatePostsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="loginTapped:"/>
                 <relationship kind="outlet" name="addButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="loginButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
-        <class className="PublicTasksViewController" superclassName="TasksViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicTasksViewController.h"/>
-        </class>
-        <class className="TasksViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TasksViewController.h"/>
+        <class className="PublicPostsViewController" superclassName="PostsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PublicPostsViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

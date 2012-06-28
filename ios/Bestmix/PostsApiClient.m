@@ -1,15 +1,15 @@
-#import "TasksApiClient.h"
-#import "Task.h"
+#import "PostsApiClient.h"
+#import "Post.h"
 #import "Config.h"
 
-@implementation TasksApiClient
+@implementation PostsApiClient
 
-+ (TasksApiClient *)sharedClient
++ (PostsApiClient *)sharedClient
 {
-    static TasksApiClient *client;
+    static PostsApiClient *client;
     static dispatch_once_t done;
     dispatch_once(&done, ^{
-        client = [[TasksApiClient alloc] initWithBaseURL:[NSURL URLWithString:WebApiUrl]];
+        client = [[PostsApiClient alloc] initWithBaseURL:[NSURL URLWithString:WebApiUrl]];
     });
     return client;
 }

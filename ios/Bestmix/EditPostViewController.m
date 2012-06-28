@@ -1,13 +1,13 @@
-#import "NewTaskViewController.h"
-#import "TasksApiClient.h"
+#import "EditPostViewController.h"
+#import "PostsApiClient.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "MBProgressHUD.h"
 
-@interface NewTaskViewController ()
+@interface EditPostViewController ()
 
 @end
 
-@implementation NewTaskViewController
+@implementation EditPostViewController
 
 @synthesize nameField = _nameField;
 @synthesize pubSwitch = _pubSwitch;
@@ -35,12 +35,12 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Loading...";
 
-    TasksApiClient *client = [TasksApiClient sharedClient];
+    PostsApiClient *client = [PostsApiClient sharedClient];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
         name, @"name", [NSNumber numberWithBool:pub], @"public", nil];
 
-    [client postPath:@"tasks"
+    [client postPath:@"posts"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"success :%@", responseObject);

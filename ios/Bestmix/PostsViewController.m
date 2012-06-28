@@ -1,27 +1,34 @@
-#import "TasksViewController.h"
+#import "PostsViewController.h"
 #import "Reachability.h"
 #import "SVPullToRefresh.h"
-#import "Task.h"
+#import "Post.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
-#import "TasksApiClient.h"
+#import "PostsApiClient.h"
 #import "CoreData+MagicalRecord.h"
 
 const NSInteger kLoadingCellTag = 9999;
 
-@interface TasksViewController ()
+@interface PostsViewController ()
 {
     UIView *_statusBarOverlay;
 }
 
 @end
 
-@implementation TasksViewController
+@implementation PostsViewController
 
 @synthesize reachable = _reachable;
 @synthesize currentPage = _currentPage;
 @synthesize totalPages = _totalPages;
 @synthesize totalCount = _totalCount;
+
+#pragma mark Accessors
+
+- (NSPredicate *)fetchPredicate
+{
+    return nil;
+}
 
 #pragma mark NSObject
 
@@ -71,7 +78,7 @@ const NSInteger kLoadingCellTag = 9999;
     };
     [_reach startNotifier];
 
-    [self clearTasks];
+    [self clearPosts];
 
     [self.tableView addPullToRefreshWithActionHandler:^{
         bself.currentPage = 1;
@@ -122,7 +129,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if (indexPath.row == count)
         return [self loadingCell];
 
-    return [self taskCellForIndexPath:indexPath];
+    return [self postCellForIndexPath:indexPath];
 }
 
 - (void)becomeReachable
@@ -137,26 +144,26 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     NSLog(@"unreachable");
 }
 
-- (UITableViewCell *)taskCellForIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *TaskCellIdentifier = @"Task";
+    static NSString *PostCellIdentifier = @"Post";
     UITableViewCell *cell;
-    cell = [self.tableView dequeueReusableCellWithIdentifier:TaskCellIdentifier];
+    cell = [self.tableView dequeueReusableCellWithIdentifier:PostCellIdentifier];
     // if (cell == nil) {
     //     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-    //                                   reuseIdentifier:TaskCellIdentifier];
+    //                                   reuseIdentifier:PostCellIdentifier];
     // }
 
-    Task *task = [_fetchedResultsController objectAtIndexPath:indexPath];
-    // NSLog(@"taskCellForIndexPath - indexPath: %@ task: %@ %@", indexPath, task.name, task.updatedAt);
-    cell.textLabel.text = task.name;
-    if ([task.pub boolValue])
+    Post *post = [_fetchedResultsController objectAtIndexPath:indexPath];
+    // NSLog(@"postCellForIndexPath - indexPath: %@ post: %@ %@", indexPath, post.name, post.updatedAt);
+    cell.textLabel.text = post.title;
+    if (post.publishedAt)
         cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
     else
         cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
 
     NSString *date;
-    date = [NSDateFormatter localizedStringFromDate:task.updatedAt
+    date = [NSDateFormatter localizedStringFromDate:post.updatedAt
                                           dateStyle:NSDateFormatterShortStyle
                                           timeStyle:NSDateFormatterShortStyle];
 
@@ -202,7 +209,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     [self fetchFromWebApiPath:path parameters:params token:nil];
 }
 
-- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params token:(NSString *)token
+- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params
+                      token:(NSString *)token
 {
     if (!_reachable) {
         NSLog(@"unable to fetch");
@@ -214,7 +222,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         hud.labelText = @"Loading...";
     }
 
-    TasksApiClient *client = [TasksApiClient sharedClient];
+    PostsApiClient *client = [PostsApiClient sharedClient];
     [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", token]];
 
     [client getPath:path
@@ -223,7 +231,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                 NSLog(@"response: %@", response);
 
                 if (_currentPage == 1)
-                    [self clearTasks];
+                    [self clearPosts];
 
                 id elem = [response objectForKey:@"num_pages"];
                 if (elem && [elem isKindOfClass:[NSNumber class]])
@@ -233,12 +241,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
                     _totalCount = [elem integerValue];
                 NSLog(@"currentPage: %d totalPages: %d totalCount: %d", _currentPage, _totalPages, _totalCount);
 
-                elem = [response objectForKey:@"tasks"];
+                elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
                     [MagicalRecord saveInBackgroundUsingCurrentContextWithBlock:^(NSManagedObjectContext *context) {
-                        [Task MR_importFromArray:elem inContext:context];
-                        //NSArray *tasks = [Task MR_importFromArray:elem inContext:context];
-                        //NSLog(@"store tasks: %@", tasks);
+                        [Post MR_importFromArray:elem inContext:context];
+                        // NSArray *posts = [Post MR_importFromArray:elem inContext:context];
+                        // NSLog(@"store posts: %@", posts);
+                        // for (NSDictionary *dict in elem) {
+                        //     Post *post = [Post MR_importFromObject:dict inContext:context];
+                        // }
 
                     } completion:^{
                         [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts]; // why is this required to store data in SQLite?
@@ -269,13 +280,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)fetchFromCoreData
 {
-    NSLog(@"fetchFromCoreData");
+    _fetchedResultsController = [Post MR_fetchAllGroupedBy:nil
+                                             withPredicate:self.fetchPredicate
+                                                  sortedBy:@"updatedAt"
+                                                 ascending:NO];
+
+    [_fetchedResultsController performFetch:nil];
 }
 
-- (void)clearTasks
+- (void)clearPosts
 {
     _currentPage = 1;
     _totalPages = 1;
+
+    for (Post *post in [Post MR_findAllWithPredicate:self.fetchPredicate]) {
+        [post MR_deleteEntity];
+    }
 }
 
 @end

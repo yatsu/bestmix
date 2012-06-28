@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface NewTaskViewController : UITableViewController
+@interface EditPostViewController : UITableViewController
 
 - (IBAction)cancelTapped:(id)sender;
 - (IBAction)saveTapped:(id)sender;

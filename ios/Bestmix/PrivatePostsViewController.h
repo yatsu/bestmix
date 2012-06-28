@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
-#import "TasksViewController.h"
+#import "PostsViewController.h"
 
-@interface PrivateTasksViewController : TasksViewController
+@interface PrivatePostsViewController : PostsViewController
 
 @property (nonatomic) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic) IBOutlet UIBarButtonItem *addButton;

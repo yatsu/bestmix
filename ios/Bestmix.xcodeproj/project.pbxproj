@@ -10,8 +10,6 @@
 		008735F20059421B97C66099 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B90085EA242E88A9E748D /* libPods.a */; };
 		1C1E5069157C988600D62584 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1E5068157C988600D62584 /* CoreData.framework */; };
 		1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */; };
-		1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5076157CCC1300D62584 /* TasksApiClient.m */; };
-		1C695D53158E0B290009BE7C /* NewTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C695D52158E0B290009BE7C /* NewTaskViewController.m */; };
 		1C7ABC8915775C6700327DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8815775C6700327DEB /* UIKit.framework */; };
 		1C7ABC8B15775C6700327DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8A15775C6700327DEB /* Foundation.framework */; };
 		1C7ABC8D15775C6700327DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8C15775C6700327DEB /* CoreGraphics.framework */; };
@@ -24,13 +22,15 @@
 		1C7ABCA615775C6700327DEB /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCA515775C6700327DEB /* first@2x.png */; };
 		1C7ABCAB15775C6700327DEB /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCAA15775C6700327DEB /* second.png */; };
 		1C7ABCAD15775C6700327DEB /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7ABCAC15775C6700327DEB /* second@2x.png */; };
-		1CA74BF815836BC900DDE84D /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BF715836BC900DDE84D /* TasksViewController.m */; };
+		1C842A63159B4729009198C8 /* _Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A60159B4729009198C8 /* _Post.m */; };
+		1C842A64159B4729009198C8 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A62159B4729009198C8 /* Post.m */; };
+		1C842A70159B47DD009198C8 /* EditPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A67159B47DD009198C8 /* EditPostViewController.m */; };
+		1C842A71159B47DD009198C8 /* PostsApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A69159B47DD009198C8 /* PostsApiClient.m */; };
+		1C842A72159B47DD009198C8 /* PostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6B159B47DD009198C8 /* PostsViewController.m */; };
+		1C842A73159B47DD009198C8 /* PrivatePostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */; };
+		1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */; };
 		1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */; };
-		1CA8E73E1579FDD50062C93F /* PublicTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E73D1579FDD50062C93F /* PublicTasksViewController.m */; };
-		1CA8E7441579FFFC0062C93F /* PrivateTasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */; };
 		1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */; };
-		1CA8E74D157A2CCC0062C93F /* _Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E74A157A2CCC0062C93F /* _Task.m */; };
-		1CA8E74E157A2CCC0062C93F /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E74C157A2CCC0062C93F /* Task.m */; };
 		1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */; };
 /* End PBXBuildFile section */
 
@@ -38,10 +38,6 @@
 		1C1E5068157C988600D62584 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1C1E506C157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectForKeyOrNil.h"; sourceTree = "<group>"; };
 		1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKeyOrNil.m"; sourceTree = "<group>"; };
-		1C1E5075157CCC1300D62584 /* TasksApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksApiClient.h; sourceTree = "<group>"; };
-		1C1E5076157CCC1300D62584 /* TasksApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksApiClient.m; sourceTree = "<group>"; };
-		1C695D51158E0B290009BE7C /* NewTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTaskViewController.h; sourceTree = "<group>"; };
-		1C695D52158E0B290009BE7C /* NewTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTaskViewController.m; sourceTree = "<group>"; };
 		1C7ABC8415775C6700327DEB /* Bestmix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bestmix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7ABC8815775C6700327DEB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1C7ABC8A15775C6700327DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,20 +54,24 @@
 		1C7ABCA515775C6700327DEB /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
 		1C7ABCAA15775C6700327DEB /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
 		1C7ABCAC15775C6700327DEB /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
-		1C7ABCC515776A3C00327DEB /* PublicTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicTasksViewController.h; sourceTree = "<group>"; };
 		1C7ABCC915776BAE00327DEB /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
-		1CA74BF615836BC900DDE84D /* TasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksViewController.h; sourceTree = "<group>"; };
-		1CA74BF715836BC900DDE84D /* TasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksViewController.m; sourceTree = "<group>"; };
+		1C842A5F159B4729009198C8 /* _Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Post.h; sourceTree = "<group>"; };
+		1C842A60159B4729009198C8 /* _Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Post.m; sourceTree = "<group>"; };
+		1C842A61159B4729009198C8 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
+		1C842A62159B4729009198C8 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		1C842A66159B47DD009198C8 /* EditPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostViewController.h; sourceTree = "<group>"; };
+		1C842A67159B47DD009198C8 /* EditPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostViewController.m; sourceTree = "<group>"; };
+		1C842A68159B47DD009198C8 /* PostsApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsApiClient.h; sourceTree = "<group>"; };
+		1C842A69159B47DD009198C8 /* PostsApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsApiClient.m; sourceTree = "<group>"; };
+		1C842A6A159B47DD009198C8 /* PostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsViewController.h; sourceTree = "<group>"; };
+		1C842A6B159B47DD009198C8 /* PostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsViewController.m; sourceTree = "<group>"; };
+		1C842A6C159B47DD009198C8 /* PrivatePostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivatePostsViewController.h; sourceTree = "<group>"; };
+		1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivatePostsViewController.m; sourceTree = "<group>"; };
+		1C842A6E159B47DD009198C8 /* PublicPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicPostsViewController.h; sourceTree = "<group>"; };
+		1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicPostsViewController.m; sourceTree = "<group>"; };
 		1CA74BF915837C5900DDE84D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		1CA8E73D1579FDD50062C93F /* PublicTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicTasksViewController.m; sourceTree = "<group>"; };
-		1CA8E7421579FFFC0062C93F /* PrivateTasksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateTasksViewController.h; sourceTree = "<group>"; };
-		1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateTasksViewController.m; sourceTree = "<group>"; };
 		1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bestmix.xcdatamodel; sourceTree = "<group>"; };
-		1CA8E749157A2CCC0062C93F /* _Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Task.h; sourceTree = "<group>"; };
-		1CA8E74A157A2CCC0062C93F /* _Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Task.m; sourceTree = "<group>"; };
-		1CA8E74B157A2CCC0062C93F /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
-		1CA8E74C157A2CCC0062C93F /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		1CE166DF1595835800ED8736 /* UIAlertView+SimpleAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+SimpleAlert.h"; sourceTree = "<group>"; };
 		1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+SimpleAlert.m"; sourceTree = "<group>"; };
 		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +129,16 @@
 		1C7ABC8E15775C6700327DEB /* Bestmix */ = {
 			isa = PBXGroup;
 			children = (
+				1C842A66159B47DD009198C8 /* EditPostViewController.h */,
+				1C842A67159B47DD009198C8 /* EditPostViewController.m */,
+				1C842A68159B47DD009198C8 /* PostsApiClient.h */,
+				1C842A69159B47DD009198C8 /* PostsApiClient.m */,
+				1C842A6A159B47DD009198C8 /* PostsViewController.h */,
+				1C842A6B159B47DD009198C8 /* PostsViewController.m */,
+				1C842A6C159B47DD009198C8 /* PrivatePostsViewController.h */,
+				1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */,
+				1C842A6E159B47DD009198C8 /* PublicPostsViewController.h */,
+				1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */,
 				1C7ABCC915776BAE00327DEB /* Config.h */,
 				1C7ABC9715775C6700327DEB /* AppDelegate.h */,
 				1C7ABC9815775C6700327DEB /* AppDelegate.m */,
@@ -138,16 +148,6 @@
 				1C7ABCA515775C6700327DEB /* first@2x.png */,
 				1C7ABCAA15775C6700327DEB /* second.png */,
 				1C7ABCAC15775C6700327DEB /* second@2x.png */,
-				1C695D51158E0B290009BE7C /* NewTaskViewController.h */,
-				1C695D52158E0B290009BE7C /* NewTaskViewController.m */,
-				1CA8E7421579FFFC0062C93F /* PrivateTasksViewController.h */,
-				1CA8E7431579FFFC0062C93F /* PrivateTasksViewController.m */,
-				1C7ABCC515776A3C00327DEB /* PublicTasksViewController.h */,
-				1CA8E73D1579FDD50062C93F /* PublicTasksViewController.m */,
-				1C1E5075157CCC1300D62584 /* TasksApiClient.h */,
-				1C1E5076157CCC1300D62584 /* TasksApiClient.m */,
-				1CA74BF615836BC900DDE84D /* TasksViewController.h */,
-				1CA74BF715836BC900DDE84D /* TasksViewController.m */,
 				1C7ABC8F15775C6700327DEB /* Supporting Files */,
 			);
 			path = Bestmix;
@@ -180,11 +180,11 @@
 		1CA8E745157A2A2E0062C93F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				1C842A5F159B4729009198C8 /* _Post.h */,
+				1C842A60159B4729009198C8 /* _Post.m */,
+				1C842A61159B4729009198C8 /* Post.h */,
+				1C842A62159B4729009198C8 /* Post.m */,
 				1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */,
-				1CA8E749157A2CCC0062C93F /* _Task.h */,
-				1CA8E74A157A2CCC0062C93F /* _Task.m */,
-				1CA8E74B157A2CCC0062C93F /* Task.h */,
-				1CA8E74C157A2CCC0062C93F /* Task.m */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -292,17 +292,17 @@
 			files = (
 				1C7ABC9515775C6700327DEB /* main.m in Sources */,
 				1C7ABC9915775C6700327DEB /* AppDelegate.m in Sources */,
-				1CA8E73E1579FDD50062C93F /* PublicTasksViewController.m in Sources */,
-				1CA8E7441579FFFC0062C93F /* PrivateTasksViewController.m in Sources */,
 				1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */,
-				1CA8E74D157A2CCC0062C93F /* _Task.m in Sources */,
-				1CA8E74E157A2CCC0062C93F /* Task.m in Sources */,
 				1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */,
-				1C1E5077157CCC1300D62584 /* TasksApiClient.m in Sources */,
-				1CA74BF815836BC900DDE84D /* TasksViewController.m in Sources */,
 				1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */,
-				1C695D53158E0B290009BE7C /* NewTaskViewController.m in Sources */,
 				1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */,
+				1C842A63159B4729009198C8 /* _Post.m in Sources */,
+				1C842A64159B4729009198C8 /* Post.m in Sources */,
+				1C842A70159B47DD009198C8 /* EditPostViewController.m in Sources */,
+				1C842A71159B47DD009198C8 /* PostsApiClient.m in Sources */,
+				1C842A72159B47DD009198C8 /* PostsViewController.m in Sources */,
+				1C842A73159B47DD009198C8 /* PrivatePostsViewController.m in Sources */,
+				1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

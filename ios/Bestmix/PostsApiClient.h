@@ -1,6 +1,6 @@
 #import <AFNetworking/AFNetworking.h>
 
-@interface TasksApiClient : AFHTTPClient
+@interface PostsApiClient : AFHTTPClient
 
 + (id)sharedClient;
 

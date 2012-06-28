@@ -1,14 +1,14 @@
 #import <CoreData/CoreData.h>
 #import "AppDelegate.h"
 #import "Config.h"
-#import "Task.h"
+#import "Post.h"
 #import "AFNetworking.h"
-#import "PrivateTasksViewController.h"
+#import "PrivatePostsViewController.h"
 #import "CoreData+MagicalRecord.h"
 
 @interface AppDelegate ()
 
-- (PrivateTasksViewController *)privateTasksViewController;
+- (PrivatePostsViewController *)privatePostsViewController;
 
 @end
 
@@ -22,9 +22,9 @@
     NSManagedObjectContext *context = [[BestmixDataModel sharedDataModel] mainContext];
     if (context) {
         NSLog(@"context: %@", context);
-        Task *task = [Task insertInManagedObjectContext:context];
-        task.name = @"test a";
-        NSLog(@"task: %@", task);
+        Post *post = [Post insertInManagedObjectContext:context];
+        post.name = @"test a";
+        NSLog(@"post: %@", post);
         [context save:nil];
     }
     */
@@ -38,7 +38,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    // Use this method to pause ongoing posts, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -54,7 +54,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // Restart any posts that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -69,12 +69,12 @@
     NSInteger index = [[NSString stringWithFormat:@"%@?code=", RedirectURL] length];
     NSString *code = [[url absoluteString] substringFromIndex:index];
     NSLog(@"code: %@", code);
-    [[self privateTasksViewController] authWithCode:code];
+    [[self privatePostsViewController] authWithCode:code];
 
     return YES;
 }
 
-- (PrivateTasksViewController *)privateTasksViewController
+- (PrivatePostsViewController *)privatePostsViewController
 {
     UITabBarController *tbc = (UITabBarController *)self.window.rootViewController;
     UINavigationController *nc = [tbc.viewControllers objectAtIndex:tbc.viewControllers.count - 1];

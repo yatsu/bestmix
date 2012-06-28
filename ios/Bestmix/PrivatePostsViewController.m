@@ -1,10 +1,10 @@
 #import <CoreData/CoreData.h>
-#import "PrivateTasksViewController.h"
+#import "PrivatePostsViewController.h"
 #import "Config.h"
-#import "Task.h"
+#import "Post.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
-#import "TasksApiClient.h"
+#import "PostsApiClient.h"
 #import "SVPullToRefresh.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
@@ -12,11 +12,11 @@
 const NSInteger kAlertLogin = 1;
 const NSInteger kAlertLogout = 2;
 
-@interface PrivateTasksViewController () <UIAlertViewDelegate>
+@interface PrivatePostsViewController () <UIAlertViewDelegate>
 
 @property (nonatomic) NSString *token;
 
-- (void)fetchTasks;
+- (void)fetchPosts;
 - (void)loginConfirm;
 - (void)logoutConfirm;
 - (void)login;
@@ -27,10 +27,17 @@ const NSInteger kAlertLogout = 2;
 
 @end
 
-@implementation PrivateTasksViewController
+@implementation PrivatePostsViewController
 
 @synthesize loginButton = _loginButton;
 @synthesize addButton = _addButton;
+
+#pragma mark Accessors
+
+- (NSPredicate *)fetchPredicate
+{
+    return [NSPredicate predicateWithFormat:@"mine = %@", [NSNumber numberWithBool:YES]];
+}
 
 #pragma mark UIViewController
 
@@ -50,7 +57,7 @@ const NSInteger kAlertLogout = 2;
         [self fetch];
 }
 
-#pragma mark TaskViewController
+#pragma mark PostViewController
 
 - (void)fetchFromWebApi
 {
@@ -59,18 +66,8 @@ const NSInteger kAlertLogout = 2;
         [self loginConfirm];
 
     } else {
-        [self fetchTasks];
+        [self fetchPosts];
     }
-}
-
-- (void)fetchFromCoreData
-{
-    _fetchedResultsController = [Task MR_fetchAllGroupedBy:nil
-                                             withPredicate:nil
-                                                  sortedBy:@"updatedAt"
-                                                 ascending:NO];
-
-    [_fetchedResultsController performFetch:nil];
 }
 
 #pragma mark Accessors
@@ -89,9 +86,9 @@ const NSInteger kAlertLogout = 2;
 
 #pragma mark Local Methods
 
-- (void)fetchTasks
+- (void)fetchPosts
 {
-    [self fetchFromWebApiPath:@"tasks/my"
+    [self fetchFromWebApiPath:@"posts/my"
                    parameters:[NSDictionary dictionaryWithObjectsAndKeys:
                                [NSNumber numberWithInteger:_currentPage], @"page", nil]
                         token:self.token];
@@ -100,7 +97,7 @@ const NSInteger kAlertLogout = 2;
 - (void)loginConfirm
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login"
-                                                    message:@"Please login to view your private tasks."
+                                                    message:@"Please login to view your private posts."
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Login", nil];
@@ -129,7 +126,7 @@ const NSInteger kAlertLogout = 2;
     NSLog(@"logout");
     self.token = nil;
     [self updateButtons];
-    [self clearTasks];
+    [self clearPosts];
     [self.tableView reloadData];
 }
 
@@ -159,7 +156,7 @@ const NSInteger kAlertLogout = 2;
         NSLog(@"logged in - token: %@", token);
         self.token = token;
         [self updateButtons];
-        [self fetchTasks];
+        [self fetchPosts];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
         NSLog(@"error: %@", json);
