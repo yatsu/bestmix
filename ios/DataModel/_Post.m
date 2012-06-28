@@ -5,7 +5,6 @@
 
 const struct PostAttributes PostAttributes = {
 	.createdAt = @"createdAt",
-	.mine = @"mine",
 	.postID = @"postID",
 	.publishedAt = @"publishedAt",
 	.title = @"title",
@@ -44,10 +43,6 @@ const struct PostFetchedProperties PostFetchedProperties = {
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
-	if ([key isEqualToString:@"mineValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"mine"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-	}
 	if ([key isEqualToString:@"postIDValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"postID"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -61,32 +56,6 @@ const struct PostFetchedProperties PostFetchedProperties = {
 
 @dynamic createdAt;
 
-
-
-
-
-
-@dynamic mine;
-
-
-
-- (BOOL)mineValue {
-	NSNumber *result = [self mine];
-	return [result boolValue];
-}
-
-- (void)setMineValue:(BOOL)value_ {
-	[self setMine:[NSNumber numberWithBool:value_]];
-}
-
-- (BOOL)primitiveMineValue {
-	NSNumber *result = [self primitiveMine];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveMineValue:(BOOL)value_ {
-	[self setPrimitiveMine:[NSNumber numberWithBool:value_]];
-}
 
 
 

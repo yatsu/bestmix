@@ -1,7 +1,7 @@
 #import <CoreData/CoreData.h>
 #import "PrivatePostsViewController.h"
 #import "Config.h"
-#import "Post.h"
+#import "MyPost.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
 #import "PostsApiClient.h"
@@ -32,13 +32,6 @@ const NSInteger kAlertLogout = 2;
 @synthesize loginButton = _loginButton;
 @synthesize addButton = _addButton;
 
-#pragma mark Accessors
-
-- (NSPredicate *)fetchPredicate
-{
-    return [NSPredicate predicateWithFormat:@"mine = %@", [NSNumber numberWithBool:YES]];
-}
-
 #pragma mark UIViewController
 
 - (void)viewDidLoad
@@ -57,7 +50,7 @@ const NSInteger kAlertLogout = 2;
         [self fetch];
 }
 
-#pragma mark PostViewController
+#pragma mark PostsViewController
 
 - (void)fetchFromWebApi
 {
@@ -68,6 +61,50 @@ const NSInteger kAlertLogout = 2;
     } else {
         [self fetchPosts];
     }
+}
+
+- (void)fetchFromCoreData
+{
+    NSLog(@"fetchFromCoreData");
+
+    _fetchedResultsController = [MyPost MR_fetchAllGroupedBy:nil
+                                               withPredicate:nil
+                                                    sortedBy:@"updatedAt"
+                                                   ascending:NO];
+
+    [_fetchedResultsController performFetch:nil];
+}
+
+- (void)clearPosts
+{
+    [super clearPosts];
+
+    for (MyPost *post in [MyPost MR_findAll]) {
+        [post MR_deleteEntity];
+    }
+}
+
+- (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [super postCellForIndexPath:indexPath];
+
+    MyPost *post = [_fetchedResultsController objectAtIndexPath:indexPath];
+    // NSLog(@"postCellForIndexPath - indexPath: %@ post: %@ %@", indexPath, post.name, post.updatedAt);
+    cell.textLabel.text = post.title;
+    if (post.publishedAt)
+        cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
+    else
+        cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
+
+    NSString *date;
+    date = [NSDateFormatter localizedStringFromDate:post.updatedAt
+                                          dateStyle:NSDateFormatterShortStyle
+                                          timeStyle:NSDateFormatterShortStyle];
+
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
+    cell.detailTextLabel.textColor = [UIColor grayColor];
+
+    return cell;
 }
 
 #pragma mark Accessors
@@ -88,10 +125,71 @@ const NSInteger kAlertLogout = 2;
 
 - (void)fetchPosts
 {
-    [self fetchFromWebApiPath:@"posts/my"
-                   parameters:[NSDictionary dictionaryWithObjectsAndKeys:
-                               [NSNumber numberWithInteger:_currentPage], @"page", nil]
-                        token:self.token];
+    if (!_reachable) {
+        NSLog(@"unable to fetch");
+        return;
+    }
+
+    if ([self.tableView numberOfRowsInSection:0] == 0) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading...";
+    }
+
+    PostsApiClient *client = [PostsApiClient sharedClient];
+    [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", self.token]];
+
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            [NSNumber numberWithInteger:_currentPage], @"page", nil];
+
+    [client getPath:@"posts/my"
+         parameters:params
+            success:^(AFHTTPRequestOperation *operation, id response) {
+                NSLog(@"response: %@", response);
+
+                if (_currentPage == 1)
+                    [self clearPosts];
+
+                id elem = [response objectForKey:@"num_pages"];
+                if (elem && [elem isKindOfClass:[NSNumber class]])
+                    _totalPages = [elem integerValue];
+                elem = [response objectForKey:@"total_count"];
+                if (elem && [elem isKindOfClass:[NSNumber class]])
+                    _totalCount = [elem integerValue];
+                NSLog(@"currentPage: %d totalPages: %d totalCount: %d", _currentPage, _totalPages, _totalCount);
+
+                elem = [response objectForKey:@"posts"];
+                if (elem && [elem isKindOfClass:[NSArray class]]) {
+                    // [MyPost MR_importFromArray:elem];
+                    // [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    // [self.tableView.pullToRefreshView stopAnimating];
+                    // [self fetchFromCoreData];
+                    // [self.tableView reloadData];
+
+                    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
+                        [MyPost MR_importFromArray:elem inContext:context];
+                        // NSArray *posts = [Post MR_importFromArray:elem inContext:context];
+                        // NSLog(@"store posts: %@", posts);
+                        // for (NSDictionary *dict in elem) {
+                        //     Post *post = [MyPost MR_importFromObject:dict inContext:context];
+                        // }
+
+                    } completion:^{
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts]; // why is this required to store data in SQLite?
+                            NSLog(@"core data saved");
+                            [MBProgressHUD hideHUDForView:self.view animated:YES];
+                            [self.tableView.pullToRefreshView stopAnimating];
+                            [self fetchFromCoreData];
+                            [self.tableView reloadData];
+                        });
+                    }];
+                }
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"error %@", error);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.tableView.pullToRefreshView stopAnimating];
+            }];
 }
 
 - (void)loginConfirm

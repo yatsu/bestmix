@@ -29,6 +29,8 @@
 		1C842A72159B47DD009198C8 /* PostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6B159B47DD009198C8 /* PostsViewController.m */; };
 		1C842A73159B47DD009198C8 /* PrivatePostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */; };
 		1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */; };
+		1C842A7F159C25AD009198C8 /* _MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A7C159C25AD009198C8 /* _MyPost.m */; };
+		1C842A80159C25AD009198C8 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A7E159C25AD009198C8 /* MyPost.m */; };
 		1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */; };
 		1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */; };
 		1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */; };
@@ -69,6 +71,10 @@
 		1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivatePostsViewController.m; sourceTree = "<group>"; };
 		1C842A6E159B47DD009198C8 /* PublicPostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicPostsViewController.h; sourceTree = "<group>"; };
 		1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicPostsViewController.m; sourceTree = "<group>"; };
+		1C842A7B159C25AD009198C8 /* _MyPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _MyPost.h; sourceTree = "<group>"; };
+		1C842A7C159C25AD009198C8 /* _MyPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MyPost.m; sourceTree = "<group>"; };
+		1C842A7D159C25AD009198C8 /* MyPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost.h; sourceTree = "<group>"; };
+		1C842A7E159C25AD009198C8 /* MyPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost.m; sourceTree = "<group>"; };
 		1CA74BF915837C5900DDE84D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bestmix.xcdatamodel; sourceTree = "<group>"; };
@@ -180,6 +186,10 @@
 		1CA8E745157A2A2E0062C93F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				1C842A7B159C25AD009198C8 /* _MyPost.h */,
+				1C842A7C159C25AD009198C8 /* _MyPost.m */,
+				1C842A7D159C25AD009198C8 /* MyPost.h */,
+				1C842A7E159C25AD009198C8 /* MyPost.m */,
 				1C842A5F159B4729009198C8 /* _Post.h */,
 				1C842A60159B4729009198C8 /* _Post.m */,
 				1C842A61159B4729009198C8 /* Post.h */,
@@ -303,6 +313,8 @@
 				1C842A72159B47DD009198C8 /* PostsViewController.m in Sources */,
 				1C842A73159B47DD009198C8 /* PrivatePostsViewController.m in Sources */,
 				1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */,
+				1C842A7F159C25AD009198C8 /* _MyPost.m in Sources */,
+				1C842A80159C25AD009198C8 /* MyPost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

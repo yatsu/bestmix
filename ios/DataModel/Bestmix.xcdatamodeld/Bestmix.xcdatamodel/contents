@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E2620" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MyPost" representedClassName="MyPost" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="created_at"/>
+            </userInfo>
+        </attribute>
+        <attribute name="myPostID" optional="YES" attributeType="Integer 32" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="publishedAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="published_at"/>
+            </userInfo>
+        </attribute>
+        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="updated_at"/>
+            </userInfo>
+        </attribute>
+    </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="created_at"/>
             </userInfo>
         </attribute>
-        <attribute name="mine" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="postID" optional="YES" attributeType="Integer 32" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="id"/>
@@ -25,6 +47,7 @@
         </attribute>
     </entity>
     <elements>
-        <element name="Post" positionX="-4133" positionY="-2313" width="128" height="135"/>
+        <element name="MyPost" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Post" positionX="-4133" positionY="-2313" width="128" height="120"/>
     </elements>
 </model>

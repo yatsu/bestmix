@@ -1,38 +1,38 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to Post.h instead.
+// Make changes to MyPost.h instead.
 
 #import <CoreData/CoreData.h>
 
 
-extern const struct PostAttributes {
+extern const struct MyPostAttributes {
 	__unsafe_unretained NSString *createdAt;
-	__unsafe_unretained NSString *postID;
+	__unsafe_unretained NSString *myPostID;
 	__unsafe_unretained NSString *publishedAt;
 	__unsafe_unretained NSString *title;
 	__unsafe_unretained NSString *updatedAt;
-} PostAttributes;
+} MyPostAttributes;
 
-extern const struct PostRelationships {
-} PostRelationships;
+extern const struct MyPostRelationships {
+} MyPostRelationships;
 
-extern const struct PostFetchedProperties {
-} PostFetchedProperties;
-
-
+extern const struct MyPostFetchedProperties {
+} MyPostFetchedProperties;
 
 
 
 
 
 
-@interface PostID : NSManagedObjectID {}
+
+
+@interface MyPostID : NSManagedObjectID {}
 @end
 
-@interface _Post : NSManagedObject {}
+@interface _MyPost : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (PostID*)objectID;
+- (MyPostID*)objectID;
 
 
 
@@ -45,14 +45,14 @@ extern const struct PostFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSNumber* postID;
+@property (nonatomic, strong) NSNumber* myPostID;
 
 
-@property int32_t postIDValue;
-- (int32_t)postIDValue;
-- (void)setPostIDValue:(int32_t)value_;
+@property int32_t myPostIDValue;
+- (int32_t)myPostIDValue;
+- (void)setMyPostIDValue:(int32_t)value_;
 
-//- (BOOL)validatePostID:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateMyPostID:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -85,11 +85,11 @@ extern const struct PostFetchedProperties {
 
 @end
 
-@interface _Post (CoreDataGeneratedAccessors)
+@interface _MyPost (CoreDataGeneratedAccessors)
 
 @end
 
-@interface _Post (CoreDataGeneratedPrimitiveAccessors)
+@interface _MyPost (CoreDataGeneratedPrimitiveAccessors)
 
 
 - (NSDate*)primitiveCreatedAt;
@@ -98,11 +98,11 @@ extern const struct PostFetchedProperties {
 
 
 
-- (NSNumber*)primitivePostID;
-- (void)setPrimitivePostID:(NSNumber*)value;
+- (NSNumber*)primitiveMyPostID;
+- (void)setPrimitiveMyPostID:(NSNumber*)value;
 
-- (int32_t)primitivePostIDValue;
-- (void)setPrimitivePostIDValue:(int32_t)value_;
+- (int32_t)primitiveMyPostIDValue;
+- (void)setPrimitiveMyPostIDValue:(int32_t)value_;
 
 
 

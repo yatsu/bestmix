@@ -1,7 +1,6 @@
 #import "PostsViewController.h"
 #import "Reachability.h"
 #import "SVPullToRefresh.h"
-#import "Post.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
 #import "PostsApiClient.h"
@@ -154,22 +153,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     //                                   reuseIdentifier:PostCellIdentifier];
     // }
 
-    Post *post = [_fetchedResultsController objectAtIndexPath:indexPath];
-    // NSLog(@"postCellForIndexPath - indexPath: %@ post: %@ %@", indexPath, post.name, post.updatedAt);
-    cell.textLabel.text = post.title;
-    if (post.publishedAt)
-        cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
-    else
-        cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
-
-    NSString *date;
-    date = [NSDateFormatter localizedStringFromDate:post.updatedAt
-                                          dateStyle:NSDateFormatterShortStyle
-                                          timeStyle:NSDateFormatterShortStyle];
-
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
-    cell.detailTextLabel.textColor = [UIColor grayColor];
-
     return cell;
 }
 
@@ -204,98 +187,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
         [self fetchFromCoreData];
 }
 
-- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params
-{
-    [self fetchFromWebApiPath:path parameters:params token:nil];
-}
-
-- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params
-                      token:(NSString *)token
-{
-    if (!_reachable) {
-        NSLog(@"unable to fetch");
-        return;
-    }
-
-    if ([self.tableView numberOfRowsInSection:0] == 0) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Loading...";
-    }
-
-    PostsApiClient *client = [PostsApiClient sharedClient];
-    [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", token]];
-
-    [client getPath:path
-         parameters:params
-            success:^(AFHTTPRequestOperation *operation, id response) {
-                NSLog(@"response: %@", response);
-
-                if (_currentPage == 1)
-                    [self clearPosts];
-
-                id elem = [response objectForKey:@"num_pages"];
-                if (elem && [elem isKindOfClass:[NSNumber class]])
-                    _totalPages = [elem integerValue];
-                elem = [response objectForKey:@"total_count"];
-                if (elem && [elem isKindOfClass:[NSNumber class]])
-                    _totalCount = [elem integerValue];
-                NSLog(@"currentPage: %d totalPages: %d totalCount: %d", _currentPage, _totalPages, _totalCount);
-
-                elem = [response objectForKey:@"posts"];
-                if (elem && [elem isKindOfClass:[NSArray class]]) {
-                    [MagicalRecord saveInBackgroundUsingCurrentContextWithBlock:^(NSManagedObjectContext *context) {
-                        [Post MR_importFromArray:elem inContext:context];
-                        // NSArray *posts = [Post MR_importFromArray:elem inContext:context];
-                        // NSLog(@"store posts: %@", posts);
-                        // for (NSDictionary *dict in elem) {
-                        //     Post *post = [Post MR_importFromObject:dict inContext:context];
-                        // }
-
-                    } completion:^{
-                        [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts]; // why is this required to store data in SQLite?
-                        NSLog(@"core data saved");
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        [self.tableView.pullToRefreshView stopAnimating];
-                        [self fetchFromCoreData];
-                        [self.tableView reloadData];
-
-                    } errorHandler:^(NSError *error) {
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        [self.tableView.pullToRefreshView stopAnimating];
-                        NSLog(@"core data save error: %@ %@", error.localizedDescription, error.userInfo);
-                    }];
-                }
-            }
-            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error %@", error);
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [self.tableView.pullToRefreshView stopAnimating];
-            }];
-}
-
 - (void)fetchFromWebApi
 {
-    NSLog(@"fetchFromWebApi - currentPage: %d", _currentPage);
 }
 
 - (void)fetchFromCoreData
 {
-    _fetchedResultsController = [Post MR_fetchAllGroupedBy:nil
-                                             withPredicate:self.fetchPredicate
-                                                  sortedBy:@"updatedAt"
-                                                 ascending:NO];
-
-    [_fetchedResultsController performFetch:nil];
 }
 
 - (void)clearPosts
 {
     _currentPage = 1;
     _totalPages = 1;
-
-    for (Post *post in [Post MR_findAllWithPredicate:self.fetchPredicate]) {
-        [post MR_deleteEntity];
-    }
 }
 
 @end

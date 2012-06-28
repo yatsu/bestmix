@@ -2,8 +2,6 @@
 #import <CoreData/CoreData.h>
 #import "Reachability.h"
 
-@class Post;
-
 @interface PostsViewController : UITableViewController
 {
 @protected
@@ -21,7 +19,6 @@
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger totalPages;
 @property (nonatomic) NSUInteger totalCount;
-@property (nonatomic, readonly) NSPredicate *fetchPredicate;
 
 - (void)becomeReachable;
 - (void)becomeUnreachable;
@@ -30,9 +27,6 @@
 - (UITableViewCell *)loadingCell;
 
 - (void)fetch;
-- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params
-                      token:(NSString *)token;
-- (void)fetchFromWebApiPath:(NSString *)path parameters:(NSDictionary *)params;
 - (void)fetchFromWebApi;
 - (void)fetchFromCoreData;
 - (void)clearPosts;
