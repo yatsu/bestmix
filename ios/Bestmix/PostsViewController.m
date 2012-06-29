@@ -90,6 +90,13 @@ const NSInteger kLoadingCellTag = 9999;
     [super viewDidUnload];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -145,38 +152,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *PostCellIdentifier = @"Post";
-    UITableViewCell *cell;
-    cell = [self.tableView dequeueReusableCellWithIdentifier:PostCellIdentifier];
-    // if (cell == nil) {
-    //     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-    //                                   reuseIdentifier:PostCellIdentifier];
-    // }
-
-    return cell;
+    return [self.tableView dequeueReusableCellWithIdentifier:@"Post"];
 }
 
 - (UITableViewCell *)loadingCell
 {
-    static NSString *LoadingCellIdentifier = @"Loading";
-    UITableViewCell *cell;
-    cell = [self.tableView dequeueReusableCellWithIdentifier:LoadingCellIdentifier];
-    // if (cell == nil) {
-    //     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-    //                               reuseIdentifier:nil];
-
-    //     UIActivityIndicatorView *indicator;
-    //     indicator = [[UIActivityIndicatorView alloc]
-    //                  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    //     indicator.center = cell.center;
-    //     [cell addSubview:indicator];
-
-    //     [indicator startAnimating];
-
-    //     cell.tag = kLoadingCellTag;
-    // }
-
-    return cell;
+    return [self.tableView dequeueReusableCellWithIdentifier:@"Loading"];
 }
 
 - (void)fetch

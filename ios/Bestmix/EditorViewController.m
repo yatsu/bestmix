@@ -1,11 +1,3 @@
-//
-//  EditorViewController.m
-//  Bestmix
-//
-//  Created by Masaki Yatsu on 6/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
-
 #import "EditorViewController.h"
 
 @interface EditorViewController ()
@@ -13,6 +5,12 @@
 @end
 
 @implementation EditorViewController
+
+@synthesize textView = _textView;
+@synthesize delegate = _delegate;
+@synthesize text = _text;
+
+#pragma mark UIViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,13 +24,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    _textView.text = _text;
+    [_textView becomeFirstResponder];
 }
 
 - (void)viewDidUnload
 {
+    [self setTextView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    if (_delegate && [_delegate respondsToSelector:@selector(closeEditorViewController:)]) {
+        [_delegate performSelector:@selector(closeEditorViewController:)
+                        withObject:self];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

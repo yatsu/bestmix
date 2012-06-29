@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E2620" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="MyPost" representedClassName="MyPost" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="created_at"/>
@@ -24,6 +25,7 @@
         </attribute>
     </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="created_at"/>
@@ -47,7 +49,7 @@
         </attribute>
     </entity>
     <elements>
-        <element name="MyPost" positionX="160" positionY="192" width="128" height="120"/>
-        <element name="Post" positionX="-4133" positionY="-2313" width="128" height="120"/>
+        <element name="MyPost" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Post" positionX="-4133" positionY="-2313" width="128" height="135"/>
     </elements>
 </model>

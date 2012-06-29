@@ -8,6 +8,7 @@
 #import "SVPullToRefresh.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
+#import "EditPostViewController.h"
 
 const NSInteger kAlertLogin = 1;
 const NSInteger kAlertLogout = 2;
@@ -15,6 +16,7 @@ const NSInteger kAlertLogout = 2;
 @interface PrivatePostsViewController () <UIAlertViewDelegate>
 
 @property (nonatomic) NSString *token;
+@property (nonatomic) NSString *refreshToken;
 
 - (void)fetchPosts;
 - (void)loginConfirm;
@@ -23,6 +25,8 @@ const NSInteger kAlertLogout = 2;
 - (void)logout;
 - (BOOL)loggedIn;
 - (void)openLoginURL;
+- (void)authWithCode:(NSString *)code;
+- (void)authWithRefreshToken;
 - (void)updateButtons;
 
 @end
@@ -43,11 +47,20 @@ const NSInteger kAlertLogout = 2;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSLog(@"viewDidAppear: %d", _currentPage);
     [super viewDidAppear:animated];
 
     if (_currentPage == 1)
         [self fetch];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController *controller = [segue destinationViewController];
+    if ([controller isKindOfClass:[EditPostViewController class]]) {
+        EditPostViewController *editPostVC = (EditPostViewController *)controller;
+        editPostVC.postTitle = @"";
+        editPostVC.content = @"";
+    }
 }
 
 #pragma mark PostsViewController
@@ -67,10 +80,12 @@ const NSInteger kAlertLogout = 2;
 {
     NSLog(@"fetchFromCoreData");
 
-    _fetchedResultsController = [MyPost MR_fetchAllGroupedBy:nil
-                                               withPredicate:nil
-                                                    sortedBy:@"updatedAt"
-                                                   ascending:NO];
+    if (_fetchedResultsController == nil) {
+        _fetchedResultsController = [MyPost MR_fetchAllGroupedBy:nil
+                                                   withPredicate:nil
+                                                        sortedBy:@"updatedAt"
+                                                       ascending:NO];
+    }
 
     [_fetchedResultsController performFetch:nil];
 }
@@ -82,27 +97,39 @@ const NSInteger kAlertLogout = 2;
     for (MyPost *post in [MyPost MR_findAll]) {
         [post MR_deleteEntity];
     }
+
+    NSError *error = nil;
+    [[NSManagedObjectContext MR_defaultContext] save:&error];
+
+    [_fetchedResultsController performFetch:nil];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super postCellForIndexPath:indexPath];
 
-    MyPost *post = [_fetchedResultsController objectAtIndexPath:indexPath];
-    // NSLog(@"postCellForIndexPath - indexPath: %@ post: %@ %@", indexPath, post.name, post.updatedAt);
-    cell.textLabel.text = post.title;
-    if (post.publishedAt)
-        cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
-    else
-        cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
+    id <NSFetchedResultsSectionInfo> sectionInfo =
+        [[_fetchedResultsController sections] objectAtIndex:0];
+    NSInteger count = [sectionInfo numberOfObjects];
+    
+    MyPost *post = nil;
+    if (indexPath.row < count) {
+        post = [_fetchedResultsController objectAtIndexPath:indexPath];
 
-    NSString *date;
-    date = [NSDateFormatter localizedStringFromDate:post.updatedAt
-                                          dateStyle:NSDateFormatterShortStyle
-                                          timeStyle:NSDateFormatterShortStyle];
+        cell.textLabel.text = post.title;
+        if (post.publishedAt)
+            cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
+        else
+            cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
 
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
-    cell.detailTextLabel.textColor = [UIColor grayColor];
+        NSString *date;
+        date = [NSDateFormatter localizedStringFromDate:post.updatedAt
+                                              dateStyle:NSDateFormatterShortStyle
+                                              timeStyle:NSDateFormatterShortStyle];
+
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+    }
 
     return cell;
 }
@@ -118,6 +145,18 @@ const NSInteger kAlertLogout = 2;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:token forKey:@"token"];
+    [defaults synchronize];
+}
+
+- (NSString *)refreshToken
+{
+    return [[NSUserDefaults standardUserDefaults] valueForKey:@"refreshToken"];
+}
+
+- (void)setRefreshToken:(NSString *)refreshToken
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:refreshToken forKey:@"refreshToken"];
     [defaults synchronize];
 }
 
@@ -141,7 +180,7 @@ const NSInteger kAlertLogout = 2;
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
 
-    [client getPath:@"posts/my"
+    [client getPath:@"my_posts"
          parameters:params
             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
@@ -167,11 +206,6 @@ const NSInteger kAlertLogout = 2;
 
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
                         [MyPost MR_importFromArray:elem inContext:context];
-                        // NSArray *posts = [Post MR_importFromArray:elem inContext:context];
-                        // NSLog(@"store posts: %@", posts);
-                        // for (NSDictionary *dict in elem) {
-                        //     Post *post = [MyPost MR_importFromObject:dict inContext:context];
-                        // }
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -186,9 +220,28 @@ const NSInteger kAlertLogout = 2;
                 }
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error %@", error);
+                NSLog(@"error %@ %@ statusCode: %d", error.localizedDescription, error.userInfo, operation.response.statusCode);
+                
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.tableView.pullToRefreshView stopAnimating];
+
+                if (operation.response.statusCode == 401) {
+                    if (self.refreshToken) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self authWithRefreshToken];
+                        });
+
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self logout];
+                            [self fetch];
+                        });
+                    }
+
+                } else {
+                    [UIAlertView simpleAlertWithTitle:@"Network Error"
+                                              message:error.localizedDescription];
+                }
             }];
 }
 
@@ -244,20 +297,47 @@ const NSInteger kAlertLogout = 2;
 
 - (void)authWithCode:(NSString *)code
 {
+    NSLog(@"auth with code");
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=authorization_code&code=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
                                        AuthBaseURL, code, ClientID, ClientSecret, RedirectURL]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-        // {"access_token":"...","token_type":"bearer","expires_in":7200}
-        NSString *token = [json objectForKey:@"access_token"];
-        NSLog(@"logged in - token: %@", token);
-        self.token = token;
+        // {"access_token":"...","refresh_token":"...","token_type":"bearer","expires_in":7200}
+        self.token = [json objectForKey:@"access_token"];
+        self.refreshToken = [json objectForKey:@"refresh_token"];
+        // NSLog(@"logged in - token: %@ refreshToken: %@", self.token, self.refreshToken);
+        NSLog(@"logged in");
         [self updateButtons];
         [self fetchPosts];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
         NSLog(@"error: %@", json);
+        [self logout];
+    }];
+    [operation start];
+}
+
+- (void)authWithRefreshToken
+{
+    NSLog(@"auth with refresh token");
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=refresh_token&refresh_token=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
+                                       AuthBaseURL, self.refreshToken, ClientID, ClientSecret, RedirectURL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod = @"POST";
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+        // {"access_token":"...","refresh_token":"...","token_type":"bearer","expires_in":7200}
+        self.token = [json objectForKey:@"access_token"];
+        self.refreshToken = [json objectForKey:@"refresh_token"];
+        // NSLog(@"logged in - token: %@ refreshToken: %@", self.token, self.refreshToken);
+        NSLog(@"logged in");
+        [self updateButtons];
+        [self fetchPosts];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+        NSLog(@"error: %@", json);
+        [self logout];
+        [self fetch];
     }];
     [operation start];
 }
@@ -295,7 +375,6 @@ const NSInteger kAlertLogout = 2;
         [self login];
     } else {
         [self logoutConfirm];
-
     }
 }
 

@@ -4,6 +4,7 @@
 #import "_MyPost.h"
 
 const struct MyPostAttributes MyPostAttributes = {
+	.content = @"content",
 	.createdAt = @"createdAt",
 	.myPostID = @"myPostID",
 	.publishedAt = @"publishedAt",
@@ -50,6 +51,13 @@ const struct MyPostFetchedProperties MyPostFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic content;
+
+
 
 
 

@@ -8,6 +8,7 @@ PODS:
   - Reachability (3.0.0)
   - SDURLCache (1.2)
   - SVPullToRefresh (0.1)
+  - TPKeyboardAvoiding (0.0.1)
   - TestFlightSDK (1.0)
 
 DEPENDENCIES:
@@ -20,4 +21,5 @@ DEPENDENCIES:
   - Reachability (~> 3.0.0)
   - SDURLCache (~> 1.2)
   - SVPullToRefresh (~> 0.1)
+  - TPKeyboardAvoiding (~> 0.0.1)
   - TestFlightSDK (~> 1.0)

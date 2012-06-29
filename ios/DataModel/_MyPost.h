@@ -5,6 +5,7 @@
 
 
 extern const struct MyPostAttributes {
+	__unsafe_unretained NSString *content;
 	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *myPostID;
 	__unsafe_unretained NSString *publishedAt;
@@ -25,6 +26,7 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @interface MyPostID : NSManagedObjectID {}
 @end
 
@@ -33,6 +35,14 @@ extern const struct MyPostFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (MyPostID*)objectID;
+
+
+
+
+@property (nonatomic, strong) NSString* content;
+
+
+//- (BOOL)validateContent:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -90,6 +100,12 @@ extern const struct MyPostFetchedProperties {
 @end
 
 @interface _MyPost (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveContent;
+- (void)setPrimitiveContent:(NSString*)value;
+
+
 
 
 - (NSDate*)primitiveCreatedAt;

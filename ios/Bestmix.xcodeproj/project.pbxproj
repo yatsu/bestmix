@@ -34,6 +34,8 @@
 		1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */; };
 		1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */; };
 		1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */; };
+		1CEC7D25159C451500517548 /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D24159C451500517548 /* EditorViewController.m */; };
+		1CEC7D2C159C768000517548 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D2B159C768000517548 /* PostDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,10 @@
 		1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bestmix.xcdatamodel; sourceTree = "<group>"; };
 		1CE166DF1595835800ED8736 /* UIAlertView+SimpleAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+SimpleAlert.h"; sourceTree = "<group>"; };
 		1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+SimpleAlert.m"; sourceTree = "<group>"; };
+		1CEC7D23159C451500517548 /* EditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
+		1CEC7D24159C451500517548 /* EditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorViewController.m; sourceTree = "<group>"; };
+		1CEC7D2A159C767F00517548 /* PostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailViewController.h; sourceTree = "<group>"; };
+		1CEC7D2B159C768000517548 /* PostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailViewController.m; sourceTree = "<group>"; };
 		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A8059D94C425B85738933 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -137,6 +143,10 @@
 			children = (
 				1C842A66159B47DD009198C8 /* EditPostViewController.h */,
 				1C842A67159B47DD009198C8 /* EditPostViewController.m */,
+				1CEC7D23159C451500517548 /* EditorViewController.h */,
+				1CEC7D24159C451500517548 /* EditorViewController.m */,
+				1CEC7D2A159C767F00517548 /* PostDetailViewController.h */,
+				1CEC7D2B159C768000517548 /* PostDetailViewController.m */,
 				1C842A68159B47DD009198C8 /* PostsApiClient.h */,
 				1C842A69159B47DD009198C8 /* PostsApiClient.m */,
 				1C842A6A159B47DD009198C8 /* PostsViewController.h */,
@@ -315,6 +325,8 @@
 				1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */,
 				1C842A7F159C25AD009198C8 /* _MyPost.m in Sources */,
 				1C842A80159C25AD009198C8 /* MyPost.m in Sources */,
+				1CEC7D25159C451500517548 /* EditorViewController.m in Sources */,
+				1CEC7D2C159C768000517548 /* PostDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

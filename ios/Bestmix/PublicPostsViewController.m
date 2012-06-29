@@ -8,12 +8,25 @@
 #import "SVPullToRefresh.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
+#import "PostDetailViewController.h"
 
 @interface PublicPostsViewController ()
 
 @end
 
 @implementation PublicPostsViewController
+
+#pragma mark UIViewController
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController *controller = [segue destinationViewController];
+    if ([controller isKindOfClass:[PostDetailViewController class]]) {
+        PostDetailViewController *detailVC = (PostDetailViewController *)controller;
+        Post *post = [_fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        detailVC.post = post;
+    }
+}
 
 #pragma mark PostViewController
 
@@ -36,7 +49,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
 
-    [client getPath:@"posts/published"
+    [client getPath:@"posts"
          parameters:params
             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
@@ -62,11 +75,6 @@
 
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
                         [Post MR_importFromArray:elem inContext:context];
-                        // NSArray *posts = [Post MR_importFromArray:elem inContext:context];
-                        // NSLog(@"store posts: %@", posts);
-                        // for (NSDictionary *dict in elem) {
-                        //     Post *post = [Post MR_importFromObject:dict inContext:context];
-                        // }
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -81,7 +89,9 @@
                 }
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error %@", error);
+                NSLog(@"error %@ %@", error.localizedDescription, error.userInfo);
+                [UIAlertView simpleAlertWithTitle:@"Network Error"
+                                          message:error.localizedDescription];
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.tableView.pullToRefreshView stopAnimating];
             }];
@@ -106,27 +116,38 @@
     for (Post *post in [Post MR_findAll]) {
         [post MR_deleteEntity];
     }
+
+    NSError *error = nil;
+    [[NSManagedObjectContext MR_defaultContext] save:&error];
+    
+    [_fetchedResultsController performFetch:nil];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [super postCellForIndexPath:indexPath];
 
-    Post *post = [_fetchedResultsController objectAtIndexPath:indexPath];
-    // NSLog(@"postCellForIndexPath - indexPath: %@ post: %@ %@", indexPath, post.name, post.updatedAt);
-    cell.textLabel.text = post.title;
-    if (post.publishedAt)
-        cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
-    else
-        cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
+    id <NSFetchedResultsSectionInfo> sectionInfo =
+        [[_fetchedResultsController sections] objectAtIndex:0];
+    NSInteger count = [sectionInfo numberOfObjects];
+    Post *post = nil;
+    if (indexPath.row < count) {
+        post = [_fetchedResultsController objectAtIndexPath:indexPath];   
 
-    NSString *date;
-    date = [NSDateFormatter localizedStringFromDate:post.updatedAt
-                                          dateStyle:NSDateFormatterShortStyle
-                                          timeStyle:NSDateFormatterShortStyle];
+        cell.textLabel.text = post.title;
+        if (post.publishedAt)
+            cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
+        else
+            cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
 
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
-    cell.detailTextLabel.textColor = [UIColor grayColor];
+        NSString *date;
+        date = [NSDateFormatter localizedStringFromDate:post.updatedAt
+                                              dateStyle:NSDateFormatterShortStyle
+                                              timeStyle:NSDateFormatterShortStyle];
+
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+    }
 
     return cell;
 }
