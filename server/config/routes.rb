@@ -8,12 +8,8 @@ Bestmix::Application.routes.draw do
 
   namespace :api do
     api_version(:module => "V1", :path => "/v1") do
-      resources :posts, :only => [ :show, :create ] do
-        collection do
-          get 'published'
-          get 'my'
-        end
-      end
+      resources :posts, :only => [ :index, :show ]
+      resources :my_posts, :except => [ :edit ]
     end
   end
 

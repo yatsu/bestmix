@@ -48,6 +48,9 @@ gem 'activeadmin'
 gem 'formtastic', '~> 2.1.1' # Active Admin requires 2.1.1
 gem 'thor'
 gem 'oauth2'
+gem 'inherited_resources'
+gem 'has_scope'
+
 gem 'capistrano'
 gem 'capistrano_colors'
 gem 'rvm-capistrano'

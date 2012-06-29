@@ -1,40 +1,33 @@
 class Api::V1::PostsController < Api::ApiController
-  # before_filter :authenticate_user!, except: [ :public ]
-  doorkeeper_for :my
+  inherit_resources
+  actions :index, :show
+  has_scope :page, :default => 1
 
-  def published
-    page = (params[:page] || 1).to_i
-    @posts = Post.published.page(page)
-  end
-
-  def my
-    page = (params[:page] || 1).to_i
-    @posts = Post.my(current_user).page(page)
+  def index
+    @posts = Post.published.page((params[:page] || 1).to_i)
   end
 
   def show
-    @post = Post.find_by_id(params[:id])
+    show! do
+      if @post.nil?
+        @error = ApiError.new(
+          :resource_not_found,
+          "Not Found",
+          "Requested post does not exist or you don't have permission to see it."
+        )
+        render :action => :error
+        return
+      end
+    end
   end
 
-  def create
-    @post = current_user.posts.create(
-      :title => params[:title],
-      :content => params[:content],
-      :published_at => params[:published] == "true" ? Time.now : nil
-    )
-    logger.debug "create post: #{@post.inspect} valid: #{@post.valid?}"
+  private
 
-    unless @post.valid?
-      logger.debug @post.errors.inspect
-      @error = ApiError.new(
-        :invalid_parameter,
-        "Parameter Error",
-        @post.errors.messages
-      )
-      render :action => :error
-      return
-    end
+  def collection
+    @posts ||= end_of_association_chain.published
+  end
 
-    render :action => :show
+  def resource
+    @post = Post.where("published_at IS NOT NULL").find_by_id(params[:id])
   end
 end

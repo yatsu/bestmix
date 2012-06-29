@@ -11,6 +11,10 @@ class Post < ActiveRecord::Base
     where(:user_id => user.id).order("updated_at DESC")
   }
 
+  scope :accessible, lambda { |user|
+    where("user_id = ? OR published_at IS NOT NULL", user.id)
+  }
+
   def published
     published_at != nil
   end

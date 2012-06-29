@@ -1,6 +1,8 @@
 class Api::ApiController < ApplicationController
   include Doorkeeper::Controller
 
+  respond_to :json
+
   private
 
   def current_user
