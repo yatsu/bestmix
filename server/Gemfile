@@ -37,7 +37,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'doorkeeper', '~> 0.4.0'
+gem 'doorkeeper', '~> 0.4.2'
 gem 'versionist', '~> 0.2.0'
 gem 'rabl', '~> 0.6.12'
 gem 'msgpack', '~> 0.4.7'

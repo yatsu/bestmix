@@ -1,8 +1,6 @@
 Bestmix
 =======
 
-__NOTE: Bestmix is under development. Caching and error handling are not implemented yet.__
-
 Bestmix is a boilerplate to build both Rails-based web app and iOS app integrated with each other.
 They are connected with JSON REST API supporting CRUD, OAuth2 authentication, pagination and caching.
 
@@ -17,10 +15,10 @@ Bestmix uses following libraries and frameworks.
 
 * [Ruby on Rails](http://rubyonrails.org/ ) - Web Framework
 * [Devise](https://github.com/plataformatec/devise ) - Authentication
-* [RABL](https://github.com/nesquena/rabl ) - JSON Generation
+* [RABL](https://github.com/nesquena/rabl ) - JSON Formatter
+* [Inherited Resources](https://github.com/josevalim/inherited_resources ) - Library for RESTful Resources
 * [Doorkeeper](https://github.com/applicake/doorkeeper ) - OAuth2 Provider
 * [versionist](https://github.com/bploetz/versionist ) - API Versioning
-* [Kaminari](https://github.com/amatsuda/kaminari ) - Pagination
 * [Active Admin](http://activeadmin.info/) - Admin Interface
 
 See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) for more details
@@ -29,9 +27,6 @@ See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) for m
 
 * [CocoaPods](http://cocoapods.org/ ) - Library Management
 * [AFNetworking](https://github.com/AFNetworking/AFNetworking ) - Networking Framework
-* [JSONKit](https://github.com/johnezang/JSONKit ) - JSON Parser
-* [MBProgressHUD](https://github.com/jdg/MBProgressHUD ) - Progress HUD
-* [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh ) - Pull-to-Refresh
 * [Reachability](https://github.com/tonymillion/Reachability ) - Network Reachability
 * [MagicalRecord](https://github.com/magicalpanda/MagicalRecord ) - Active Record for Core Data
 * [mogenerator](https://github.com/rentzsch/mogenerator ) - Core Data Code Generation
@@ -69,7 +64,7 @@ See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) and
 Future Plan
 -----------
 
-* Creating/Updating/Deleting objects (currently only reading is supported)
+* Image Uploading
 * Push Notification
 * Twitter/Facebook Integration
 

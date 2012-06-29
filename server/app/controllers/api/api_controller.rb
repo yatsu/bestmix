@@ -1,5 +1,5 @@
 class Api::ApiController < ApplicationController
-  include Doorkeeper::Controller
+  # include Doorkeeper::Controller
 
   respond_to :json
 

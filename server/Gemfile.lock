@@ -63,7 +63,7 @@ GEM
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
       warden (~> 1.1.1)
-    doorkeeper (0.4.0)
+    doorkeeper (0.4.2)
       railties (~> 3.1)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -192,7 +192,7 @@ DEPENDENCIES
   capistrano
   capistrano_colors
   coffee-rails (~> 3.2.1)
-  doorkeeper (~> 0.4.0)
+  doorkeeper (~> 0.4.2)
   fabrication
   faker
   formtastic (~> 2.1.1)
