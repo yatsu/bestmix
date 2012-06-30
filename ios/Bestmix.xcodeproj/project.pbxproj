@@ -36,6 +36,7 @@
 		1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */; };
 		1CEC7D25159C451500517548 /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D24159C451500517548 /* EditorViewController.m */; };
 		1CEC7D2C159C768000517548 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D2B159C768000517548 /* PostDetailViewController.m */; };
+		1CEC7D75159DD8C700517548 /* AuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D74159DD8C700517548 /* AuthManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,8 @@
 		1CEC7D24159C451500517548 /* EditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorViewController.m; sourceTree = "<group>"; };
 		1CEC7D2A159C767F00517548 /* PostDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailViewController.h; sourceTree = "<group>"; };
 		1CEC7D2B159C768000517548 /* PostDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailViewController.m; sourceTree = "<group>"; };
+		1CEC7D73159DD8C700517548 /* AuthManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthManager.h; sourceTree = "<group>"; };
+		1CEC7D74159DD8C700517548 /* AuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthManager.m; sourceTree = "<group>"; };
 		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A8059D94C425B85738933 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -141,6 +144,8 @@
 		1C7ABC8E15775C6700327DEB /* Bestmix */ = {
 			isa = PBXGroup;
 			children = (
+				1CEC7D73159DD8C700517548 /* AuthManager.h */,
+				1CEC7D74159DD8C700517548 /* AuthManager.m */,
 				1C842A66159B47DD009198C8 /* EditPostViewController.h */,
 				1C842A67159B47DD009198C8 /* EditPostViewController.m */,
 				1CEC7D23159C451500517548 /* EditorViewController.h */,
@@ -327,6 +332,7 @@
 				1C842A80159C25AD009198C8 /* MyPost.m in Sources */,
 				1CEC7D25159C451500517548 /* EditorViewController.m in Sources */,
 				1CEC7D2C159C768000517548 /* PostDetailViewController.m in Sources */,
+				1CEC7D75159DD8C700517548 /* AuthManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -130,9 +130,8 @@
     id <NSFetchedResultsSectionInfo> sectionInfo =
         [[_fetchedResultsController sections] objectAtIndex:0];
     NSInteger count = [sectionInfo numberOfObjects];
-    Post *post = nil;
     if (indexPath.row < count) {
-        post = [_fetchedResultsController objectAtIndexPath:indexPath];   
+        Post *post = [_fetchedResultsController objectAtIndexPath:indexPath];   
 
         cell.textLabel.text = post.title;
         if (post.publishedAt)

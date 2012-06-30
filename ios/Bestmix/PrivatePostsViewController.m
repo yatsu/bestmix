@@ -9,24 +9,20 @@
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
 #import "EditPostViewController.h"
+#import "AuthManager.h"
 
 const NSInteger kAlertLogin = 1;
 const NSInteger kAlertLogout = 2;
 
 @interface PrivatePostsViewController () <UIAlertViewDelegate>
 
-@property (nonatomic) NSString *token;
-@property (nonatomic) NSString *refreshToken;
-
 - (void)fetchPosts;
 - (void)loginConfirm;
 - (void)logoutConfirm;
 - (void)login;
 - (void)logout;
-- (BOOL)loggedIn;
-- (void)openLoginURL;
 - (void)authWithCode:(NSString *)code;
-- (void)authWithRefreshToken;
+- (void)refreshTokenAndFetchPosts;
 - (void)updateButtons;
 
 @end
@@ -67,12 +63,12 @@ const NSInteger kAlertLogout = 2;
 
 - (void)fetchFromWebApi
 {
-    if (!self.token) {
-        [self.tableView.pullToRefreshView stopAnimating];
-        [self loginConfirm];
+    if ([[AuthManager sharedAuthManager] loggedIn]) {
+        [self fetchPosts];
 
     } else {
-        [self fetchPosts];
+        [self.tableView.pullToRefreshView stopAnimating];
+        [self loginConfirm];
     }
 }
 
@@ -111,10 +107,8 @@ const NSInteger kAlertLogout = 2;
     id <NSFetchedResultsSectionInfo> sectionInfo =
         [[_fetchedResultsController sections] objectAtIndex:0];
     NSInteger count = [sectionInfo numberOfObjects];
-    
-    MyPost *post = nil;
     if (indexPath.row < count) {
-        post = [_fetchedResultsController objectAtIndexPath:indexPath];
+        MyPost *post = [_fetchedResultsController objectAtIndexPath:indexPath];
 
         cell.textLabel.text = post.title;
         if (post.publishedAt)
@@ -134,32 +128,6 @@ const NSInteger kAlertLogout = 2;
     return cell;
 }
 
-#pragma mark Accessors
-
-- (NSString *)token
-{
-    return [[NSUserDefaults standardUserDefaults] valueForKey:@"token"];
-}
-
-- (void)setToken:(NSString *)token
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:token forKey:@"token"];
-    [defaults synchronize];
-}
-
-- (NSString *)refreshToken
-{
-    return [[NSUserDefaults standardUserDefaults] valueForKey:@"refreshToken"];
-}
-
-- (void)setRefreshToken:(NSString *)refreshToken
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:refreshToken forKey:@"refreshToken"];
-    [defaults synchronize];
-}
-
 #pragma mark Local Methods
 
 - (void)fetchPosts
@@ -175,7 +143,8 @@ const NSInteger kAlertLogout = 2;
     }
 
     PostsApiClient *client = [PostsApiClient sharedClient];
-    [client setDefaultHeader:@"Authorization" value:[NSString stringWithFormat:@"Bearer %@", self.token]];
+    [client setDefaultHeader:@"Authorization"
+                       value:[NSString stringWithFormat:@"Bearer %@", [[AuthManager sharedAuthManager] token]]];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
@@ -221,22 +190,14 @@ const NSInteger kAlertLogout = 2;
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"error %@ %@ statusCode: %d", error.localizedDescription, error.userInfo, operation.response.statusCode);
-                
+
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.tableView.pullToRefreshView stopAnimating];
 
                 if (operation.response.statusCode == 401) {
-                    if (self.refreshToken) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self authWithRefreshToken];
-                        });
-
-                    } else {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self logout];
-                            [self fetch];
-                        });
-                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self refreshTokenAndFetchPosts];
+                    });
 
                 } else {
                     [UIAlertView simpleAlertWithTitle:@"Network Error"
@@ -269,82 +230,48 @@ const NSInteger kAlertLogout = 2;
 
 - (void)login
 {
-    [self openLoginURL];
+    [[AuthManager sharedAuthManager] openLoginURL];
 }
 
 - (void)logout
 {
-    NSLog(@"logout");
-    self.token = nil;
+    [[AuthManager sharedAuthManager] logout];
     [self updateButtons];
     [self clearPosts];
     [self.tableView reloadData];
 }
 
-- (BOOL)loggedIn
-{
-    return [self token] != nil;
-}
-
-- (void)openLoginURL
-{
-    NSString *path = [NSString stringWithFormat:@"%@oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@",
-                      AuthBaseURL, ClientID, RedirectURL];
-    NSURL *url = [NSURL URLWithString:path];
-    NSLog(@"login URL: %@", url);
-    [[UIApplication sharedApplication] openURL:url];
-}
-
 - (void)authWithCode:(NSString *)code
 {
-    NSLog(@"auth with code");
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=authorization_code&code=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
-                                       AuthBaseURL, code, ClientID, ClientSecret, RedirectURL]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-        // {"access_token":"...","refresh_token":"...","token_type":"bearer","expires_in":7200}
-        self.token = [json objectForKey:@"access_token"];
-        self.refreshToken = [json objectForKey:@"refresh_token"];
-        // NSLog(@"logged in - token: %@ refreshToken: %@", self.token, self.refreshToken);
-        NSLog(@"logged in");
+    [[AuthManager sharedAuthManager]
+     authWithCode:code
+     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
         [self updateButtons];
         [self fetchPosts];
 
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-        NSLog(@"error: %@", json);
+     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
         [self logout];
-    }];
-    [operation start];
+     }
+    ];
 }
 
-- (void)authWithRefreshToken
+- (void)refreshTokenAndFetchPosts
 {
-    NSLog(@"auth with refresh token");
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=refresh_token&refresh_token=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
-                                       AuthBaseURL, self.refreshToken, ClientID, ClientSecret, RedirectURL]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-        // {"access_token":"...","refresh_token":"...","token_type":"bearer","expires_in":7200}
-        self.token = [json objectForKey:@"access_token"];
-        self.refreshToken = [json objectForKey:@"refresh_token"];
-        // NSLog(@"logged in - token: %@ refreshToken: %@", self.token, self.refreshToken);
-        NSLog(@"logged in");
+    [[AuthManager sharedAuthManager]
+     authWithRefreshToken:[[AuthManager sharedAuthManager] refreshToken]
+     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
         [self updateButtons];
         [self fetchPosts];
-        
+
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-        NSLog(@"error: %@", json);
         [self logout];
         [self fetch];
     }];
-    [operation start];
 }
 
 - (void)updateButtons
 {
-    if ([self loggedIn]) {
+    if ([[AuthManager sharedAuthManager] loggedIn]) {
         _loginButton.title = @"Logout";
         _addButton.enabled = YES;
 
@@ -360,7 +287,7 @@ const NSInteger kAlertLogout = 2;
 {
     if (alertView.tag == kAlertLogin) {
         if (buttonIndex == 1)
-            [self openLoginURL];
+            [[AuthManager sharedAuthManager] openLoginURL];
     } else {
         if (buttonIndex == 1)
             [self logout];
@@ -371,11 +298,10 @@ const NSInteger kAlertLogout = 2;
 
 - (IBAction)loginTapped:(id)sender
 {
-    if (![self loggedIn]) {
-        [self login];
-    } else {
+    if ([[AuthManager sharedAuthManager] loggedIn])
         [self logoutConfirm];
-    }
+    else
+        [self login];
 }
 
 @end

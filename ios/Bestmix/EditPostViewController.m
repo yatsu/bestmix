@@ -60,8 +60,8 @@
 {
     NSString *title = _titleLabel.text;
     NSString *content = _contentText.text;
-    BOOL pub = [NSNumber numberWithBool:_publishSwitch.isOn];
-    NSLog(@"save - title: %@ content: %@ pub: %d", title, content, pub);
+    NSNumber *pub = [NSNumber numberWithBool:_publishSwitch.isOn];
+    NSLog(@"save - title: %@ content: %@ pub: %@", title, content, pub);
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Saving...";
