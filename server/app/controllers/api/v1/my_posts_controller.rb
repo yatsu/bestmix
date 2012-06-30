@@ -9,12 +9,11 @@ class Api::V1::MyPostsController < Api::ApiController
   def show
     show! do
       if @post.nil?
-        @error = ApiError.new(
+        render_error(
           :resource_not_found,
           "Not Found",
           "Requested post does not exist or you don't have permission to see it."
         )
-        render :action => :error
         return
       end
     end
@@ -24,20 +23,15 @@ class Api::V1::MyPostsController < Api::ApiController
     @post = current_user.posts.build(
       :title => params[:title],
       :content => params[:content],
-      :published_at => params[:published] == "true" ? Time.now : nil
+      :published_at => params[:publish] == "true" ? Time.now : nil
     )
     create! do |success, failure|
       failure.json do
-        logger.debug @post.errors.inspect
-        @error = ApiError.new(
-          :invalid_parameter,
-          "Parameter Error",
-          @post.errors.messages
-        )
-        render :action => :error
+        render_error(:invalid_parameter, "Parameter Error", @post.errors.messages)
       end
       success.json do
-        redirect_to resource_url
+        # redirect_to api__v1_my_post_path(@post)
+        render :action => :show
       end
     end
   end
@@ -46,5 +40,9 @@ class Api::V1::MyPostsController < Api::ApiController
 
   def begin_of_association_chain
     current_user
+  end
+
+  def collection
+    @posts ||= end_of_association_chain.order("updated_at DESC")
   end
 end

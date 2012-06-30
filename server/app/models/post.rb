@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   validates :title, :presence => true, :length => { :minimum => 3, :maximum => 255 }
+  validates :content, :length => { :minimum => 0, :maximum => 10000 }
 
   scope :published, where("published_at IS NOT NULL").order("published_at DESC")
 
