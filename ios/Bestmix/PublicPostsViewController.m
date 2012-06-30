@@ -12,9 +12,13 @@
 
 @interface PublicPostsViewController ()
 
+@property (strong, nonatomic) PostsApiClient *client;
+
 @end
 
 @implementation PublicPostsViewController
+
+@synthesize client = _client;
 
 #pragma mark UIViewController
 
@@ -44,14 +48,14 @@
         hud.labelText = @"Loading...";
     }
 
-    PostsApiClient *client = [PostsApiClient sharedClient];
+    self.client = [[PostsApiClient new] init];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
 
-    [client getPath:@"posts"
-         parameters:params
-            success:^(AFHTTPRequestOperation *operation, id response) {
+    [_client getPath:@"posts"
+          parameters:params
+             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
 
                 if (_currentPage == 1)

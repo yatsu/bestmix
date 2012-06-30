@@ -2,6 +2,7 @@
 
 @interface PostsApiClient : AFHTTPClient
 
-+ (id)sharedClient;
+- (id)init;
+- (id)initWithAuthToken;
 
 @end

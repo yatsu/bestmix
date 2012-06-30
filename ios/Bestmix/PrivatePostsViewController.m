@@ -16,6 +16,8 @@ const NSInteger kAlertLogout = 2;
 
 @interface PrivatePostsViewController () <UIAlertViewDelegate>
 
+@property (strong, nonatomic) PostsApiClient *client;
+
 - (void)fetchPosts;
 - (void)loginConfirm;
 - (void)logoutConfirm;
@@ -31,6 +33,7 @@ const NSInteger kAlertLogout = 2;
 
 @synthesize loginButton = _loginButton;
 @synthesize addButton = _addButton;
+@synthesize client = _client;
 
 #pragma mark UIViewController
 
@@ -146,16 +149,14 @@ const NSInteger kAlertLogout = 2;
         hud.labelText = @"Loading...";
     }
 
-    PostsApiClient *client = [PostsApiClient sharedClient];
-    [client setDefaultHeader:@"Authorization"
-                       value:[NSString stringWithFormat:@"Bearer %@", [AuthManager token]]];
+    self.client = [[PostsApiClient new] initWithAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
 
-    [client getPath:@"my_posts"
-         parameters:params
-            success:^(AFHTTPRequestOperation *operation, id response) {
+    [_client getPath:@"my_posts"
+          parameters:params
+             success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
 
                 if (_currentPage == 1)

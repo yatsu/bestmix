@@ -6,7 +6,8 @@
 
 @interface EditPostViewController ()
 
-@property (nonatomic) NSIndexPath *selectedIndexPath;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property (strong, nonatomic) PostsApiClient *client;
 
 - (void)savePost;
 
@@ -22,6 +23,8 @@
 @synthesize content = _content;
 
 @synthesize selectedIndexPath = _selectedIndexPath;
+
+@synthesize client = _client;
 
 #pragma mark UIViewController
 
@@ -97,17 +100,15 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Saving...";
 
-    PostsApiClient *client = [PostsApiClient sharedClient];
-    [client setDefaultHeader:@"Authorization"
-                       value:[NSString stringWithFormat:@"Bearer %@", [AuthManager token]]];
+    self.client = [[PostsApiClient new] initWithAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             title, @"title", content, @"content", publish ? @"true" : @"false", @"publish", nil];
     NSLog(@"params: %@", params);
 
-    [client postPath:@"my_posts"
-          parameters:params
-             success:^(AFHTTPRequestOperation *operation, id json) {
+    [_client postPath:@"my_posts"
+           parameters:params
+              success:^(AFHTTPRequestOperation *operation, id json) {
                 NSLog(@"save success: %@", json);
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
 
