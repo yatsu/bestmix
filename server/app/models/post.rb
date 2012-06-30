@@ -1,10 +1,14 @@
 class Post < ActiveRecord::Base
-  attr_accessible :content, :published_at, :title
+  attr_accessible :content, :published_at, :title, :publish
+
+  attr_accessor :publish
 
   belongs_to :user
 
   validates :title, :presence => true, :length => { :minimum => 3, :maximum => 255 }
   validates :content, :length => { :minimum => 0, :maximum => 10000 }
+
+  before_save :set_published_at
 
   scope :published, where("published_at IS NOT NULL").order("published_at DESC")
 
@@ -18,5 +22,15 @@ class Post < ActiveRecord::Base
 
   def published
     published_at != nil
+  end
+
+  private
+
+  def set_published_at
+    if publish == "true" && published_at.nil?
+      self.published_at = Time.now
+    elsif publish != "true" && published_at
+      self.published_at = nil
+    end
   end
 end

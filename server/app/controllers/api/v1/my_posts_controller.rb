@@ -20,17 +20,22 @@ class Api::V1::MyPostsController < Api::ApiController
   end
 
   def create
-    @post = current_user.posts.build(
-      :title => params[:title],
-      :content => params[:content],
-      :published_at => params[:publish] == "true" ? Time.now : nil
-    )
     create! do |success, failure|
       failure.json do
         render_error(:invalid_parameter, "Parameter Error", @post.errors.messages)
       end
       success.json do
-        # redirect_to api__v1_my_post_path(@post)
+        render :action => :show
+      end
+    end
+  end
+
+  def update
+    update! do |success, failure|
+      failure.json do
+        render_error(:invalid_parameter, "Parameter Error", @post.errors.messages)
+      end
+      success.json do
         render :action => :show
       end
     end
