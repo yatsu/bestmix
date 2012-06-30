@@ -182,7 +182,7 @@
                      failure:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json))failure
 {
     NSLog(@"auth with refresh token");
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=refrjesh_token&refresh_token=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=refresh_token&refresh_token=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
                                        AuthBaseURL, refreshToken, ClientID, ClientSecret, RedirectURL]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";

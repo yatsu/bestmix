@@ -2,10 +2,13 @@
 #import "PostsApiClient.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "MBProgressHUD.h"
+#import "AuthManager.h"
 
 @interface EditPostViewController ()
 
 @property (nonatomic) NSIndexPath *selectedIndexPath;
+
+- (void)savePost;
 
 @end
 
@@ -62,47 +65,7 @@
 
 - (IBAction)saveTapped:(id)sender
 {
-    NSString *title = _titleLabel.text;
-    if (!title) title = @"";
-    NSString *content = _contentText.text;
-    if (!content) content = @"";
-
-    BOOL publish = _publishSwitch.isOn;
-    NSLog(@"save - title: %@ content: %@ pub: %d", title, content, publish);
-
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Saving...";
-
-    PostsApiClient *client = [PostsApiClient sharedClient];
-
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-        title, @"title", content, @"content", publish ? @"true" : @"false", @"publish", nil];
-    NSLog(@"params: %@", params);
-
-    [client postPath:@"my_posts"
-          parameters:params
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"save success: %@", responseObject);
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-
-                if (![responseObject isKindOfClass:[NSDictionary class]]) {
-                    [UIAlertView simpleAlertWithTitle:@"Network Error" message:@"Received unexpected response"];
-                    return;
-                }
-                if ([responseObject objectForKey:@"error"]) {
-                    [UIAlertView simpleAlertWithTitle:[responseObject objectForKey:@"error_description"]
-                                    messageDictionary:[responseObject objectForKey:@"messages"]];
-                    return;
-                }
-                [self dismissModalViewControllerAnimated:YES];
-            }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"save error: %@", error);
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-
-                [UIAlertView simpleAlertWithTitle:@"Network Error" message:error.localizedDescription];
-            }
-    ];
+    [self savePost];
 }
 
 #pragma mark EditorViewControllerDelegate
@@ -118,4 +81,66 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
+
+#pragma mark Local Methods
+
+- (void)savePost
+{
+    NSString *title = _titleLabel.text;
+    if (!title) title = @"";
+    NSString *content = _contentText.text;
+    if (!content) content = @"";
+
+    BOOL publish = _publishSwitch.isOn;
+    NSLog(@"save - title: %@ content: %@ pub: %d", title, content, publish);
+
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Saving...";
+
+    PostsApiClient *client = [PostsApiClient sharedClient];
+    [client setDefaultHeader:@"Authorization"
+                       value:[NSString stringWithFormat:@"Bearer %@", [AuthManager token]]];
+
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            title, @"title", content, @"content", publish ? @"true" : @"false", @"publish", nil];
+    NSLog(@"params: %@", params);
+
+    [client postPath:@"my_posts"
+          parameters:params
+             success:^(AFHTTPRequestOperation *operation, id json) {
+                NSLog(@"save success: %@", json);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+                if (![json isKindOfClass:[NSDictionary class]]) {
+                    [UIAlertView simpleAlertWithTitle:@"Network Error"
+                                              message:@"Received unexpected response."];
+                    return;
+                }
+                if ([json objectForKey:@"error"]) {
+                    [UIAlertView simpleAlertWithTitle:[json objectForKey:@"error_description"]
+                                    messageDictionary:[json objectForKey:@"messages"]];
+                    return;
+                }
+                [self dismissModalViewControllerAnimated:YES];
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"save error: %@", error);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+                 if (operation.response.statusCode == 401) {
+                    [AuthManager authWithRefreshToken:[AuthManager refreshToken]
+                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+                       [self savePost];
+
+                    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+                        [UIAlertView simpleAlertWithTitle:@"Authentication Error"
+                                                  message:@"Please login and try again."];
+                    }];
+                } else {
+                    [UIAlertView simpleAlertWithTitle:@"Network Error" message:error.localizedDescription];
+                }
+             }
+     ];
+}
+
 @end
