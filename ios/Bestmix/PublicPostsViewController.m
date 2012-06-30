@@ -10,6 +10,7 @@
 #import "CoreData+MagicalRecord.h"
 #import "PostDetailViewController.h"
 #import "NSDate+LocalTime.h"
+#import "ReachabilityManager.h"
 
 @interface PublicPostsViewController ()
 
@@ -22,6 +23,15 @@
 @synthesize client = _client;
 
 #pragma mark UIViewController
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    if (_currentPage == 1) {
+        [self fetch];
+    }
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -37,9 +47,10 @@
 
 - (void)fetchFromWebApi
 {
+    [super fetchFromWebApi];
     NSLog(@"fetchFromWebApi - currentPage: %d", _currentPage);
 
-    if (!_reachable) {
+    if (![ReachabilityManager reachable]) {
         NSLog(@"unable to fetch");
         return;
     }
@@ -59,7 +70,6 @@
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
-
                 if (_currentPage == 1)
                     [self clearPosts];
 
@@ -105,6 +115,7 @@
 
 - (void)fetchFromCoreData
 {
+    [super fetchFromCoreData];
     NSLog(@"fetchFromCoreData");
 
     _fetchedResultsController = [Post MR_fetchAllGroupedBy:nil
@@ -113,6 +124,7 @@
                                                  ascending:NO];
 
     [_fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
 }
 
 - (void)clearPosts

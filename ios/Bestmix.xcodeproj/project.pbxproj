@@ -38,6 +38,7 @@
 		1CEC7D2C159C768000517548 /* PostDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D2B159C768000517548 /* PostDetailViewController.m */; };
 		1CEC7D75159DD8C700517548 /* AuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D74159DD8C700517548 /* AuthManager.m */; };
 		1CEC7D7F159F398A00517548 /* NSDate+LocalTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D7E159F398A00517548 /* NSDate+LocalTime.m */; };
+		1CEC7D83159F5AB300517548 /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D82159F5AB300517548 /* ReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,8 @@
 		1CEC7D74159DD8C700517548 /* AuthManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthManager.m; sourceTree = "<group>"; };
 		1CEC7D7D159F398A00517548 /* NSDate+LocalTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LocalTime.h"; sourceTree = "<group>"; };
 		1CEC7D7E159F398A00517548 /* NSDate+LocalTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+LocalTime.m"; sourceTree = "<group>"; };
+		1CEC7D81159F5AB300517548 /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityManager.h; sourceTree = "<group>"; };
+		1CEC7D82159F5AB300517548 /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
 		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A8059D94C425B85738933 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -163,6 +166,8 @@
 				1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */,
 				1C842A6E159B47DD009198C8 /* PublicPostsViewController.h */,
 				1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */,
+				1CEC7D81159F5AB300517548 /* ReachabilityManager.h */,
+				1CEC7D82159F5AB300517548 /* ReachabilityManager.m */,
 				1C7ABCC915776BAE00327DEB /* Config.h */,
 				1C7ABC9715775C6700327DEB /* AppDelegate.h */,
 				1C7ABC9815775C6700327DEB /* AppDelegate.m */,
@@ -339,6 +344,7 @@
 				1CEC7D2C159C768000517548 /* PostDetailViewController.m in Sources */,
 				1CEC7D75159DD8C700517548 /* AuthManager.m in Sources */,
 				1CEC7D7F159F398A00517548 /* NSDate+LocalTime.m in Sources */,
+				1CEC7D83159F5AB300517548 /* ReachabilityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@
 #import "PrivatePostsViewController.h"
 #import "CoreData+MagicalRecord.h"
 #import "AuthManager.h"
+#import "ReachabilityManager.h"
 
 @interface AppDelegate ()
 
@@ -44,6 +45,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+    [[ReachabilityManager sharedManager] stopObservation];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -54,6 +57,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any posts that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+    [[ReachabilityManager sharedManager] startObservation];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

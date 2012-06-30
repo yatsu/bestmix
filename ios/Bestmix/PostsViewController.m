@@ -1,10 +1,10 @@
 #import "PostsViewController.h"
-#import "Reachability.h"
 #import "SVPullToRefresh.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
 #import "PostsApiClient.h"
 #import "CoreData+MagicalRecord.h"
+#import "ReachabilityManager.h"
 
 const NSInteger kLoadingCellTag = 9999;
 
@@ -17,7 +17,6 @@ const NSInteger kLoadingCellTag = 9999;
 
 @implementation PostsViewController
 
-@synthesize reachable = _reachable;
 @synthesize currentPage = _currentPage;
 @synthesize totalPages = _totalPages;
 @synthesize totalCount = _totalCount;
@@ -58,26 +57,9 @@ const NSInteger kLoadingCellTag = 9999;
 
     self.clearsSelectionOnViewWillAppear = NO;
 
+    _currentPage = 1;
+
     __block typeof(self) bself = self; // avoid retain cycle
-
-    _reach = [Reachability reachabilityWithHostname:@"www.google.com"];
-    _reach.reachableBlock = ^(Reachability *reach) {
-        dispatch_async(dispatch_get_main_queue(), ^() {
-            bself.reachable = YES;
-            _statusBarOverlay.backgroundColor = [UIColor greenColor];
-            [bself becomeReachable];
-        });
-    };
-    _reach.unreachableBlock = ^(Reachability *reach) {
-        dispatch_async(dispatch_get_main_queue(), ^() {
-            bself.reachable = NO;
-            _statusBarOverlay.backgroundColor = [UIColor redColor];
-            [bself becomeUnreachable];
-        });
-    };
-    [_reach startNotifier];
-
-    [self clearPosts];
 
     [self.tableView addPullToRefreshWithActionHandler:^{
         bself.currentPage = 1;
@@ -95,6 +77,24 @@ const NSInteger kLoadingCellTag = 9999;
     [super viewWillAppear:animated];
 
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+
+    [[ReachabilityManager sharedManager] addObserver:self
+                                          forKeyPath:@"reachable"
+                                             options:NSKeyValueObservingOptionNew
+                                             context:nil];
+
+    if ([[ReachabilityManager sharedManager] reachable])
+        _statusBarOverlay.backgroundColor = [UIColor greenColor];
+    else
+        _statusBarOverlay.backgroundColor = [UIColor redColor];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    [[ReachabilityManager sharedManager] removeObserver:self
+                                             forKeyPath:@"reachable"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -141,13 +141,25 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)becomeReachable
 {
     NSLog(@"reachable");
-    // _currentPage = 1;
+    [self clearPosts];
     [self fetch];
 }
 
 - (void)becomeUnreachable
 {
     NSLog(@"unreachable");
+}
+
+- (void)updateReachable
+{
+    if ([[ReachabilityManager sharedManager] reachable]) {
+        _statusBarOverlay.backgroundColor = [UIColor greenColor];
+        [self becomeReachable];
+
+    } else {
+        _statusBarOverlay.backgroundColor = [UIColor redColor];
+        [self becomeUnreachable];
+    }
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
@@ -162,7 +174,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)fetch
 {
-    if (_reachable)
+    if ([ReachabilityManager reachable])
         [self fetchFromWebApi];
     else
         [self fetchFromCoreData];
@@ -170,16 +182,34 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)fetchFromWebApi
 {
+    if (_currentPage == 1)
+        [self clearPosts];
 }
 
 - (void)fetchFromCoreData
 {
+    [self.tableView.pullToRefreshView stopAnimating];
 }
 
 - (void)clearPosts
 {
     _currentPage = 1;
     _totalPages = 1;
+}
+
+#pragma mark KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"reachable"]) {
+        [self updateReachable];
+
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

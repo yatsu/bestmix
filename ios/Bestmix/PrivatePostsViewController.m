@@ -11,6 +11,7 @@
 #import "EditPostViewController.h"
 #import "AuthManager.h"
 #import "NSDate+LocalTime.h"
+#import "ReachabilityManager.h"
 
 const NSInteger kAlertLogin = 1;
 const NSInteger kAlertLogout = 2;
@@ -42,7 +43,7 @@ const NSInteger kAlertLogout = 2;
     [super viewWillAppear:animated];
 
     if ([AuthManager loggedIn] && _currentPage == 1) {
-        [self clearPosts];
+        // [self clearPosts];
         [self fetch];
     }
 
@@ -88,6 +89,8 @@ const NSInteger kAlertLogout = 2;
 
 - (void)fetchFromWebApi
 {
+    [super fetchFromWebApi];
+
     if ([AuthManager loggedIn]) {
         [self fetchPosts];
 
@@ -99,6 +102,7 @@ const NSInteger kAlertLogout = 2;
 
 - (void)fetchFromCoreData
 {
+    [super fetchFromCoreData];
     NSLog(@"fetchFromCoreData");
 
     if (_fetchedResultsController == nil) {
@@ -109,6 +113,7 @@ const NSInteger kAlertLogout = 2;
     }
 
     [_fetchedResultsController performFetch:nil];
+    [self.tableView reloadData];
 }
 
 - (void)clearPosts
@@ -154,7 +159,8 @@ const NSInteger kAlertLogout = 2;
 
 - (void)fetchPosts
 {
-    if (!_reachable) {
+    NSLog(@"fetchPosts");
+    if (![ReachabilityManager reachable]) {
         NSLog(@"unable to fetch");
         return;
     }
@@ -175,7 +181,6 @@ const NSInteger kAlertLogout = 2;
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
                 NSLog(@"response: %@", response);
-
                 if (_currentPage == 1)
                     [self clearPosts];
 
