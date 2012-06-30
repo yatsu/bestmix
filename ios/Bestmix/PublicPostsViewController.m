@@ -9,6 +9,7 @@
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
 #import "PostDetailViewController.h"
+#import "NSDate+LocalTime.h"
 
 @interface PublicPostsViewController ()
 
@@ -124,7 +125,7 @@
 
     NSError *error = nil;
     [[NSManagedObjectContext MR_defaultContext] save:&error];
-    
+
     [_fetchedResultsController performFetch:nil];
 }
 
@@ -136,20 +137,17 @@
         [[_fetchedResultsController sections] objectAtIndex:0];
     NSInteger count = [sectionInfo numberOfObjects];
     if (indexPath.row < count) {
-        Post *post = [_fetchedResultsController objectAtIndexPath:indexPath];   
+        Post *post = [_fetchedResultsController objectAtIndexPath:indexPath];
 
         cell.textLabel.text = post.title;
         if (post.publishedAt)
             cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
         else
             cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
-
-        NSString *date;
-        date = [NSDateFormatter localizedStringFromDate:post.updatedAt
-                                              dateStyle:NSDateFormatterShortStyle
-                                              timeStyle:NSDateFormatterShortStyle];
-
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
+        cell.detailTextLabel.text =
+            [NSDateFormatter localizedStringFromDate:[post.updatedAt localTime]
+                                           dateStyle:NSDateFormatterShortStyle
+                                           timeStyle:NSDateFormatterShortStyle];
         cell.detailTextLabel.textColor = [UIColor grayColor];
     }
 

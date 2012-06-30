@@ -10,6 +10,7 @@
 #import "CoreData+MagicalRecord.h"
 #import "EditPostViewController.h"
 #import "AuthManager.h"
+#import "NSDate+LocalTime.h"
 
 const NSInteger kAlertLogin = 1;
 const NSInteger kAlertLogout = 2;
@@ -134,13 +135,10 @@ const NSInteger kAlertLogout = 2;
             cell.textLabel.textColor = [UIColor colorWithHex:0x008000];
         else
             cell.textLabel.textColor = [UIColor colorWithHex:0xff0000];
-
-        NSString *date;
-        date = [NSDateFormatter localizedStringFromDate:post.updatedAt
-                                              dateStyle:NSDateFormatterShortStyle
-                                              timeStyle:NSDateFormatterShortStyle];
-
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", date];
+        cell.detailTextLabel.text =
+            [NSDateFormatter localizedStringFromDate:[post.updatedAt localTime]
+                                           dateStyle:NSDateFormatterShortStyle
+                                           timeStyle:NSDateFormatterShortStyle];
         cell.detailTextLabel.textColor = [UIColor grayColor];
     }
 
