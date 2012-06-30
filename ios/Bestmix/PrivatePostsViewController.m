@@ -48,21 +48,33 @@ const NSInteger kAlertLogout = 2;
 {
     [super viewDidAppear:animated];
 
-    [self clearPosts];
-    [self fetch];
-    // if (_currentPage == 1) {
-    //     [self clearPosts];
-    //     [self fetch];
-    // }
+    // [self clearPosts];
+    // [self fetch];
+    if (_currentPage == 1) {
+        [self clearPosts];
+        [self fetch];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UIViewController *controller = [segue destinationViewController];
-    if ([controller isKindOfClass:[EditPostViewController class]]) {
-        EditPostViewController *editPostVC = (EditPostViewController *)controller;
+    EditPostViewController *editPostVC;
+    if ([controller isKindOfClass:[UINavigationController class]]) { // new post
+        editPostVC = (EditPostViewController *)[[(UINavigationController *)controller childViewControllers]
+                                                objectAtIndex:0];
+        editPostVC.postID = 0;
         editPostVC.postTitle = @"";
         editPostVC.content = @"";
+        editPostVC.publish = YES;
+
+    } else if ([controller isKindOfClass:[EditPostViewController class]]) { // edit post
+        editPostVC = (EditPostViewController *)controller;
+        MyPost *post = [_fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        editPostVC.postID = [post.myPostID integerValue];
+        editPostVC.postTitle = post.title;
+        editPostVC.content = post.content;
+        editPostVC.publish = post.published;
     }
 }
 

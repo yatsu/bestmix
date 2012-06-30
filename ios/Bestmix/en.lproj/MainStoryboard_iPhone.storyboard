@@ -221,11 +221,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1N-nU-MgI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="zkE-oF-hQ9" customClass="EditorViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LT4-MV-6S0" customClass="TPKeyboardAvoidingScrollView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="pD7-6n-KL1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -278,7 +278,7 @@
             </objects>
             <point key="canvasLocation" x="561" y="558"/>
         </scene>
-        <!--Private Posts View Controller - Private Posts-->
+        <!--Private Posts View Controller - My Posts-->
         <scene sceneID="dtK-ER-66p">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tOb-Yh-10o" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -338,7 +338,7 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="My Posts" image="second" id="b9h-bA-2mY"/>
-                    <navigationItem key="navigationItem" title="Private Posts" id="kjU-dd-rh2">
+                    <navigationItem key="navigationItem" title="My Posts" id="kjU-dd-rh2">
                         <barButtonItem key="leftBarButtonItem" title="Login" id="HDN-81-qdJ">
                             <connections>
                                 <action selector="loginTapped:" destination="FG6-tS-TCS" id="vZX-6y-hdH"/>
@@ -507,6 +507,9 @@
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="deleteTapped:" destination="g04-Yn-vv8" eventType="touchUpInside" id="lb6-iT-C6w"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -612,6 +615,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentText" destination="7oM-V6-t17" id="PBO-Du-Sqf"/>
+                        <outlet property="publishSwitch" destination="v53-wk-rSk" id="Rzm-gJ-1c3"/>
                         <outlet property="titleLabel" destination="PcF-zj-PX7" id="ayf-DU-Avw"/>
                     </connections>
                 </tableViewController>
@@ -628,6 +632,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/EditPostViewController.h"/>
             <relationships>
                 <relationship kind="action" name="cancelTapped:"/>
+                <relationship kind="action" name="deleteTapped:"/>
                 <relationship kind="action" name="saveTapped:"/>
                 <relationship kind="outlet" name="contentText" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="publishSwitch" candidateClass="UISwitch"/>
@@ -672,6 +677,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rQp-Rd-9pP"/>
+        <segue reference="0ZM-L0-KWI"/>
     </inferredMetricsTieBreakers>
 </document>

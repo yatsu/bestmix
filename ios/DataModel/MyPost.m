@@ -2,6 +2,9 @@
 
 @implementation MyPost
 
-// Custom logic goes here.
+- (BOOL)published
+{
+    return self.publishedAt != nil;
+}
 
 @end
