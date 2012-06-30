@@ -5,6 +5,7 @@
 #import "AFNetworking.h"
 #import "PrivatePostsViewController.h"
 #import "CoreData+MagicalRecord.h"
+#import "AuthManager.h"
 
 @interface AppDelegate ()
 
@@ -69,16 +70,9 @@
     NSInteger index = [[NSString stringWithFormat:@"%@?code=", RedirectURL] length];
     NSString *code = [[url absoluteString] substringFromIndex:index];
     NSLog(@"code: %@", code);
-    [[self privatePostsViewController] authWithCode:code];
+    [AuthManager authWithCode:code success:nil failure:nil];
 
     return YES;
-}
-
-- (PrivatePostsViewController *)privatePostsViewController
-{
-    UITabBarController *tbc = (UITabBarController *)self.window.rootViewController;
-    UINavigationController *nc = [tbc.viewControllers objectAtIndex:tbc.viewControllers.count - 1];
-    return [nc.viewControllers objectAtIndex:0];
 }
 
 @end

@@ -8,13 +8,19 @@
 
 @implementation AuthManager
 
+@synthesize loggedIn = _loggedIn;
+
 #pragma mark Class Methods
 
 + (AuthManager *)sharedAuthManager
 {
     static AuthManager *manager;
     static dispatch_once_t done;
-    dispatch_once(&done, ^{ manager = [AuthManager new]; });
+    dispatch_once(&done, ^{
+        manager = [AuthManager new];
+        if (manager.token)
+            manager.loggedIn = YES;
+    });
     return manager;
 }
 
@@ -131,11 +137,6 @@
 
 #pragma mark Public Methods
 
-- (BOOL)loggedIn
-{
-    return [self token] != nil;
-}
-
 - (void)openLoginURL
 {
     NSString *path = [NSString stringWithFormat:@"%@oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@",
@@ -150,6 +151,7 @@
     NSLog(@"logout");
     self.token = nil;
     self.refreshToken = nil;
+    self.loggedIn = NO;
 }
 
 - (void)authWithCode:(NSString *)code
@@ -165,6 +167,7 @@
         // {"access_token":"...","refresh_token":"...","token_type":"bearer","expires_in":7200}
         self.token = [json objectForKey:@"access_token"];
         self.refreshToken = [json objectForKey:@"refresh_token"];
+        self.loggedIn = YES;
         // NSLog(@"logged in - token: %@ refreshToken: %@", self.token, self.refreshToken);
         NSLog(@"logged in");
         if (success) success(request, response, json);
@@ -190,6 +193,7 @@
         // {"access_token":"...","refresh_token":"...","token_type":"bearer","expires_in":7200}
         self.token = [json objectForKey:@"access_token"];
         self.refreshToken = [json objectForKey:@"refresh_token"];
+        self.loggedIn = YES;
         // NSLog(@"logged in - token: %@ refreshToken: %@", self.token, self.refreshToken);
         NSLog(@"logged in");
         if (success) success(request, response, json);

@@ -124,7 +124,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             title, @"post[title]", content, @"post[content]",
                             publish ? @"true" : @"false", @"post[publish]", nil];
-    NSLog(@"params: %@", params);
+    // NSLog(@"params: %@", params);
 
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id json) {
         NSLog(@"save success: %@", json);

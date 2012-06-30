@@ -45,16 +45,29 @@ const NSInteger kAlertLogout = 2;
     [self updateButtons];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     // [self clearPosts];
     // [self fetch];
-    if (_currentPage == 1) {
+    if ([AuthManager loggedIn] && _currentPage == 1) {
         [self clearPosts];
         [self fetch];
     }
+
+    [[AuthManager sharedAuthManager] addObserver:self
+                                      forKeyPath:@"loggedIn"
+                                         options:NSKeyValueObservingOptionNew
+                                         context:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    [[AuthManager sharedAuthManager] removeObserver:self
+                                         forKeyPath:@"loggedIn"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -252,23 +265,9 @@ const NSInteger kAlertLogout = 2;
 
 - (void)logout
 {
-    [AuthManager logout];
     [self updateButtons];
     [self clearPosts];
     [self.tableView reloadData];
-}
-
-- (void)authWithCode:(NSString *)code
-{
-    [AuthManager authWithCode:code
-                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-        [self updateButtons];
-        [self fetchPosts];
-
-     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-        [self logout];
-     }
-    ];
 }
 
 - (void)refreshTokenAndFetchPosts
@@ -279,8 +278,8 @@ const NSInteger kAlertLogout = 2;
         [self fetchPosts];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-        [self logout];
-        [self fetch];
+        [AuthManager logout];
+        // [self fetch];
     }];
 }
 
@@ -305,7 +304,7 @@ const NSInteger kAlertLogout = 2;
             [AuthManager openLoginURL];
     } else {
         if (buttonIndex == 1)
-            [self logout];
+            [AuthManager logout];
     }
 }
 
@@ -317,6 +316,26 @@ const NSInteger kAlertLogout = 2;
         [self logoutConfirm];
     else
         [self login];
+}
+
+#pragma mark KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([object isKindOfClass:[AuthManager class]]) {
+        [self updateButtons];
+        
+        if ([AuthManager loggedIn]) {
+            [self fetchPosts];
+
+        } else {
+            [self logout];
+            [self fetch];
+        }
+    }
 }
 
 @end

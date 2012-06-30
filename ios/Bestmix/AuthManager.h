@@ -2,8 +2,9 @@
 
 @interface AuthManager : NSObject
 
-@property (nonatomic) NSString *token;
-@property (nonatomic) NSString *refreshToken;
+@property (strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSString *refreshToken;
+@property (assign, nonatomic) BOOL loggedIn;
 
 + (AuthManager *)sharedAuthManager;
 
@@ -25,7 +26,6 @@
                      success:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, id json))success
                      failure:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json))failure;
 
-- (BOOL)loggedIn;
 - (void)openLoginURL;
 - (void)logout;
 
