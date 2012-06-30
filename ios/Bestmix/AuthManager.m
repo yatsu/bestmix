@@ -2,6 +2,10 @@
 #import "Config.h"
 #import "AFNetworking.h"
 
+#ifndef STORE_TOKEN_IN_USER_DEFAULTS
+#import "SSKeychain.h"
+#endif
+
 @implementation AuthManager
 
 #pragma mark Class Methods
@@ -14,30 +18,105 @@
     return manager;
 }
 
++ (NSString *)token
+{
+    return [[AuthManager sharedAuthManager] token];
+}
+
++ (void)setToken:(NSString *)token
+{
+    [[AuthManager sharedAuthManager] setToken:token];
+}
+
++ (NSString *)refreshToken
+{
+    return [[AuthManager sharedAuthManager] refreshToken];
+}
+
++ (void)setRefreshToken:(NSString *)refreshToken
+{
+    [[AuthManager sharedAuthManager] setRefreshToken:refreshToken];
+}
+
++ (BOOL)loggedIn
+{
+    return [[AuthManager sharedAuthManager] loggedIn];
+}
+
++ (void)openLoginURL
+{
+    [[AuthManager sharedAuthManager] openLoginURL];
+}
+
++ (void)logout
+{
+    [[AuthManager sharedAuthManager] logout];
+}
+
++ (void)authWithCode:(NSString *)code
+             success:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, id json))success
+             failure:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json))failure
+{
+    [[AuthManager sharedAuthManager] authWithCode:code
+                                          success:success
+                                          failure:failure];
+}
+
++ (void)authWithRefreshToken:(NSString *)refreshToken
+                     success:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, id json))success
+                     failure:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json))failure;
+{
+    [[AuthManager sharedAuthManager] authWithRefreshToken:refreshToken
+                                                  success:success
+                                                  failure:failure];
+}
+
 #pragma mark Accessors
 
 - (NSString *)token
 {
+#ifdef STORE_TOKEN_IN_USER_DEFAULTS
     return [[NSUserDefaults standardUserDefaults] valueForKey:@"token"];
+#else
+    return [SSKeychain passwordForService:[[NSBundle mainBundle] bundleIdentifier]
+                                  account:@"token"];
+#endif
 }
 
 - (void)setToken:(NSString *)token
 {
+#ifdef STORE_TOKEN_IN_USER_DEFAULTS
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:token forKey:@"token"];
     [defaults synchronize];
+#else
+    [SSKeychain setPassword:token
+                 forService:[[NSBundle mainBundle] bundleIdentifier]
+                    account:@"token"];
+#endif
 }
 
 - (NSString *)refreshToken
 {
+#ifdef STORE_TOKEN_IN_USER_DEFAULTS
     return [[NSUserDefaults standardUserDefaults] valueForKey:@"refreshToken"];
+#else
+    return [SSKeychain passwordForService:[[NSBundle mainBundle] bundleIdentifier]
+                                  account:@"refreshToken"];
+#endif
 }
 
 - (void)setRefreshToken:(NSString *)refreshToken
 {
+#ifdef STORE_TOKEN_IN_USER_DEFAULTS
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:refreshToken forKey:@"refreshToken"];
     [defaults synchronize];
+#else
+    [SSKeychain setPassword:refreshToken
+                 forService:[[NSBundle mainBundle] bundleIdentifier]
+                    account:@"refreshToken"];
+#endif
 }
 
 #pragma mark Public Methods
@@ -87,13 +166,13 @@
     [operation start];
 }
 
-- (void)authWithRefreshToken:(NSString *)token
+- (void)authWithRefreshToken:(NSString *)refreshToken
                      success:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, id json))success
                      failure:(void(^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json))failure
 {
     NSLog(@"auth with refresh token");
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=refresh_token&refresh_token=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
-                                       AuthBaseURL, self.refreshToken, ClientID, ClientSecret, RedirectURL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@oauth/token?grant_type=refrjesh_token&refresh_token=%@&client_id=%@&client_secret=%@&redirect_uri=%@",
+                                       AuthBaseURL, refreshToken, ClientID, ClientSecret, RedirectURL]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod = @"POST";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {

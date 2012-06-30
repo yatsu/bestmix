@@ -63,7 +63,7 @@ const NSInteger kAlertLogout = 2;
 
 - (void)fetchFromWebApi
 {
-    if ([[AuthManager sharedAuthManager] loggedIn]) {
+    if ([AuthManager loggedIn]) {
         [self fetchPosts];
 
     } else {
@@ -144,7 +144,7 @@ const NSInteger kAlertLogout = 2;
 
     PostsApiClient *client = [PostsApiClient sharedClient];
     [client setDefaultHeader:@"Authorization"
-                       value:[NSString stringWithFormat:@"Bearer %@", [[AuthManager sharedAuthManager] token]]];
+                       value:[NSString stringWithFormat:@"Bearer %@", [AuthManager token]]];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
@@ -230,12 +230,12 @@ const NSInteger kAlertLogout = 2;
 
 - (void)login
 {
-    [[AuthManager sharedAuthManager] openLoginURL];
+    [AuthManager openLoginURL];
 }
 
 - (void)logout
 {
-    [[AuthManager sharedAuthManager] logout];
+    [AuthManager logout];
     [self updateButtons];
     [self clearPosts];
     [self.tableView reloadData];
@@ -243,9 +243,8 @@ const NSInteger kAlertLogout = 2;
 
 - (void)authWithCode:(NSString *)code
 {
-    [[AuthManager sharedAuthManager]
-     authWithCode:code
-     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+    [AuthManager authWithCode:code
+                      success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
         [self updateButtons];
         [self fetchPosts];
 
@@ -257,9 +256,8 @@ const NSInteger kAlertLogout = 2;
 
 - (void)refreshTokenAndFetchPosts
 {
-    [[AuthManager sharedAuthManager]
-     authWithRefreshToken:[[AuthManager sharedAuthManager] refreshToken]
-     success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+    [AuthManager authWithRefreshToken:[AuthManager refreshToken]
+                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
         [self updateButtons];
         [self fetchPosts];
 
@@ -271,7 +269,7 @@ const NSInteger kAlertLogout = 2;
 
 - (void)updateButtons
 {
-    if ([[AuthManager sharedAuthManager] loggedIn]) {
+    if ([AuthManager loggedIn]) {
         _loginButton.title = @"Logout";
         _addButton.enabled = YES;
 
@@ -287,7 +285,7 @@ const NSInteger kAlertLogout = 2;
 {
     if (alertView.tag == kAlertLogin) {
         if (buttonIndex == 1)
-            [[AuthManager sharedAuthManager] openLoginURL];
+            [AuthManager openLoginURL];
     } else {
         if (buttonIndex == 1)
             [self logout];
@@ -298,7 +296,7 @@ const NSInteger kAlertLogout = 2;
 
 - (IBAction)loginTapped:(id)sender
 {
-    if ([[AuthManager sharedAuthManager] loggedIn])
+    if ([AuthManager loggedIn])
         [self logoutConfirm];
     else
         [self login];
