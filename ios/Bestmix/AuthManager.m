@@ -90,9 +90,14 @@
     [defaults setValue:token forKey:@"token"];
     [defaults synchronize];
 #else
-    [SSKeychain setPassword:token
-                 forService:[[NSBundle mainBundle] bundleIdentifier]
-                    account:@"token"];
+    if (token == nil) {
+        [SSKeychain deletePasswordForService:[[NSBundle mainBundle] bundleIdentifier]
+                                     account:@"token"];
+    } else {
+        [SSKeychain setPassword:token
+                     forService:[[NSBundle mainBundle] bundleIdentifier]
+                        account:@"token"];
+    }
 #endif
 }
 
@@ -113,9 +118,14 @@
     [defaults setValue:refreshToken forKey:@"refreshToken"];
     [defaults synchronize];
 #else
-    [SSKeychain setPassword:refreshToken
-                 forService:[[NSBundle mainBundle] bundleIdentifier]
-                    account:@"refreshToken"];
+    if (refreshToken == nil) {
+        [SSKeychain deletePasswordForService:[[NSBundle mainBundle] bundleIdentifier]
+                                     account:@"refreshToken"];
+    } else {
+        [SSKeychain setPassword:refreshToken
+                     forService:[[NSBundle mainBundle] bundleIdentifier]
+                        account:@"refreshToken"];
+    }
 #endif
 }
 
@@ -139,6 +149,7 @@
 {
     NSLog(@"logout");
     self.token = nil;
+    self.refreshToken = nil;
 }
 
 - (void)authWithCode:(NSString *)code

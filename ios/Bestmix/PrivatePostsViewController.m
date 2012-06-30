@@ -45,8 +45,12 @@ const NSInteger kAlertLogout = 2;
 {
     [super viewDidAppear:animated];
 
-    if (_currentPage == 1)
-        [self fetch];
+    [self clearPosts];
+    [self fetch];
+    // if (_currentPage == 1) {
+    //     [self clearPosts];
+    //     [self fetch];
+    // }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

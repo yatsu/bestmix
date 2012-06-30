@@ -42,10 +42,14 @@
     if ([controller isKindOfClass:[EditorViewController class]]) {
         EditorViewController *editorVC = (EditorViewController *)controller;
         editorVC.delegate = self;
-        if (_selectedIndexPath.row == 0)
+        if (_selectedIndexPath.row == 0) {
+            editorVC.title = @"Title";
             editorVC.text = _titleLabel.text;
-        else if (_selectedIndexPath.row == 1)
+
+        } else if (_selectedIndexPath.row == 1) {
+            editorVC.title = @"Content";
             editorVC.text = _contentText.text;
+        }
     }
 }
 
@@ -59,9 +63,12 @@
 - (IBAction)saveTapped:(id)sender
 {
     NSString *title = _titleLabel.text;
+    if (!title) title = @"";
     NSString *content = _contentText.text;
-    NSNumber *pub = [NSNumber numberWithBool:_publishSwitch.isOn];
-    NSLog(@"save - title: %@ content: %@ pub: %@", title, content, pub);
+    if (!content) content = @"";
+
+    BOOL publish = _publishSwitch.isOn;
+    NSLog(@"save - title: %@ content: %@ pub: %d", title, content, publish);
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Saving...";
@@ -69,7 +76,8 @@
     PostsApiClient *client = [PostsApiClient sharedClient];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-        title, @"title", content, @"content", pub, @"publish", nil];
+        title, @"title", content, @"content", publish ? @"true" : @"false", @"publish", nil];
+    NSLog(@"params: %@", params);
 
     [client postPath:@"my_posts"
           parameters:params
