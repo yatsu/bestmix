@@ -3,6 +3,6 @@
 @interface PostsApiClient : AFHTTPClient
 
 - (id)init;
-- (id)initWithAuthToken;
+- (void)setAuthToken;
 
 @end

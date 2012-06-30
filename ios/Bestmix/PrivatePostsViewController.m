@@ -149,7 +149,9 @@ const NSInteger kAlertLogout = 2;
         hud.labelText = @"Loading...";
     }
 
-    self.client = [[PostsApiClient new] initWithAuthToken];
+    if (!_client)
+        self.client = [[PostsApiClient new] init];
+    [_client setAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];

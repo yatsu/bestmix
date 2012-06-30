@@ -15,16 +15,10 @@
     return self;
 }
 
-- (id)initWithAuthToken
+- (void)setAuthToken
 {
-    self = [super initWithBaseURL:[NSURL URLWithString:WebApiUrl]];
-    if (self) {
-        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        [self setDefaultHeader:@"Authorization"
-                         value:[NSString stringWithFormat:@"Bearer %@", [AuthManager token]]];
-    }
-
-    return self;
+    [self setDefaultHeader:@"Authorization"
+                     value:[NSString stringWithFormat:@"Bearer %@", [AuthManager token]]];
 }
 
 - (void)dealloc

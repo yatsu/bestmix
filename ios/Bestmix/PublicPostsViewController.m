@@ -48,7 +48,8 @@
         hud.labelText = @"Loading...";
     }
 
-    self.client = [[PostsApiClient new] init];
+    if (!_client)
+        self.client = [[PostsApiClient new] init];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];

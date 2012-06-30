@@ -100,7 +100,9 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Saving...";
 
-    self.client = [[PostsApiClient new] initWithAuthToken];
+    if (!_client)
+        self.client = [[PostsApiClient new] init];
+    [_client setAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             title, @"title", content, @"content", publish ? @"true" : @"false", @"publish", nil];
