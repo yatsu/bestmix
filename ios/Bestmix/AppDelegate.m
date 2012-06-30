@@ -9,8 +9,6 @@
 
 @interface AppDelegate ()
 
-- (PrivatePostsViewController *)privatePostsViewController;
-
 @end
 
 @implementation AppDelegate

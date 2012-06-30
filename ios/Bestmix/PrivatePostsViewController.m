@@ -24,7 +24,6 @@ const NSInteger kAlertLogout = 2;
 - (void)logoutConfirm;
 - (void)login;
 - (void)logout;
-- (void)authWithCode:(NSString *)code;
 - (void)refreshTokenAndFetchPosts;
 - (void)updateButtons;
 
@@ -38,23 +37,16 @@ const NSInteger kAlertLogout = 2;
 
 #pragma mark UIViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    [self updateButtons];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    // [self clearPosts];
-    // [self fetch];
     if ([AuthManager loggedIn] && _currentPage == 1) {
         [self clearPosts];
         [self fetch];
     }
+
+    [self updateButtons];
 
     [[AuthManager sharedAuthManager] addObserver:self
                                       forKeyPath:@"loggedIn"
@@ -275,7 +267,7 @@ const NSInteger kAlertLogout = 2;
     [AuthManager authWithRefreshToken:[AuthManager refreshToken]
                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
         [self updateButtons];
-        [self fetchPosts];
+        [self fetch];
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
         [AuthManager logout];
@@ -325,16 +317,15 @@ const NSInteger kAlertLogout = 2;
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    if ([object isKindOfClass:[AuthManager class]]) {
+    if ([keyPath isEqualToString:@"loggedIn"]) {
         [self updateButtons];
-        
-        if ([AuthManager loggedIn]) {
-            [self fetchPosts];
 
-        } else {
+        if (![AuthManager loggedIn])
             [self logout];
-            [self fetch];
-        }
+        [self fetch];
+
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
