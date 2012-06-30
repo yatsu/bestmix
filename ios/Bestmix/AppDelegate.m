@@ -18,16 +18,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*
-    NSManagedObjectContext *context = [[BestmixDataModel sharedDataModel] mainContext];
-    if (context) {
-        NSLog(@"context: %@", context);
-        Post *post = [Post insertInManagedObjectContext:context];
-        post.name = @"test a";
-        NSLog(@"post: %@", post);
-        [context save:nil];
-    }
-    */
     [application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Bestmix.sqlite"];
@@ -69,10 +59,10 @@
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    NSLog(@"handle URL: %@", url);
+    // NSLog(@"handle URL: %@", url);
     NSInteger index = [[NSString stringWithFormat:@"%@?code=", RedirectURL] length];
     NSString *code = [[url absoluteString] substringFromIndex:index];
-    NSLog(@"code: %@", code);
+    // NSLog(@"code: %@", code);
     [AuthManager authWithCode:code success:nil failure:nil];
 
     return YES;

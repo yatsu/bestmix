@@ -21,24 +21,6 @@ const NSInteger kLoadingCellTag = 9999;
 @synthesize totalPages = _totalPages;
 @synthesize totalCount = _totalCount;
 
-#pragma mark Accessors
-
-- (NSPredicate *)fetchPredicate
-{
-    return nil;
-}
-
-#pragma mark NSObject
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 #pragma mark UIViewController
 
 - (void)loadView
