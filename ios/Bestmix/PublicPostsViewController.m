@@ -58,8 +58,10 @@
     }
 
     if ([self.tableView numberOfRowsInSection:0] == 0) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Loading...";
+        if (![MBProgressHUD HUDForView:self.view]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Loading...";
+        }
     }
 
     if (!_client)
@@ -92,10 +94,10 @@
                         for (NSDictionary *dict in elem) {
                             [Post MR_importFromObject:dict inContext:context];
                         }
+                        [context MR_saveNestedContexts]; // save them to SQLite (issue 187)
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts]; // why is this required to store data in SQLite?
                             NSLog(@"core data saved");
                             [MBProgressHUD hideHUDForView:self.view animated:YES];
                             [self.tableView.pullToRefreshView stopAnimating];
