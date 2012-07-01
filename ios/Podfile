@@ -1,7 +1,17 @@
 platform :ios
 
 dependency 'AFNetworking', '~> 1.0RC1'
-dependency 'SDURLCache', '~> 1.2'
+#dependency 'SDURLCache', '~> 1.2'
+dependency do |s|
+  s.name     = 'SDURLCache'
+  s.version  = '1.2a'
+  s.platform = :ios
+  s.summary  = 'URLCache subclass with on-disk cache support on iPhone/iPad.'
+  s.homepage = 'https://github.com/rs/SDURLCache'
+  s.author   = { 'Olivier Poitrey' => 'rs@dailymotion.com' }
+  s.source   = { :git => 'https://github.com/rs/SDURLCache.git', :commit => '0a8d76fc8cd2c9e01817bbcab3af37c41895cf70' }
+  s.source_files = 'SDURLCache.h', 'SDURLCache.m', 'SDCachedURLResponse.h', 'SDCachedURLResponse.m'
+end
 dependency 'JSONKit', '~> 1.4'
 dependency 'MBProgressHUD', '~> 0.5'
 dependency 'TestFlightSDK', '~> 1.0'

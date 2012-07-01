@@ -42,10 +42,11 @@ const NSInteger kAlertLogout = 2;
 {
     [super viewWillAppear:animated];
 
-    if ([AuthManager loggedIn] && _currentPage == 1) {
-        // [self clearPosts];
-        [self fetch];
-    }
+    // if ([AuthManager loggedIn] && _currentPage == 1) {
+    //     [self fetch];
+    // }
+    _currentPage = 1;
+    [self fetch];
 
     [self updateButtons];
 
@@ -171,7 +172,7 @@ const NSInteger kAlertLogout = 2;
     }
 
     if (!_client)
-        self.client = [[PostsApiClient new] init];
+        self.client = [PostsApiClient new];
     [_client setAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -180,7 +181,9 @@ const NSInteger kAlertLogout = 2;
     [_client getPath:@"my_posts"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                NSLog(@"response: %@", response);
+                 NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
+                 NSLog(@"response headers: %@", operation.response.allHeaderFields);
+                // NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];
 

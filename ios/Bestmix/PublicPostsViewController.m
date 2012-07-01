@@ -28,9 +28,11 @@
 {
     [super viewWillAppear:animated];
 
-    if (_currentPage == 1) {
-        [self fetch];
-    }
+    // if (_currentPage == 1) {
+    //     [self fetch];
+    // }
+    _currentPage = 1;
+    [self fetch];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -61,7 +63,7 @@
     }
 
     if (!_client)
-        self.client = [[PostsApiClient new] init];
+        self.client = [PostsApiClient new];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];
@@ -69,7 +71,9 @@
     [_client getPath:@"posts"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                NSLog(@"response: %@", response);
+                NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
+                NSLog(@"response headers: %@", operation.response.allHeaderFields);
+                // NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];
 

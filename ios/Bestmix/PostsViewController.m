@@ -90,7 +90,6 @@ const NSInteger kLoadingCellTag = 9999;
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
     NSInteger count = [sectionInfo numberOfObjects];
-    NSLog(@"currentPage: %d totalPages: %d count: %d", _currentPage, _totalPages, count);
     if (count == 0)
         return 0;
 

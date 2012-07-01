@@ -118,7 +118,7 @@
     hud.labelText = @"Saving...";
 
     if (!_client)
-        self.client = [[PostsApiClient new] init];
+        self.client = [PostsApiClient new];
     [_client setAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -182,7 +182,7 @@
 - (void)deletePost
 {
     if (!_client)
-        self.client = [[PostsApiClient new] init];
+        self.client = [PostsApiClient new];
     [_client setAuthToken];
 
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id json) {
