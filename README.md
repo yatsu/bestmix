@@ -27,6 +27,7 @@ See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) for m
 * [CocoaPods](http://cocoapods.org/ ) - Library Management
 * [AFNetworking](https://github.com/AFNetworking/AFNetworking ) - Networking Framework
 * [Reachability](https://github.com/tonymillion/Reachability ) - Network Reachability
+* [SDURLCache](https://github.com/rs/SDURLCache ) - HTTP Caching
 * [MagicalRecord](https://github.com/magicalpanda/MagicalRecord ) - Active Record for Core Data
 * [mogenerator](https://github.com/rentzsch/mogenerator ) - Core Data Code Generation
 
@@ -66,6 +67,7 @@ Future Plan
 * Image Uploading
 * Push Notification
 * Twitter/Facebook Integration
+* Testing …currently there is no testing code :(
 
 Contributing to Bestmix
 -----------------------

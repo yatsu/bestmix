@@ -295,7 +295,7 @@ const NSInteger kAlertLogout = 2;
     }
 }
 
-#pragma mark UIALertView
+#pragma mark UIALertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

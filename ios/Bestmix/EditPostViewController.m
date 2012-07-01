@@ -4,12 +4,13 @@
 #import "MBProgressHUD.h"
 #import "AuthManager.h"
 
-@interface EditPostViewController ()
+@interface EditPostViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 @property (strong, nonatomic) PostsApiClient *client;
 
 - (void)savePost;
+- (void)deleteConfirm;
 - (void)deletePost;
 
 @end
@@ -68,7 +69,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1)
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark UI Actions
@@ -85,7 +86,7 @@
 
 - (IBAction)deleteTapped:(id)sender
 {
-    [self deletePost];
+    [self deleteConfirm];
 }
 
 #pragma mark EditorViewControllerDelegate
@@ -179,6 +180,16 @@
     }
 }
 
+- (void)deleteConfirm
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete Post"
+                                                    message:@"Are you sure to delete this post?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Delete", nil];
+    [alert show];
+}
+
 - (void)deletePost
 {
     if (!_client)
@@ -199,7 +210,10 @@
                             messageDictionary:[json objectForKey:@"messages"]];
             return;
         }
-        [self dismissModalViewControllerAnimated:YES];
+        if (_postID > 0)
+            [self.navigationController popViewControllerAnimated:YES];
+        else
+            [self dismissModalViewControllerAnimated:YES];
     };
 
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -224,6 +238,14 @@
              parameters:nil
                 success:success
                 failure:failure];
+}
+
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [self deletePost];
 }
 
 @end
