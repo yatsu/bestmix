@@ -87,14 +87,11 @@
 
                 elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
-                    // [Post MR_importFromArray:elem];
-                    // [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    // [self.tableView.pullToRefreshView stopAnimating];
-                    // [self fetchFromCoreData];
-                    // [self.tableView reloadData];
-
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
-                        [Post MR_importFromArray:elem inContext:context];
+                        // [Post MR_importFromArray:elem inContext:context]; // crash (issue 180)
+                        for (NSDictionary *dict in elem) {
+                            [Post MR_importFromObject:dict inContext:context];
+                        }
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{

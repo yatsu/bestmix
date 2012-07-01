@@ -13,6 +13,7 @@ const struct MyPostAttributes MyPostAttributes = {
 };
 
 const struct MyPostRelationships MyPostRelationships = {
+	.user = @"user",
 };
 
 const struct MyPostFetchedProperties MyPostFetchedProperties = {
@@ -73,22 +74,22 @@ const struct MyPostFetchedProperties MyPostFetchedProperties = {
 
 
 
-- (int32_t)myPostIDValue {
+- (int64_t)myPostIDValue {
 	NSNumber *result = [self myPostID];
-	return [result intValue];
+	return [result longLongValue];
 }
 
-- (void)setMyPostIDValue:(int32_t)value_ {
-	[self setMyPostID:[NSNumber numberWithInt:value_]];
+- (void)setMyPostIDValue:(int64_t)value_ {
+	[self setMyPostID:[NSNumber numberWithLongLong:value_]];
 }
 
-- (int32_t)primitiveMyPostIDValue {
+- (int64_t)primitiveMyPostIDValue {
 	NSNumber *result = [self primitiveMyPostID];
-	return [result intValue];
+	return [result longLongValue];
 }
 
-- (void)setPrimitiveMyPostIDValue:(int32_t)value_ {
-	[self setPrimitiveMyPostID:[NSNumber numberWithInt:value_]];
+- (void)setPrimitiveMyPostIDValue:(int64_t)value_ {
+	[self setPrimitiveMyPostID:[NSNumber numberWithLongLong:value_]];
 }
 
 
@@ -115,6 +116,10 @@ const struct MyPostFetchedProperties MyPostFetchedProperties = {
 
 
 
+
+@dynamic user;
+
+	
 
 
 

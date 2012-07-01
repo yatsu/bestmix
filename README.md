@@ -41,15 +41,15 @@ Setup
 1. Install [Ruby on Rails](http://rubyonrails.org/ ) and [RVM](https://rvm.io/ ) if you don't have them.
 2. Copy server/config/database.yml.example to server/config/database.yml and modify it.
 3. Copy server/config/initializers/devise.rb.example to server/config/initializers/devise.rb and modify it (See [Devise](https://github.com/plataformatec/devise ) for details).
-4. cd server; rails db:setup
-5. rails s (or you can setup your web server like Apache, nginx, etc.)
+4. `cd server; rails db:setup`
+5. `rails s` # (or setup your web server such as Apache, nginx, etc.)
 
 ### iOS App
 
-1. Install [mogenerator](https://github.com/rentzsch/mogenerator ) and make it executable from Xcode (e.g. ln -s /opt/brew/bin/mogenerator /usr/bin/mogenerator)
+1. Install [mogenerator](https://github.com/rentzsch/mogenerator ) and make it executable from Xcode (e.g. `ln -s /opt/brew/bin/mogenerator /usr/bin/mogenerator`)
 2. Install [CocoaPods](http://cocoapods.org/ )
 3. Copy ios/Bestmix/Config.h.example to ios/Bestmix/Config.h and modify it.
-4. cd ios; pod install Bestmix.xcodeproj
+4. `cd ios; pod install Bestmix.xcodeproj`
 5. Open Bestmix.xcworkspace and build the app
 
 License

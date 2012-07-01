@@ -39,6 +39,8 @@
 		1CEC7D75159DD8C700517548 /* AuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D74159DD8C700517548 /* AuthManager.m */; };
 		1CEC7D7F159F398A00517548 /* NSDate+LocalTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D7E159F398A00517548 /* NSDate+LocalTime.m */; };
 		1CEC7D83159F5AB300517548 /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7D82159F5AB300517548 /* ReachabilityManager.m */; };
+		1CEC7DA415A04DA700517548 /* _User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7DA115A04DA700517548 /* _User.m */; };
+		1CEC7DA515A04DA700517548 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC7DA315A04DA700517548 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +97,10 @@
 		1CEC7D7E159F398A00517548 /* NSDate+LocalTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+LocalTime.m"; sourceTree = "<group>"; };
 		1CEC7D81159F5AB300517548 /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityManager.h; sourceTree = "<group>"; };
 		1CEC7D82159F5AB300517548 /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
+		1CEC7DA015A04DA700517548 /* _User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _User.h; sourceTree = "<group>"; };
+		1CEC7DA115A04DA700517548 /* _User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _User.m; sourceTree = "<group>"; };
+		1CEC7DA215A04DA700517548 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		1CEC7DA315A04DA700517548 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		828B90085EA242E88A9E748D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4A8059D94C425B85738933 /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -219,6 +225,10 @@
 				1C842A60159B4729009198C8 /* _Post.m */,
 				1C842A61159B4729009198C8 /* Post.h */,
 				1C842A62159B4729009198C8 /* Post.m */,
+				1CEC7DA015A04DA700517548 /* _User.h */,
+				1CEC7DA115A04DA700517548 /* _User.m */,
+				1CEC7DA215A04DA700517548 /* User.h */,
+				1CEC7DA315A04DA700517548 /* User.m */,
 				1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */,
 			);
 			path = DataModel;
@@ -345,6 +355,8 @@
 				1CEC7D75159DD8C700517548 /* AuthManager.m in Sources */,
 				1CEC7D7F159F398A00517548 /* NSDate+LocalTime.m in Sources */,
 				1CEC7D83159F5AB300517548 /* ReachabilityManager.m in Sources */,
+				1CEC7DA415A04DA700517548 /* _User.m in Sources */,
+				1CEC7DA515A04DA700517548 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

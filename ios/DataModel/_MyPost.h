@@ -14,11 +14,13 @@ extern const struct MyPostAttributes {
 } MyPostAttributes;
 
 extern const struct MyPostRelationships {
+	__unsafe_unretained NSString *user;
 } MyPostRelationships;
 
 extern const struct MyPostFetchedProperties {
 } MyPostFetchedProperties;
 
+@class User;
 
 
 
@@ -58,9 +60,9 @@ extern const struct MyPostFetchedProperties {
 @property (nonatomic, strong) NSNumber* myPostID;
 
 
-@property int32_t myPostIDValue;
-- (int32_t)myPostIDValue;
-- (void)setMyPostIDValue:(int32_t)value_;
+@property int64_t myPostIDValue;
+- (int64_t)myPostIDValue;
+- (void)setMyPostIDValue:(int64_t)value_;
 
 //- (BOOL)validateMyPostID:(id*)value_ error:(NSError**)error_;
 
@@ -92,6 +94,13 @@ extern const struct MyPostFetchedProperties {
 
 
 
+@property (nonatomic, strong) User* user;
+
+//- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
+
+
+
+
 
 @end
 
@@ -117,8 +126,8 @@ extern const struct MyPostFetchedProperties {
 - (NSNumber*)primitiveMyPostID;
 - (void)setPrimitiveMyPostID:(NSNumber*)value;
 
-- (int32_t)primitiveMyPostIDValue;
-- (void)setPrimitiveMyPostIDValue:(int32_t)value_;
+- (int64_t)primitiveMyPostIDValue;
+- (void)setPrimitiveMyPostIDValue:(int64_t)value_;
 
 
 
@@ -139,6 +148,11 @@ extern const struct MyPostFetchedProperties {
 - (void)setPrimitiveUpdatedAt:(NSDate*)value;
 
 
+
+
+
+- (User*)primitiveUser;
+- (void)setPrimitiveUser:(User*)value;
 
 
 @end

@@ -197,14 +197,11 @@ const NSInteger kAlertLogout = 2;
 
                 elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
-                    // [MyPost MR_importFromArray:elem];
-                    // [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    // [self.tableView.pullToRefreshView stopAnimating];
-                    // [self fetchFromCoreData];
-                    // [self.tableView reloadData];
-
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
-                        [MyPost MR_importFromArray:elem inContext:context];
+                        // [MyPost MR_importFromArray:elem inContext:context]; // crash (issue 180)
+                        for (NSDictionary *dict in elem) {
+                            [MyPost MR_importFromObject:dict inContext:context];
+                        }
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
