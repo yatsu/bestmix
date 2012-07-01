@@ -16,7 +16,6 @@ Bestmix uses following libraries and frameworks.
 * [Ruby on Rails](http://rubyonrails.org/ ) - Web Framework
 * [Devise](https://github.com/plataformatec/devise ) - Authentication
 * [RABL](https://github.com/nesquena/rabl ) - JSON Formatter
-* [Inherited Resources](https://github.com/josevalim/inherited_resources ) - Library for RESTful Resources
 * [Doorkeeper](https://github.com/applicake/doorkeeper ) - OAuth2 Provider
 * [versionist](https://github.com/bploetz/versionist ) - API Versioning
 * [Active Admin](http://activeadmin.info/) - Admin Interface

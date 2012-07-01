@@ -197,8 +197,6 @@ DEPENDENCIES
   faker
   formtastic (~> 2.1.1)
   haml
-  has_scope
-  inherited_resources
   jquery-rails
   kaminari
   meta_search
