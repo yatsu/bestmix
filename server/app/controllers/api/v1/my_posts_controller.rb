@@ -2,10 +2,10 @@ class Api::V1::MyPostsController < Api::ApiController
   doorkeeper_for :all
 
   def index
-    @posts = current_user.posts.order("updated_at DESC").page((params[:page] || 1).to_i)
     expires_in 5.seconds
-    # fresh_when @posts.first
-    fresh_when last_modified: @posts.maximum(:updated_at)
+    if stale? last_modified: current_user.posts.maximum(:updated_at)
+      @posts = current_user.posts.alive.order("updated_at DESC").page((params[:page] || 1).to_i)
+    end
   end
 
   def show
@@ -38,6 +38,12 @@ class Api::V1::MyPostsController < Api::ApiController
       render_error(:invalid_parameter, "Parameter Error", @post.errors.messages)
       return
     end
+    render :action => :show
+  end
+
+  def destroy
+    @post = current_user.posts.find_by_id(params[:id])
+    @post.update_attribute(:deleted_at, Time.now)
     render :action => :show
   end
 end

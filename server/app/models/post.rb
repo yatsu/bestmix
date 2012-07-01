@@ -10,7 +10,9 @@ class Post < ActiveRecord::Base
 
   before_save :set_published_at
 
-  scope :published, where("published_at IS NOT NULL").order("published_at DESC")
+  scope :published, where("published_at IS NOT NULL")
+
+  scope :alive, where("deleted_at IS NULL")
 
   scope :my, lambda { |user|
     where(:user_id => user.id).order("updated_at DESC")

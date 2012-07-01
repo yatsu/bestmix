@@ -1,13 +1,13 @@
 class Api::V1::PostsController < Api::ApiController
   def index
-    @posts = Post.published.page((params[:page] || 1).to_i)
     expires_in 5.seconds
-    # fresh_when @posts.first, public: true
-    fresh_when last_modified: @posts.maximum(:updated_at), public: true
+    if stale? last_modified: Post.maximum(:updated_at)
+      @posts = Post.published.alive.order("updated_at DESC").page((params[:page] || 1).to_i)
+    end
   end
 
   def show
-    @post = Post.published.find_by_id(params[:id])
+    @post = Post.published.alive.find_by_id(params[:id])
     if @post.nil?
       @error = ApiError.new(
         :resource_not_found,
