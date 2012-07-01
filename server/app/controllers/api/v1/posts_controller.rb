@@ -1,8 +1,9 @@
 class Api::V1::PostsController < Api::ApiController
   def index
+    page = (params[:page] || 1).to_i
     expires_in 5.seconds
-    if stale? last_modified: Post.maximum(:updated_at)
-      @posts = Post.published.alive.order("updated_at DESC").page((params[:page] || 1).to_i)
+    if page > 1 || stale?(last_modified: Post.maximum(:updated_at))
+      @posts = Post.published.alive.order("updated_at DESC").page(page)
     end
   end
 

@@ -2,9 +2,10 @@ class Api::V1::MyPostsController < Api::ApiController
   doorkeeper_for :all
 
   def index
+    page = (params[:page] || 1).to_i
     expires_in 5.seconds
-    if stale? last_modified: current_user.posts.maximum(:updated_at)
-      @posts = current_user.posts.alive.order("updated_at DESC").page((params[:page] || 1).to_i)
+    if page > 1 || stale?(last_modified: current_user.posts.maximum(:updated_at))
+      @posts = current_user.posts.alive.order("updated_at DESC").page()
     end
   end
 
