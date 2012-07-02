@@ -93,8 +93,13 @@
                         // [Post MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
                             Post *post = [Post MR_importFromObject:dict inContext:context];
+                            post.expire = [NSNumber numberWithBool:NO];
                             NSLog(@"Post: %@", post);
                         }
+                        [Post MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
+                                                             @"expire = %@",
+                                                             [NSNumber numberWithBool:YES]]
+                                                  inContext:context];
                         [context MR_saveNestedContexts]; // save them to SQLite (issue 187)
 
                     } completion:^{
@@ -123,8 +128,11 @@
     [super fetchFromCoreData];
     NSLog(@"fetchFromCoreData");
 
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"expire = %@",
+                              [NSNumber numberWithBool:NO]];
+
     _fetchedResultsController = [Post MR_fetchAllGroupedBy:nil
-                                             withPredicate:nil
+                                             withPredicate:predicate
                                                   sortedBy:@"updatedAt"
                                                  ascending:NO];
 
@@ -136,13 +144,10 @@
 {
     [super clearPosts];
     
-    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
-        for (Post *post in [Post MR_findAll]) {
-            [post MR_deleteEntity];
-        }
-    } completion:^{
-        // [_fetchedResultsController performFetch:nil];
-    }];
+    for (Post *post in [Post MR_findAll]) {
+        post.expire = [NSNumber numberWithBool:YES];
+    }
+    [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath

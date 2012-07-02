@@ -6,6 +6,7 @@
 const struct MyPostAttributes MyPostAttributes = {
 	.content = @"content",
 	.createdAt = @"createdAt",
+	.expire = @"expire",
 	.myPostID = @"myPostID",
 	.publishedAt = @"publishedAt",
 	.title = @"title",
@@ -45,6 +46,10 @@ const struct MyPostFetchedProperties MyPostFetchedProperties = {
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"expireValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"expire"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+	}
 	if ([key isEqualToString:@"myPostIDValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"myPostID"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -65,6 +70,32 @@ const struct MyPostFetchedProperties MyPostFetchedProperties = {
 
 @dynamic createdAt;
 
+
+
+
+
+
+@dynamic expire;
+
+
+
+- (BOOL)expireValue {
+	NSNumber *result = [self expire];
+	return [result boolValue];
+}
+
+- (void)setExpireValue:(BOOL)value_ {
+	[self setExpire:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveExpireValue {
+	NSNumber *result = [self primitiveExpire];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveExpireValue:(BOOL)value_ {
+	[self setPrimitiveExpire:[NSNumber numberWithBool:value_]];
+}
 
 
 

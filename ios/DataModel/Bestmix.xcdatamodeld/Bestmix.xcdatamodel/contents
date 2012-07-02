@@ -7,6 +7,7 @@
                 <entry key="mappedKeyName" value="created_at"/>
             </userInfo>
         </attribute>
+        <attribute name="expire" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="myPostID" optional="YES" attributeType="Integer 64" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="id"/>
@@ -23,7 +24,7 @@
                 <entry key="mappedKeyName" value="updated_at"/>
             </userInfo>
         </attribute>
-        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="No Action" destinationEntity="User" inverseName="myPost" inverseEntity="User" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="myPost" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Post" representedClassName="Post" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,6 +33,7 @@
                 <entry key="mappedKeyName" value="created_at"/>
             </userInfo>
         </attribute>
+        <attribute name="expire" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="postID" optional="YES" attributeType="Integer 64" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="id"/>
@@ -61,7 +63,7 @@
         <relationship name="post" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="user" inverseEntity="Post" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MyPost" positionX="-3942" positionY="-1089" width="128" height="150"/>
+        <element name="MyPost" positionX="-3942" positionY="-1089" width="128" height="165"/>
         <element name="Post" positionX="-4302" positionY="-1080" width="128" height="150"/>
         <element name="User" positionX="-4149" positionY="-1269" width="128" height="105"/>
     </elements>

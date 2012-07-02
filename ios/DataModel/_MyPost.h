@@ -7,6 +7,7 @@
 extern const struct MyPostAttributes {
 	__unsafe_unretained NSString *content;
 	__unsafe_unretained NSString *createdAt;
+	__unsafe_unretained NSString *expire;
 	__unsafe_unretained NSString *myPostID;
 	__unsafe_unretained NSString *publishedAt;
 	__unsafe_unretained NSString *title;
@@ -21,6 +22,7 @@ extern const struct MyPostFetchedProperties {
 } MyPostFetchedProperties;
 
 @class User;
+
 
 
 
@@ -53,6 +55,18 @@ extern const struct MyPostFetchedProperties {
 
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
+
+
+
+
+@property (nonatomic, strong) NSNumber* expire;
+
+
+@property BOOL expireValue;
+- (BOOL)expireValue;
+- (void)setExpireValue:(BOOL)value_;
+
+//- (BOOL)validateExpire:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -119,6 +133,15 @@ extern const struct MyPostFetchedProperties {
 
 - (NSDate*)primitiveCreatedAt;
 - (void)setPrimitiveCreatedAt:(NSDate*)value;
+
+
+
+
+- (NSNumber*)primitiveExpire;
+- (void)setPrimitiveExpire:(NSNumber*)value;
+
+- (BOOL)primitiveExpireValue;
+- (void)setPrimitiveExpireValue:(BOOL)value_;
 
 
 
