@@ -1,5 +1,7 @@
 #import "PostDetailViewController.h"
 #import "Post.h"
+#import "User.h"
+#import "NSDate+LocalTime.h"
 
 @interface PostDetailViewController ()
 
@@ -30,6 +32,11 @@
     if (_post) {
         self.title = _post.title;
         _contentText.text = _post.content;
+        _authorLabel.text = _post.user.email;
+        _publishedLabel.text =
+            [NSDateFormatter localizedStringFromDate:[_post.publishedAt localTime]
+                                           dateStyle:NSDateFormatterMediumStyle
+                                           timeStyle:NSDateFormatterMediumStyle];
     }
 }
 
