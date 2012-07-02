@@ -122,7 +122,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)becomeReachable
 {
     NSLog(@"reachable");
-    [self clearPosts];
+    _currentPage = 1;
     [self fetch];
 }
 
@@ -163,8 +163,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)fetchFromWebApi
 {
-    if (_currentPage == 1)
-        [self clearPosts];
 }
 
 - (void)fetchFromCoreData
@@ -174,7 +172,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)clearPosts
 {
-    _currentPage = 1;
     _totalPages = 1;
 }
 

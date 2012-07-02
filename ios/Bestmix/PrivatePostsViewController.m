@@ -20,6 +20,7 @@ const NSInteger kAlertLogout = 2;
 
 @property (strong, nonatomic) PostsApiClient *client;
 
+- (void)clearPostsInContext:(NSManagedObjectContext *)context;
 - (void)fetchPosts;
 - (void)loginConfirm;
 - (void)logoutConfirm;
@@ -122,12 +123,7 @@ const NSInteger kAlertLogout = 2;
 
 - (void)clearPosts
 {
-    [super clearPosts];
-
-    for (MyPost *post in [MyPost MR_findAll]) {
-        post.expire = [NSNumber numberWithBool:YES];
-    }
-    [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts];
+    [self clearPostsInContext:[NSManagedObjectContext MR_defaultContext]];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
@@ -156,6 +152,16 @@ const NSInteger kAlertLogout = 2;
 }
 
 #pragma mark Local Methods
+
+- (void)clearPostsInContext:(NSManagedObjectContext *)context
+{
+    [super clearPosts];
+
+    for (MyPost *post in [MyPost MR_findAll]) {
+        post.expire = [NSNumber numberWithBool:YES];
+    }
+    // [context MR_saveNestedContexts];
+}
 
 - (void)fetchPosts
 {
@@ -199,6 +205,9 @@ const NSInteger kAlertLogout = 2;
                 elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
+                        // if (_currentPage == 1)
+                        //     [self clearPostsInContext:context];
+
                         // [MyPost MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
                             MyPost *post = [MyPost MR_importFromObject:dict inContext:context];

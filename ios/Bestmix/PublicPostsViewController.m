@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) PostsApiClient *client;
 
+- (void)clearPostsInContext:(NSManagedObjectContext *)context;
+
 @end
 
 @implementation PublicPostsViewController
@@ -78,7 +80,6 @@
                 // NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];
-
                 id elem = [response objectForKey:@"num_pages"];
                 if (elem && [elem isKindOfClass:[NSNumber class]])
                     _totalPages = [elem integerValue];
@@ -90,11 +91,14 @@
                 elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
+                        // if (_currentPage == 1)
+                        //     [self clearPostsInContext:context];
+
                         // [Post MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
                             Post *post = [Post MR_importFromObject:dict inContext:context];
                             post.expire = [NSNumber numberWithBool:NO];
-                            NSLog(@"Post: %@", post);
+                            // NSLog(@"Post: %@", post);
                         }
                         [Post MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
                                                              @"expire = %@",
@@ -142,12 +146,7 @@
 
 - (void)clearPosts
 {
-    [super clearPosts];
-    
-    for (Post *post in [Post MR_findAll]) {
-        post.expire = [NSNumber numberWithBool:YES];
-    }
-    [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts];
+    [self clearPostsInContext:[NSManagedObjectContext MR_defaultContext]];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
@@ -173,6 +172,18 @@
     }
 
     return cell;
+}
+
+#pragma mark Local Methods
+
+- (void)clearPostsInContext:(NSManagedObjectContext *)context
+{
+    [super clearPosts];
+
+    for (Post *post in [Post MR_findAll]) {
+        post.expire = [NSNumber numberWithBool:YES];
+    }
+    // [context MR_saveNestedContexts];
 }
 
 @end
