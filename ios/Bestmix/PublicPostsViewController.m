@@ -135,15 +135,14 @@
 - (void)clearPosts
 {
     [super clearPosts];
-
-    for (Post *post in [Post MR_findAll]) {
-        [post MR_deleteEntity];
-    }
-
-    NSError *error = nil;
-    [[NSManagedObjectContext MR_defaultContext] save:&error];
-
-    [_fetchedResultsController performFetch:nil];
+    
+    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
+        for (Post *post in [Post MR_findAll]) {
+            [post MR_deleteEntity];
+        }
+    } completion:^{
+        // [_fetchedResultsController performFetch:nil];
+    }];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath

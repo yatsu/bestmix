@@ -121,14 +121,13 @@ const NSInteger kAlertLogout = 2;
 {
     [super clearPosts];
 
-    for (MyPost *post in [MyPost MR_findAll]) {
-        [post MR_deleteEntity];
-    }
-
-    NSError *error = nil;
-    [[NSManagedObjectContext MR_defaultContext] save:&error];
-
-    [_fetchedResultsController performFetch:nil];
+    [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
+        for (MyPost *post in [MyPost MR_findAll]) {
+            [post MR_deleteEntity];
+        }
+    } completion:^{
+        // [_fetchedResultsController performFetch:nil];
+    }];
 }
 
 - (UITableViewCell *)postCellForIndexPath:(NSIndexPath *)indexPath
