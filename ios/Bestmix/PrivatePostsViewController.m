@@ -183,8 +183,8 @@ const NSInteger kAlertLogout = 2;
     [_client getPath:@"my_posts"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                 NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
-                 NSLog(@"response headers: %@", operation.response.allHeaderFields);
+                // NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
+                // NSLog(@"response headers: %@", operation.response.allHeaderFields);
                 // NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];

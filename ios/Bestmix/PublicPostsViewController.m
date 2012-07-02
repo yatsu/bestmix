@@ -73,8 +73,8 @@
     [_client getPath:@"posts"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
-                NSLog(@"response headers: %@", operation.response.allHeaderFields);
+                // NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
+                // NSLog(@"response headers: %@", operation.response.allHeaderFields);
                 // NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];
@@ -92,12 +92,14 @@
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
                         // [Post MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
-                            [Post MR_importFromObject:dict inContext:context];
+                            Post *post = [Post MR_importFromObject:dict inContext:context];
+                            NSLog(@"Post: %@", post);
                         }
                         [context MR_saveNestedContexts]; // save them to SQLite (issue 187)
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            // [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts];
                             NSLog(@"core data saved");
                             [MBProgressHUD hideHUDForView:self.view animated:YES];
                             [self.tableView.pullToRefreshView stopAnimating];
