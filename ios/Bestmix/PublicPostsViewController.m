@@ -89,9 +89,12 @@
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
                         // [Post MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
-                            Post *post = [Post MR_importFromObject:dict inContext:context];
-                            post.expire = [NSNumber numberWithBool:NO];
-                            // NSLog(@"post: %@", post);
+                            id elem = [dict objectForKey:@"post"];
+                            if (elem && [elem isKindOfClass:[NSDictionary class]]) {
+                                Post *post = [Post MR_importFromObject:elem inContext:context];
+                                post.expire = [NSNumber numberWithBool:NO];
+                                // NSLog(@"post: %@", post);
+                            }
                         }
                         [Post MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
                                                              @"expire = %@",

@@ -217,9 +217,12 @@ const NSInteger kAlertLogout = 2;
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
                         // [MyPost MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
-                            MyPost *post = [MyPost MR_importFromObject:dict inContext:context];
-                            post.expire = [NSNumber numberWithBool:NO];
-                            // NSLog(@"post: %@", post);
+                            id elem = [dict objectForKey:@"post"];
+                            if (elem && [elem isKindOfClass:[NSDictionary class]]) {
+                                MyPost *post = [MyPost MR_importFromObject:elem inContext:context];
+                                post.expire = [NSNumber numberWithBool:NO];
+                                // NSLog(@"post: %@", post);
+                            }
                         }
                         [MyPost MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
                                                                @"expire = %@",
