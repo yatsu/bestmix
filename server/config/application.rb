@@ -61,5 +61,10 @@ module Bestmix
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.to_prepare do
+      # Base layout. Uses app/views/layouts/application.html.haml
+      Doorkeeper::ApplicationController.layout "application"
+    end
   end
 end

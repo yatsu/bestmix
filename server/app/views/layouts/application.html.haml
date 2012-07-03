@@ -3,18 +3,32 @@
   %head
     %meta{ :charset => "utf-8" }
     %title Bestmix
+    = stylesheet_link_tag "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :media => "all"
     = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css", :media => "all"
     /[if lt IE 9]
       %script{ :src => "http://html5shim.googlecode.com/svn/trunk/html5.js" }
     = javascript_include_tag "application"
+    = javascript_include_tag "http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"
     = csrf_meta_tags
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
   %body
-    %header
-      - if user_signed_in?
-        = current_user.email
-        = link_to "Sign out", destroy_user_session_path, :method => :delete
-      - else
-        = link_to "Sign in", new_user_session_path
-        |
-        = link_to "Sign up", new_user_registration_path
-    = yield
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to "Bestmix", "/", :class => "brand"
+          %ul.nav.pull-right
+            - if user_signed_in?
+              %li= link_to current_user.email, "/"
+              %li= link_to "Sign out", "/users/sign_out", :method => :delete
+            - else
+              %li= link_to "Sign in", "/users/sign_in"
+              %li= link_to "Sign up", "/users/sign_up"
+    .container
+      .row
+        - flash.each do |key, message|
+          .span16
+            .alert.alert-block{ :class => key }
+              %a.close{ :href => "#", "data-dismiss" => "alert" } &times;
+              = message
+      = yield
