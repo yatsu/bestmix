@@ -239,6 +239,11 @@ const NSInteger kAlertLogout = 2;
                             [self.tableView reloadData];
                         });
                     }];
+                } else {
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [self.tableView.pullToRefreshView stopAnimating];
+                    [self fetchFromCoreData];
+                    [self.tableView reloadData];
                 }
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
