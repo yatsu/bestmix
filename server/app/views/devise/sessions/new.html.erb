@@ -17,7 +17,19 @@
 
       <button type="submit" class="btn btn-primary">Sign in</button>
     <% end %>
+  </div>
+</div>
 
+<div class="row">
+  <div class="span12">
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), :class => "btn btn-primary" %>
+  </div>
+</div>
+
+<br/>
+
+<div class="row">
+  <div class="span12">
     <%= render "links" %>
   </div>
 </div>
