@@ -14,14 +14,20 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          = link_to "Bestmix", "/", :class => "brand"
+          = link_to "Bestmix Admin", "/admin", :class => "brand"
+          %ul.nav.nav-collapse
+            %li= link_to "Dashboard", "/admin"
+            %li= link_to "Access Grants", "/admin/doorkeeper_access_grants"
+            %li= link_to "Access Tokens", "/admin/doorkeeper_access_tokens"
+            %li= link_to "Posts", "/admin/posts"
+            %li= link_to "Users", "/admin/users"
+            %li= link_to "Applications", "/oauth/applications"
           %ul.nav.pull-right
-            - if user_signed_in?
-              %li= link_to current_user.email, "/users/edit"
-              %li= link_to "Sign out", "/users/sign_out", :method => :delete
+            - if admin_user_signed_in?
+              %li= link_to current_admin_user.email, "/admin"
+              %li= link_to "Logout", "/admin/logout", :method => :delete
             - else
-              %li= link_to "Sign in", "/users/sign_in"
-              %li= link_to "Sign up", "/users/sign_up"
+              %li= link_to "Login", "/admin/login"
     .container
       .row
         - flash.each do |key, message|

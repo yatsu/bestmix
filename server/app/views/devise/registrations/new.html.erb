@@ -1,21 +1,23 @@
 <h2>Sign up</h2>
 
-<p>
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "well" }) do |f| %>
-    <%= devise_error_messages! %>
+<div class="row">
+  <div class="span12">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "well" }) do |f| %>
+      <%= devise_error_messages! %>
 
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
 
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
 
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
 
-    <br/>
-    <button type="submit" class="btn">Sign up</button>
-  <% end %>
+      <br/>
+      <button type="submit" class="btn btn-primary">Sign up</button>
+    <% end %>
 
-  <%= render "links" %>
-</p>
+    <%= render "links" %>
+  </div>
+</div>

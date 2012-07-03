@@ -10,10 +10,11 @@
  *
  *= require_self
  *= require posts
+ *= require bootstrap
 */
 
 body {
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 .inline_block {
@@ -31,4 +32,11 @@ table td {
 
 .error .help-inline {
   color: #B94A48;
+}
+
+h2 + table,
+h3 + table,
+h4 + table,
+h2 + .row {
+  margin-top: 5px;
 }

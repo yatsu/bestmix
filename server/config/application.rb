@@ -65,6 +65,12 @@ module Bestmix
     config.to_prepare do
       # Base layout. Uses app/views/layouts/application.html.haml
       Doorkeeper::ApplicationController.layout "application"
+
+      # Only Applications list
+      Doorkeeper::ApplicationsController.layout "admin"
+
+      # Only Authorized Applications
+      Doorkeeper::AuthorizedApplicationsController.layout "admin"
     end
   end
 end

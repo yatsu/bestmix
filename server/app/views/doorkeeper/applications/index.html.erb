@@ -1,11 +1,7 @@
-<div class="span16">
-  <header class="page-header">
-    <h2>Your applications</h2>
-  </header>
+<h2>Your applications</h2>
 
-  <p><%= link_to 'New Application', new_application_path %></p>
-
-  <table class="zebra-striped">
+<div class="row">
+  <table class="table table-bordered table-striped span12">
     <thead>
       <tr>
         <th>Name</th>
@@ -25,5 +21,10 @@
       <% end %>
     </tbody>
   </table>
+</div>
 
+<div class="row">
+  <div class="span12">
+    <p><%= link_to 'New Application', new_application_path %></p>
+  </div>
 </div>
