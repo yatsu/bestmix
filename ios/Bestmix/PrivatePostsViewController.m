@@ -169,7 +169,7 @@ const NSInteger kAlertLogout = 2;
     for (MyPost *post in [MyPost MR_findAll]) {
         post.expire = [NSNumber numberWithBool:YES];
     }
-    // [context MR_saveNestedContexts];
+    [context MR_saveNestedContexts];
 
     NSError *error;
     [_fetchedResultsController performFetch:&error];

@@ -176,7 +176,7 @@
     for (Post *post in [Post MR_findAll]) {
         post.expire = [NSNumber numberWithBool:YES];
     }
-    // [context MR_saveNestedContexts];
+    [context MR_saveNestedContexts];
 
     NSError *error;
     [_fetchedResultsController performFetch:&error];
