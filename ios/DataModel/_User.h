@@ -10,8 +10,8 @@ extern const struct UserAttributes {
 } UserAttributes;
 
 extern const struct UserRelationships {
-	__unsafe_unretained NSString *myPost;
-	__unsafe_unretained NSString *post;
+	__unsafe_unretained NSString *myPosts;
+	__unsafe_unretained NSString *posts;
 } UserRelationships;
 
 extern const struct UserFetchedProperties {
@@ -56,16 +56,16 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet* myPost;
+@property (nonatomic, strong) NSSet* myPosts;
 
-- (NSMutableSet*)myPostSet;
-
-
+- (NSMutableSet*)myPostsSet;
 
 
-@property (nonatomic, strong) NSSet* post;
 
-- (NSMutableSet*)postSet;
+
+@property (nonatomic, strong) NSSet* posts;
+
+- (NSMutableSet*)postsSet;
 
 
 
@@ -75,15 +75,15 @@ extern const struct UserFetchedProperties {
 
 @interface _User (CoreDataGeneratedAccessors)
 
-- (void)addMyPost:(NSSet*)value_;
-- (void)removeMyPost:(NSSet*)value_;
-- (void)addMyPostObject:(MyPost*)value_;
-- (void)removeMyPostObject:(MyPost*)value_;
+- (void)addMyPosts:(NSSet*)value_;
+- (void)removeMyPosts:(NSSet*)value_;
+- (void)addMyPostsObject:(MyPost*)value_;
+- (void)removeMyPostsObject:(MyPost*)value_;
 
-- (void)addPost:(NSSet*)value_;
-- (void)removePost:(NSSet*)value_;
-- (void)addPostObject:(Post*)value_;
-- (void)removePostObject:(Post*)value_;
+- (void)addPosts:(NSSet*)value_;
+- (void)removePosts:(NSSet*)value_;
+- (void)addPostsObject:(Post*)value_;
+- (void)removePostsObject:(Post*)value_;
 
 @end
 
@@ -106,13 +106,13 @@ extern const struct UserFetchedProperties {
 
 
 
-- (NSMutableSet*)primitiveMyPost;
-- (void)setPrimitiveMyPost:(NSMutableSet*)value;
+- (NSMutableSet*)primitiveMyPosts;
+- (void)setPrimitiveMyPosts:(NSMutableSet*)value;
 
 
 
-- (NSMutableSet*)primitivePost;
-- (void)setPrimitivePost:(NSMutableSet*)value;
+- (NSMutableSet*)primitivePosts;
+- (void)setPrimitivePosts:(NSMutableSet*)value;
 
 
 @end

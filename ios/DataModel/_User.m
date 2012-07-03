@@ -9,8 +9,8 @@ const struct UserAttributes UserAttributes = {
 };
 
 const struct UserRelationships UserRelationships = {
-	.myPost = @"myPost",
-	.post = @"post",
+	.myPosts = @"myPosts",
+	.posts = @"posts",
 };
 
 const struct UserFetchedProperties UserFetchedProperties = {
@@ -86,28 +86,28 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
-@dynamic myPost;
+@dynamic myPosts;
 
 	
-- (NSMutableSet*)myPostSet {
-	[self willAccessValueForKey:@"myPost"];
+- (NSMutableSet*)myPostsSet {
+	[self willAccessValueForKey:@"myPosts"];
   
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"myPost"];
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"myPosts"];
   
-	[self didAccessValueForKey:@"myPost"];
+	[self didAccessValueForKey:@"myPosts"];
 	return result;
 }
 	
 
-@dynamic post;
+@dynamic posts;
 
 	
-- (NSMutableSet*)postSet {
-	[self willAccessValueForKey:@"post"];
+- (NSMutableSet*)postsSet {
+	[self willAccessValueForKey:@"posts"];
   
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"post"];
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"posts"];
   
-	[self didAccessValueForKey:@"post"];
+	[self didAccessValueForKey:@"posts"];
 	return result;
 }
 	

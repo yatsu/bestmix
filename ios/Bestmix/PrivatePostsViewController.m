@@ -16,7 +16,9 @@
 const NSInteger kAlertLogin = 1;
 const NSInteger kAlertLogout = 2;
 
-@interface PrivatePostsViewController () <UIAlertViewDelegate>
+@interface PrivatePostsViewController () <UIAlertViewDelegate> {
+    BOOL _skipNextFetch;
+}
 
 @property (strong, nonatomic) PostsApiClient *client;
 
@@ -43,9 +45,6 @@ const NSInteger kAlertLogout = 2;
 {
     [super viewWillAppear:animated];
 
-    // if ([AuthManager loggedIn] && _currentPage == 1) {
-    //     [self fetch];
-    // }
     _currentPage = 1;
     [self fetch];
 
@@ -89,9 +88,19 @@ const NSInteger kAlertLogout = 2;
 
 #pragma mark PostsViewController
 
+- (void)fetch
+{
+    if (_skipNextFetch) {
+        _skipNextFetch = NO;
+        return;
+    }
+    [super fetch];
+}
+
 - (void)fetchFromWebApi
 {
     [super fetchFromWebApi];
+    NSLog(@"fetchFromWebApi - currentPage: %d", _currentPage);
 
     if ([AuthManager loggedIn]) {
         [self fetchPosts];
@@ -161,6 +170,9 @@ const NSInteger kAlertLogout = 2;
         post.expire = [NSNumber numberWithBool:YES];
     }
     // [context MR_saveNestedContexts];
+
+    NSError *error;
+    [_fetchedResultsController performFetch:&error];
 }
 
 - (void)fetchPosts
@@ -171,11 +183,9 @@ const NSInteger kAlertLogout = 2;
         return;
     }
 
-    if ([self.tableView numberOfRowsInSection:0] == 0) {
-        if (![MBProgressHUD HUDForView:self.view]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"Loading...";
-        }
+    if ([self.tableView numberOfRowsInSection:0] == 0 && ![MBProgressHUD HUDForView:self.view]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading...";
     }
 
     if (!_client)
@@ -205,13 +215,11 @@ const NSInteger kAlertLogout = 2;
                 elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
-                        // if (_currentPage == 1)
-                        //     [self clearPostsInContext:context];
-
                         // [MyPost MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
                             MyPost *post = [MyPost MR_importFromObject:dict inContext:context];
                             post.expire = [NSNumber numberWithBool:NO];
+                            // NSLog(@"post: %@", post);
                         }
                         [MyPost MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
                                                                @"expire = %@",
@@ -232,7 +240,6 @@ const NSInteger kAlertLogout = 2;
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"error %@ %@ statusCode: %d", error.localizedDescription, error.userInfo, operation.response.statusCode);
-
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.tableView.pullToRefreshView stopAnimating];
 
@@ -272,13 +279,17 @@ const NSInteger kAlertLogout = 2;
 
 - (void)login
 {
+    _skipNextFetch = YES;
     [AuthManager openLoginURL];
 }
 
 - (void)logout
 {
+    _skipNextFetch = YES;
+
     [self updateButtons];
     [self clearPosts];
+
     [self.tableView reloadData];
 }
 
@@ -291,7 +302,6 @@ const NSInteger kAlertLogout = 2;
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
         [AuthManager logout];
-        // [self fetch];
     }];
 }
 
@@ -338,6 +348,7 @@ const NSInteger kAlertLogout = 2;
                        context:(void *)context
 {
     if ([keyPath isEqualToString:@"loggedIn"]) {
+        NSLog(@"login status changed");
         [self updateButtons];
 
         if (![AuthManager loggedIn])

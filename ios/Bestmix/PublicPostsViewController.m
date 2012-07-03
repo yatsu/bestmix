@@ -30,9 +30,6 @@
 {
     [super viewWillAppear:animated];
 
-    // if (_currentPage == 1) {
-    //     [self fetch];
-    // }
     _currentPage = 1;
     [self fetch];
 }
@@ -47,7 +44,7 @@
     }
 }
 
-#pragma mark PostViewController
+#pragma mark PostsViewController
 
 - (void)fetchFromWebApi
 {
@@ -59,11 +56,9 @@
         return;
     }
 
-    if ([self.tableView numberOfRowsInSection:0] == 0) {
-        if (![MBProgressHUD HUDForView:self.view]) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"Loading...";
-        }
+    if ([self.tableView numberOfRowsInSection:0] == 0 && ![MBProgressHUD HUDForView:self.view]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading...";
     }
 
     if (!_client)
@@ -80,6 +75,7 @@
                 // NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];
+
                 id elem = [response objectForKey:@"num_pages"];
                 if (elem && [elem isKindOfClass:[NSNumber class]])
                     _totalPages = [elem integerValue];
@@ -91,14 +87,11 @@
                 elem = [response objectForKey:@"posts"];
                 if (elem && [elem isKindOfClass:[NSArray class]]) {
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
-                        // if (_currentPage == 1)
-                        //     [self clearPostsInContext:context];
-
                         // [Post MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
                             Post *post = [Post MR_importFromObject:dict inContext:context];
                             post.expire = [NSNumber numberWithBool:NO];
-                            // NSLog(@"Post: %@", post);
+                            // NSLog(@"post: %@", post);
                         }
                         [Post MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
                                                              @"expire = %@",
@@ -108,7 +101,6 @@
 
                     } completion:^{
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            // [[NSManagedObjectContext MR_defaultContext] MR_saveNestedContexts];
                             NSLog(@"core data saved");
                             [MBProgressHUD hideHUDForView:self.view animated:YES];
                             [self.tableView.pullToRefreshView stopAnimating];
@@ -119,11 +111,12 @@
                 }
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"error %@ %@", error.localizedDescription, error.userInfo);
-                [UIAlertView simpleAlertWithTitle:@"Network Error"
-                                          message:error.localizedDescription];
+                NSLog(@"error %@ %@ statusCode: %d", error.localizedDescription, error.userInfo, operation.response.statusCode);
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [self.tableView.pullToRefreshView stopAnimating];
+
+                [UIAlertView simpleAlertWithTitle:@"Network Error"
+                                          message:error.localizedDescription];
             }];
 }
 
@@ -184,6 +177,9 @@
         post.expire = [NSNumber numberWithBool:YES];
     }
     // [context MR_saveNestedContexts];
+
+    NSError *error;
+    [_fetchedResultsController performFetch:&error];
 }
 
 @end
