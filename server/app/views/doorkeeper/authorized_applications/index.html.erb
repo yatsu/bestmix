@@ -14,7 +14,7 @@
         <tr>
           <td style="vertical-align: middle;"><%= application.name %></td>
           <td style="vertical-align: middle;"><%= application.created_at %></td>
-          <td style="vertical-align: middle;"><%= link_to 'Revoke', authorized_application_path(application), :confirm => 'Are you sure?', :method => :delete, :class => 'btn danger' %></td>
+          <td style="vertical-align: middle;"><%= link_to 'Revoke', authorized_application_path(application), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>
