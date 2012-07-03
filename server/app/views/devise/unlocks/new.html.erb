@@ -1,8 +1,8 @@
-<h2>Resend unlock instructions</h2>
+<header class="page-header"><h2>Resend unlock instructions</h2></header>
 
 <div class="row">
   <div class="span12">
-    <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
+    <%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, :class => "well" }) do |f| %>
       <%= devise_error_messages! %>
 
       <%= f.label :email %>

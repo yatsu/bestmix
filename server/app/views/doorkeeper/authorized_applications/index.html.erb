@@ -1,23 +1,20 @@
-<div class="span12">
-  <header class="page-header">
-    <h2>Your authorized applications</h2>
-  </header>
+<header class="page-header"><h2>Your authorized applications</h2></header>
 
-  <table class="zebra-striped">
+<div class="row">
+  <table class="table table-bordered table-striped span12">
     <thead>
       <tr>
         <th>Application</th>
         <th>Authorized at</th>
-        <th></th>
-        <th></th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% @applications.each do |application| %>
         <tr>
-          <td><%= application.name %></td>
-          <td><%= application.created_at %></td>
-          <td><%= link_to 'Revoke', authorized_application_path(application), :confirm => 'Are you sure?', :method => :delete, :class => 'btn danger' %></td>
+          <td style="vertical-align: middle;"><%= application.name %></td>
+          <td style="vertical-align: middle;"><%= application.created_at %></td>
+          <td style="vertical-align: middle;"><%= link_to 'Revoke', authorized_application_path(application), :confirm => 'Are you sure?', :method => :delete, :class => 'btn danger' %></td>
         </tr>
       <% end %>
     </tbody>

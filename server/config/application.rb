@@ -70,7 +70,7 @@ module Bestmix
       Doorkeeper::ApplicationsController.layout "admin"
 
       # Only Authorized Applications
-      Doorkeeper::AuthorizedApplicationsController.layout "admin"
+      # Doorkeeper::AuthorizedApplicationsController.layout "application"
     end
   end
 end
