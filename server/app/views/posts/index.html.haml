@@ -1,23 +1,24 @@
-%h1 Listing Posts
+%header.page-header
+  %h2 Listing Posts
 
-%table
-  %tr
-    %th Title
-    %th Content
-    %th Public
-    %th
-    %th
-    %th
+.row
+  %table.table.table-bordered.table-striped.span12
+    %tr
+      %th Title
+      %th Content
+      %th Public
+      %th &nbsp;
+      %th &nbsp;
+      %th &nbsp;
 
-- @posts.each do |post|
-  %tr
-    %td= post.title
-    %td= post.content
-    %td= post.published_at
-    %td= link_to 'Show', post
-    %td= link_to 'Edit', edit_post_path(post)
-    %td= link_to 'Destroy', post, confirm: 'Are you sure?', method: :delete
+    - @posts.each do |post|
+      %tr
+        %td= post.title
+        %td= post.content
+        %td= post.published_at
+        %td= link_to 'Show', post
+        %td= link_to 'Edit', edit_post_path(post)
+        %td= link_to 'Destroy', post, confirm: 'Are you sure?', method: :delete
 
-%br
-
-= link_to 'New Post', new_post_path
+.row
+  .span12= link_to 'New Post', new_post_path

@@ -29,9 +29,9 @@ class Post < ActiveRecord::Base
   private
 
   def set_published_at
-    if publish == "true" && published_at.nil?
+    if (publish == "true" || publish == "1") && published_at.nil?
       self.published_at = Time.now
-    elsif publish != "true" && published_at
+    elsif (publish != "true" && publish != "1") && published_at
       self.published_at = nil
     end
   end

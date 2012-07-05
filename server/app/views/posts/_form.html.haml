@@ -1,27 +1,25 @@
-= form_for(@post) do |f|
-  - if @post.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@post.errors.count, "error")
-        prohibited this post from being saved:
-      %ul
-        - @post.errors.full_messages.each do |msg|
-          %li= msg
+.row
+  .span12
+    = form_for(@post, :html => { :class => "well" }) do |f|
+      - if @post.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@post.errors.count, "error")
+            prohibited this post from being saved:
+          %ul
+            - @post.errors.full_messages.each do |msg|
+              %li= msg
 
-  .field
-    = f.label :title
-    %br
-    = f.text_field :title
+      = f.label :title
+      = f.text_field :title, :style => "width: 99%;"
 
-  .field
-    = f.label :content
-    %br
-    = f.text_area :content
+      = f.label :content
+      = f.text_area :content, :style => "width: 99%;"
 
-  .field
-    = f.label :published
-    %br
-    = f.radio_button :published
+      %label.checkbox{ :for => "post_publish" }
+        - @post.publish = @post.published if @post.publish.nil?
+        - @post.publish = true unless @post.created_at
+        = f.check_box :publish
+        Publish
 
-  .actions
-    = f.submit
+      %button{ :type => "submit", :class => "btn" } Save

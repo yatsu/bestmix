@@ -1,19 +1,28 @@
-- if @my_posts
-  %h2 My Posts
-  - if @my_posts.empty?
-    no post
-  - else
-    %ul
-      = render partial: "posts/post", collection: @my_posts
+.row
+  .column.span6
+    %header.page-header
+      %h2 Public Posts
+    - if @public_posts.empty?
+      no post
+    - else
+      %ul
+        - @public_posts.each do |post|
+          %li{ :class => post.published ? "public" : "private" }
+            .title= post.title
+            .user= post.user.email
 
-  %p= link_to "New Post", new_post_path
+  .column.span6
+    %header.page-header
+      %h2 My Posts
+    - unless user_signed_in?
+      Please
+      = link_to "sign in", new_user_session_path
+    - else
+      - if @my_posts.empty?
+        no post
+      - else
+        %ul
+          = render partial: "posts/post", collection: @my_posts
 
-%h2 Public Posts
-- if @public_posts.empty?
-  no post
-- else
-  %ul
-    - @public_posts.each do |post|
-      %li{ :class => post.published ? "public" : "private" }
-        .title= post.title
-        .user= post.user.email
+        %p= link_to "New Post", new_post_path
+

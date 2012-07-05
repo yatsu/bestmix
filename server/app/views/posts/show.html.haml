@@ -1,17 +1,22 @@
-%p#notice= notice
+%header.page-header
+  %h2= @post.title
 
-%p
-  %b Title:
-  = @post.title
+.row
+  .span12.well
+    = @post.content
 
-%p
-  %b Content:
-  = @post.content
+.row
+  .span12.well
+    Published:
+    - if @post.published
+      = @post.published_at.to_s
+    - else
+      No
 
-%p
-  %b Public:
-  = @post.public
+.row
+  %p.span12
+    = link_to 'Edit', edit_post_path(@post), :class => "btn"
 
-= link_to 'Edit', edit_post_path(@post)
-|
-= link_to 'Back', posts_path
+.row
+  %p.span12
+    = link_to 'Back', posts_path
