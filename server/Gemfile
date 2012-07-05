@@ -40,15 +40,16 @@ gem 'jquery-rails'
 gem 'doorkeeper', '~> 0.4.2'
 gem 'versionist', '~> 0.2.0'
 gem 'rabl', '~> 0.6.12'
-gem 'msgpack', '~> 0.4.7'
 gem "meta_search"
 gem 'haml'
 gem 'kaminari'
 gem 'activeadmin'
-gem 'formtastic', '~> 2.1.1' # Active Admin requires 2.1.1
+gem 'formtastic', '~> 2.1.1' # Active Admin requires 2.1
 gem 'thor'
 gem 'oauth2'
 gem "omniauth-facebook"
+gem "koala", '~> 1.5.0'
+# gem 'msgpack', '~> 0.4.7'
 
 gem 'capistrano'
 gem 'capistrano_colors'

@@ -17,5 +17,6 @@ rerun.txt
 pickle-email-*.html
 /config/database.yml
 /config/initializers/devise.rb
+/config/initializers/koala.rb
 /config/deploy.rb
 Capfile

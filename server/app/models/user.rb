@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :provider, :uid
 
+  attr_accessor :facebook_user
+
   has_many :posts, :dependent => :destroy
 
   has_many :access_grants, :dependent => :destroy, :class_name => "Doorkeeper::AccessGrant", :foreign_key => "resource_owner_id"
@@ -50,5 +52,12 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def facebook
+    if !@facebook && facebook_token && facebook_expires_at > Time.now
+      @facebook = Koala::Facebook::API.new(facebook_token)
+    end
+    @facebook
   end
 end
