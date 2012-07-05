@@ -9,9 +9,6 @@
 
 @implementation PostDetailViewController
 
-@synthesize contentText = _contentText;
-@synthesize authorLabel = _authorLabel;
-@synthesize publishedLabel = _publishedLabel;
 @synthesize post = _post;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -31,12 +28,6 @@
 
     if (_post) {
         self.title = _post.title;
-        _contentText.text = _post.content;
-        _authorLabel.text = _post.user.email;
-        _publishedLabel.text =
-            [NSDateFormatter localizedStringFromDate:[_post.publishedAt localTime]
-                                           dateStyle:NSDateFormatterMediumStyle
-                                           timeStyle:NSDateFormatterMediumStyle];
     }
 }
 
@@ -48,6 +39,75 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark UITableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    UILabel *label;
+
+    if (indexPath.row == 0) {
+        cell = [tv dequeueReusableCellWithIdentifier:@"PostContent"];
+
+        label = [[UILabel alloc] initWithFrame:CGRectZero];
+        [label setLineBreakMode:UILineBreakModeWordWrap];
+        [label setMinimumFontSize:14];
+        [label setNumberOfLines:0];
+        [label setFont:[UIFont systemFontOfSize:14]];
+        [label setTag:1];
+        [[cell contentView] addSubview:label];
+
+    } else {
+        cell = [tv dequeueReusableCellWithIdentifier:@"PostAuthor"];
+    }
+
+    if (indexPath.row == 0) {
+        CGSize constraint = CGSizeMake(320.0f - (5.0f * 2), 20000.0f);
+
+        CGSize size = [_post.content sizeWithFont:[UIFont systemFontOfSize:14]
+                                constrainedToSize:constraint
+                                    lineBreakMode:UILineBreakModeWordWrap];
+
+        if (!label)
+            label = (UILabel *)[cell viewWithTag:1];
+        if (_post.content)
+            label.text = _post.content;
+        else
+            label.text = @"";
+
+        [label setFrame:CGRectMake(5.0f, 5.0f, 320.0f - (5.0f * 2), MAX(size.height, 44.0f))];
+
+    } else {
+        cell.textLabel.text = _post.user.email;
+        cell.detailTextLabel.text =
+            [NSDateFormatter localizedStringFromDate:[_post.publishedAt localTime]
+                                           dateStyle:NSDateFormatterMediumStyle
+                                           timeStyle:NSDateFormatterMediumStyle];
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (indexPath.row == 0) {
+        CGSize constraint = CGSizeMake(320.0f - (5.0f * 2), 20000.0f);
+
+        CGSize size = [_post.content sizeWithFont:[UIFont systemFontOfSize:14]
+                                constrainedToSize:constraint
+                                    lineBreakMode:UILineBreakModeWordWrap];
+
+        return MAX(size.height, 44.0f) + 5.0f * 2;
+    }
+
+    return 44.0;
 }
 
 @end
