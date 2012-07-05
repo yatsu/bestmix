@@ -224,7 +224,17 @@ Devise.setup do |config|
   # end
 
   config.omniauth :facebook, "APP_ID", "APP_SECRET"
+    :scope => 'email,offline_access', :setup => lambda { |env|
+      request = Rack::Request.new(env)
+      mobile_device = request.user_agent =~ /Mobile|webOS/i
+      request.env['omniauth.strategy'].options[:display] = mobile_device ? "touch" : "page"
+    }
 
-  # config.omniauth :facebook, "APP_ID", "APP_SECRET",
-  #                 :client_options => { :ssl => { :ca_file => '/usr/local/etc/openssl/certs/cert.pem' } }
+  # config.omniauth :facebook, "APP_ID", "APP_SECRET"
+  #   :scope => 'email,offline_access', :setup => lambda { |env|
+  #     request = Rack::Request.new(env)
+  #     mobile_device = request.user_agent =~ /Mobile|webOS/i
+  #     request.env['omniauth.strategy'].options[:display] = mobile_device ? "touch" : "page"
+  #   },
+  #   :client_options => { :ssl => { :ca_file => '/usr/local/etc/openssl/certs/cert.pem' } }
 end

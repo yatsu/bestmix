@@ -34,6 +34,13 @@ class User < ActiveRecord::Base
         password: Devise.friendly_token[0, 20]
       )
     end
+
+    if user.valid?
+      user.facebook_token = auth.credentials.token
+      user.facebook_expires_at = Time.at(auth.credentials.expires_at)
+      user.save
+    end
+
     user
   end
 
