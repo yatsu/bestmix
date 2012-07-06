@@ -2,6 +2,7 @@
 #import "Post.h"
 #import "User.h"
 #import "NSDate+LocalTime.h"
+#import "UserViewController.h"
 
 @interface PostDetailViewController ()
 
@@ -24,7 +25,7 @@
 {
     [super viewDidLoad];
 
-    self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = YES;
 
     if (_post) {
         self.title = _post.title;
@@ -39,6 +40,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController *controller = [segue destinationViewController];
+    if ([controller isKindOfClass:[UserViewController class]]) {
+        UserViewController *userVC = (UserViewController *)controller;
+        userVC.user = _post.user;
+    }
 }
 
 #pragma mark UITableViewDelegate

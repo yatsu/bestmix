@@ -1,6 +1,6 @@
 #import <AFNetworking/AFNetworking.h>
 
-@interface PostsApiClient : AFHTTPClient
+@interface WebApiClient : AFHTTPClient
 
 - (id)init;
 - (void)setAuthToken;

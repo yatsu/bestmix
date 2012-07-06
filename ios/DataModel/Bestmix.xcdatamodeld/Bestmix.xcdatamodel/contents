@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E2620" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="FacebookPost" representedClassName="FacebookPost" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="created_time"/>
+            </userInfo>
+        </attribute>
+        <attribute name="facebookPostID" attributeType="String" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="from" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="to" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="updated_time"/>
+            </userInfo>
+        </attribute>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="facebookPosts" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="FacebookUser" representedClassName="FacebookUser" syncable="YES">
+        <attribute name="facebookUserID" attributeType="String" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="id"/>
+            </userInfo>
+        </attribute>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="first_name"/>
+            </userInfo>
+        </attribute>
+        <attribute name="gender" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="last_name"/>
+            </userInfo>
+        </attribute>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="facebookUser" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="MyPost" representedClassName="MyPost" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
@@ -53,18 +96,39 @@
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="posts" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" indexed="YES" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="created_at"/>
+            </userInfo>
+        </attribute>
         <attribute name="email" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="userID" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES">
             <userInfo>
                 <entry key="mappedKeyName" value="id"/>
             </userInfo>
         </attribute>
-        <relationship name="myPosts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MyPost" inverseName="user" inverseEntity="MyPost" syncable="YES"/>
+        <relationship name="facebookPosts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FacebookPost" inverseName="user" inverseEntity="FacebookPost" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="facebook_posts"/>
+            </userInfo>
+        </relationship>
+        <relationship name="facebookUser" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="FacebookUser" inverseName="user" inverseEntity="FacebookUser" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="facebook_user"/>
+            </userInfo>
+        </relationship>
+        <relationship name="myPosts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MyPost" inverseName="user" inverseEntity="MyPost" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="my_posts"/>
+            </userInfo>
+        </relationship>
         <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="user" inverseEntity="Post" syncable="YES"/>
     </entity>
     <elements>
         <element name="MyPost" positionX="-3942" positionY="-1089" width="128" height="135"/>
         <element name="Post" positionX="-4302" positionY="-1080" width="128" height="150"/>
-        <element name="User" positionX="-4149" positionY="-1269" width="128" height="105"/>
+        <element name="User" positionX="-4149" positionY="-1269" width="128" height="150"/>
+        <element name="FacebookPost" positionX="-4088" positionY="-1179" width="128" height="165"/>
+        <element name="FacebookUser" positionX="-4421" positionY="-990" width="128" height="150"/>
     </elements>
 </model>

@@ -5,11 +5,14 @@
 
 
 extern const struct UserAttributes {
+	__unsafe_unretained NSString *createdAt;
 	__unsafe_unretained NSString *email;
 	__unsafe_unretained NSString *userID;
 } UserAttributes;
 
 extern const struct UserRelationships {
+	__unsafe_unretained NSString *facebookPosts;
+	__unsafe_unretained NSString *facebookUser;
 	__unsafe_unretained NSString *myPosts;
 	__unsafe_unretained NSString *posts;
 } UserRelationships;
@@ -17,8 +20,11 @@ extern const struct UserRelationships {
 extern const struct UserFetchedProperties {
 } UserFetchedProperties;
 
+@class FacebookPost;
+@class FacebookUser;
 @class MyPost;
 @class Post;
+
 
 
 
@@ -31,6 +37,14 @@ extern const struct UserFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (UserID*)objectID;
+
+
+
+
+@property (nonatomic, strong) NSDate* createdAt;
+
+
+//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -56,6 +70,20 @@ extern const struct UserFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSSet* facebookPosts;
+
+- (NSMutableSet*)facebookPostsSet;
+
+
+
+
+@property (nonatomic, strong) FacebookUser* facebookUser;
+
+//- (BOOL)validateFacebookUser:(id*)value_ error:(NSError**)error_;
+
+
+
+
 @property (nonatomic, strong) NSSet* myPosts;
 
 - (NSMutableSet*)myPostsSet;
@@ -75,6 +103,11 @@ extern const struct UserFetchedProperties {
 
 @interface _User (CoreDataGeneratedAccessors)
 
+- (void)addFacebookPosts:(NSSet*)value_;
+- (void)removeFacebookPosts:(NSSet*)value_;
+- (void)addFacebookPostsObject:(FacebookPost*)value_;
+- (void)removeFacebookPostsObject:(FacebookPost*)value_;
+
 - (void)addMyPosts:(NSSet*)value_;
 - (void)removeMyPosts:(NSSet*)value_;
 - (void)addMyPostsObject:(MyPost*)value_;
@@ -90,6 +123,12 @@ extern const struct UserFetchedProperties {
 @interface _User (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
+
+
+
+
 - (NSString*)primitiveEmail;
 - (void)setPrimitiveEmail:(NSString*)value;
 
@@ -103,6 +142,16 @@ extern const struct UserFetchedProperties {
 - (void)setPrimitiveUserIDValue:(int64_t)value_;
 
 
+
+
+
+- (NSMutableSet*)primitiveFacebookPosts;
+- (void)setPrimitiveFacebookPosts:(NSMutableSet*)value;
+
+
+
+- (FacebookUser*)primitiveFacebookUser;
+- (void)setPrimitiveFacebookUser:(FacebookUser*)value;
 
 
 

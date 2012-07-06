@@ -2,7 +2,7 @@
 #import "SVPullToRefresh.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
-#import "PostsApiClient.h"
+#import "WebApiClient.h"
 #import "CoreData+MagicalRecord.h"
 #import "ReachabilityManager.h"
 

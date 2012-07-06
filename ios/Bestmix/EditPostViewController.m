@@ -1,5 +1,5 @@
 #import "EditPostViewController.h"
-#import "PostsApiClient.h"
+#import "WebApiClient.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "MBProgressHUD.h"
 #import "AuthManager.h"
@@ -7,7 +7,7 @@
 @interface EditPostViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
-@property (strong, nonatomic) PostsApiClient *client;
+@property (strong, nonatomic) WebApiClient *client;
 
 - (void)savePost;
 - (void)deleteConfirm;
@@ -119,7 +119,7 @@
     hud.labelText = @"Saving...";
 
     if (!_client)
-        self.client = [PostsApiClient new];
+        self.client = [WebApiClient new];
     [_client setAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -193,7 +193,7 @@
 - (void)deletePost
 {
     if (!_client)
-        self.client = [PostsApiClient new];
+        self.client = [WebApiClient new];
     [_client setAuthToken];
 
     void (^success)(AFHTTPRequestOperation *, id) = ^(AFHTTPRequestOperation *operation, id json) {

@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		008735F20059421B97C66099 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 828B90085EA242E88A9E748D /* libPods.a */; };
+		1C15500915A54CA6002EF4F6 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C15500815A54CA6002EF4F6 /* UserViewController.m */; };
+		1C15501315A55783002EF4F6 /* _FacebookPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C15500C15A55783002EF4F6 /* _FacebookPost.m */; };
+		1C15501415A55783002EF4F6 /* _FacebookUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C15500E15A55783002EF4F6 /* _FacebookUser.m */; };
+		1C15501515A55783002EF4F6 /* FacebookPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C15501015A55783002EF4F6 /* FacebookPost.m */; };
+		1C15501615A55783002EF4F6 /* FacebookUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C15501215A55783002EF4F6 /* FacebookUser.m */; };
+		1C15501915A5645F002EF4F6 /* WebApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C15501815A5645F002EF4F6 /* WebApiClient.m */; };
 		1C1E5069157C988600D62584 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1E5068157C988600D62584 /* CoreData.framework */; };
 		1C1E506E157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */; };
 		1C7ABC8915775C6700327DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7ABC8815775C6700327DEB /* UIKit.framework */; };
@@ -25,7 +31,6 @@
 		1C842A63159B4729009198C8 /* _Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A60159B4729009198C8 /* _Post.m */; };
 		1C842A64159B4729009198C8 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A62159B4729009198C8 /* Post.m */; };
 		1C842A70159B47DD009198C8 /* EditPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A67159B47DD009198C8 /* EditPostViewController.m */; };
-		1C842A71159B47DD009198C8 /* PostsApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A69159B47DD009198C8 /* PostsApiClient.m */; };
 		1C842A72159B47DD009198C8 /* PostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6B159B47DD009198C8 /* PostsViewController.m */; };
 		1C842A73159B47DD009198C8 /* PrivatePostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6D159B47DD009198C8 /* PrivatePostsViewController.m */; };
 		1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */; };
@@ -44,6 +49,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C15500715A54CA6002EF4F6 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		1C15500815A54CA6002EF4F6 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		1C15500B15A55783002EF4F6 /* _FacebookPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FacebookPost.h; sourceTree = "<group>"; };
+		1C15500C15A55783002EF4F6 /* _FacebookPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FacebookPost.m; sourceTree = "<group>"; };
+		1C15500D15A55783002EF4F6 /* _FacebookUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _FacebookUser.h; sourceTree = "<group>"; };
+		1C15500E15A55783002EF4F6 /* _FacebookUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _FacebookUser.m; sourceTree = "<group>"; };
+		1C15500F15A55783002EF4F6 /* FacebookPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookPost.h; sourceTree = "<group>"; };
+		1C15501015A55783002EF4F6 /* FacebookPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookPost.m; sourceTree = "<group>"; };
+		1C15501115A55783002EF4F6 /* FacebookUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookUser.h; sourceTree = "<group>"; };
+		1C15501215A55783002EF4F6 /* FacebookUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookUser.m; sourceTree = "<group>"; };
+		1C15501715A5645F002EF4F6 /* WebApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebApiClient.h; sourceTree = "<group>"; };
+		1C15501815A5645F002EF4F6 /* WebApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebApiClient.m; sourceTree = "<group>"; };
 		1C1E5068157C988600D62584 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1C1E506C157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectForKeyOrNil.h"; sourceTree = "<group>"; };
 		1C1E506D157C9ADC00D62584 /* NSDictionary+ObjectForKeyOrNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectForKeyOrNil.m"; sourceTree = "<group>"; };
@@ -70,8 +87,6 @@
 		1C842A62159B4729009198C8 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
 		1C842A66159B47DD009198C8 /* EditPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPostViewController.h; sourceTree = "<group>"; };
 		1C842A67159B47DD009198C8 /* EditPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPostViewController.m; sourceTree = "<group>"; };
-		1C842A68159B47DD009198C8 /* PostsApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsApiClient.h; sourceTree = "<group>"; };
-		1C842A69159B47DD009198C8 /* PostsApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsApiClient.m; sourceTree = "<group>"; };
 		1C842A6A159B47DD009198C8 /* PostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostsViewController.h; sourceTree = "<group>"; };
 		1C842A6B159B47DD009198C8 /* PostsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostsViewController.m; sourceTree = "<group>"; };
 		1C842A6C159B47DD009198C8 /* PrivatePostsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivatePostsViewController.h; sourceTree = "<group>"; };
@@ -164,8 +179,6 @@
 				1CEC7D24159C451500517548 /* EditorViewController.m */,
 				1CEC7D2A159C767F00517548 /* PostDetailViewController.h */,
 				1CEC7D2B159C768000517548 /* PostDetailViewController.m */,
-				1C842A68159B47DD009198C8 /* PostsApiClient.h */,
-				1C842A69159B47DD009198C8 /* PostsApiClient.m */,
 				1C842A6A159B47DD009198C8 /* PostsViewController.h */,
 				1C842A6B159B47DD009198C8 /* PostsViewController.m */,
 				1C842A6C159B47DD009198C8 /* PrivatePostsViewController.h */,
@@ -174,6 +187,10 @@
 				1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */,
 				1CEC7D81159F5AB300517548 /* ReachabilityManager.h */,
 				1CEC7D82159F5AB300517548 /* ReachabilityManager.m */,
+				1C15500715A54CA6002EF4F6 /* UserViewController.h */,
+				1C15500815A54CA6002EF4F6 /* UserViewController.m */,
+				1C15501715A5645F002EF4F6 /* WebApiClient.h */,
+				1C15501815A5645F002EF4F6 /* WebApiClient.m */,
 				1C7ABCC915776BAE00327DEB /* Config.h */,
 				1C7ABC9715775C6700327DEB /* AppDelegate.h */,
 				1C7ABC9815775C6700327DEB /* AppDelegate.m */,
@@ -217,6 +234,14 @@
 		1CA8E745157A2A2E0062C93F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				1C15500B15A55783002EF4F6 /* _FacebookPost.h */,
+				1C15500C15A55783002EF4F6 /* _FacebookPost.m */,
+				1C15500F15A55783002EF4F6 /* FacebookPost.h */,
+				1C15501015A55783002EF4F6 /* FacebookPost.m */,
+				1C15500D15A55783002EF4F6 /* _FacebookUser.h */,
+				1C15500E15A55783002EF4F6 /* _FacebookUser.m */,
+				1C15501115A55783002EF4F6 /* FacebookUser.h */,
+				1C15501215A55783002EF4F6 /* FacebookUser.m */,
 				1C842A7B159C25AD009198C8 /* _MyPost.h */,
 				1C842A7C159C25AD009198C8 /* _MyPost.m */,
 				1C842A7D159C25AD009198C8 /* MyPost.h */,
@@ -344,7 +369,6 @@
 				1C842A63159B4729009198C8 /* _Post.m in Sources */,
 				1C842A64159B4729009198C8 /* Post.m in Sources */,
 				1C842A70159B47DD009198C8 /* EditPostViewController.m in Sources */,
-				1C842A71159B47DD009198C8 /* PostsApiClient.m in Sources */,
 				1C842A72159B47DD009198C8 /* PostsViewController.m in Sources */,
 				1C842A73159B47DD009198C8 /* PrivatePostsViewController.m in Sources */,
 				1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */,
@@ -357,6 +381,12 @@
 				1CEC7D83159F5AB300517548 /* ReachabilityManager.m in Sources */,
 				1CEC7DA415A04DA700517548 /* _User.m in Sources */,
 				1CEC7DA515A04DA700517548 /* User.m in Sources */,
+				1C15500915A54CA6002EF4F6 /* UserViewController.m in Sources */,
+				1C15501315A55783002EF4F6 /* _FacebookPost.m in Sources */,
+				1C15501415A55783002EF4F6 /* _FacebookUser.m in Sources */,
+				1C15501515A55783002EF4F6 /* FacebookPost.m in Sources */,
+				1C15501615A55783002EF4F6 /* FacebookUser.m in Sources */,
+				1C15501915A5645F002EF4F6 /* WebApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

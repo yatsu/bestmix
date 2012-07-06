@@ -1,9 +1,8 @@
-#import "PostsApiClient.h"
-#import "Post.h"
-#import "Config.h"
+#import "WebApiClient.h"
 #import "AuthManager.h"
+#import "Config.h"
 
-@implementation PostsApiClient
+@implementation WebApiClient
 
 - (id)init
 {

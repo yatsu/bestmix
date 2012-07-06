@@ -4,11 +4,14 @@
 #import "_User.h"
 
 const struct UserAttributes UserAttributes = {
+	.createdAt = @"createdAt",
 	.email = @"email",
 	.userID = @"userID",
 };
 
 const struct UserRelationships UserRelationships = {
+	.facebookPosts = @"facebookPosts",
+	.facebookUser = @"facebookUser",
 	.myPosts = @"myPosts",
 	.posts = @"posts",
 };
@@ -53,6 +56,13 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
+@dynamic createdAt;
+
+
+
+
+
+
 @dynamic email;
 
 
@@ -85,6 +95,23 @@ const struct UserFetchedProperties UserFetchedProperties = {
 
 
 
+
+@dynamic facebookPosts;
+
+	
+- (NSMutableSet*)facebookPostsSet {
+	[self willAccessValueForKey:@"facebookPosts"];
+  
+	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"facebookPosts"];
+  
+	[self didAccessValueForKey:@"facebookPosts"];
+	return result;
+}
+	
+
+@dynamic facebookUser;
+
+	
 
 @dynamic myPosts;
 

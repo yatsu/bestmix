@@ -4,7 +4,7 @@
 #import "Post.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
-#import "PostsApiClient.h"
+#import "WebApiClient.h"
 #import "SVPullToRefresh.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
@@ -14,7 +14,7 @@
 
 @interface PublicPostsViewController ()
 
-@property (strong, nonatomic) PostsApiClient *client;
+@property (strong, nonatomic) WebApiClient *client;
 
 - (void)clearPostsInContext:(NSManagedObjectContext *)context;
 
@@ -62,7 +62,7 @@
     }
 
     if (!_client)
-        self.client = [PostsApiClient new];
+        self.client = [WebApiClient new];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithInteger:_currentPage], @"page", nil];

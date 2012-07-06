@@ -4,7 +4,7 @@
 #import "MyPost.h"
 #import "UIColor+Hex.h"
 #import "MBProgressHUD.h"
-#import "PostsApiClient.h"
+#import "WebApiClient.h"
 #import "SVPullToRefresh.h"
 #import "UIAlertView+SimpleAlert.h"
 #import "CoreData+MagicalRecord.h"
@@ -20,7 +20,7 @@ const NSInteger kAlertLogout = 2;
     BOOL _skipNextFetch;
 }
 
-@property (strong, nonatomic) PostsApiClient *client;
+@property (strong, nonatomic) WebApiClient *client;
 
 - (void)clearPostsInContext:(NSManagedObjectContext *)context;
 - (void)fetchPosts;
@@ -189,7 +189,7 @@ const NSInteger kAlertLogout = 2;
     }
 
     if (!_client)
-        self.client = [PostsApiClient new];
+        self.client = [WebApiClient new];
     [_client setAuthToken];
 
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
