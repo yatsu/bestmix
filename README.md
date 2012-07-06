@@ -17,6 +17,8 @@ Bestmix uses following libraries and frameworks.
 * [Devise](https://github.com/plataformatec/devise ) - Authentication
 * [RABL](https://github.com/nesquena/rabl ) - JSON Formatter
 * [Doorkeeper](https://github.com/applicake/doorkeeper ) - OAuth2 Provider
+* [omniauth-facebook](https://github.com/mkdynamic/omniauth-facebook ) - Facebook Login
+* [Koala](https://github.com/arsduo/koala ) - Facebook Library for Ruby
 * [versionist](https://github.com/bploetz/versionist ) - API Versioning
 * [Active Admin](http://activeadmin.info/) - Admin Interface
 

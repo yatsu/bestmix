@@ -13,7 +13,9 @@ class Api::V1::UsersController < Api::ApiController
     end
 
     if @user.uid
-      @user.facebook_user = FacebookUser.new(current_user.facebook.get_object(@user.uid))
+      hash = current_user.facebook.get_object(@user.uid)
+      logger.debug "facebook user: #{hash}"
+      @user.facebook_user = FacebookUser.new(hash)
     end
 
     # expires_in 5.seconds

@@ -1,6 +1,6 @@
 object @user
 
-attributes :id, :email
+attributes :id, :email, :created_at
 
 # child :facebook_user, :if => lambda { |u| u.facebook_user } do
 #   attributes :id, :name, :first_name, :last_name, :username, :gender
