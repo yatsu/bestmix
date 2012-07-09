@@ -1,15 +1,35 @@
 Bestmix
 =======
 
-Bestmix is a boilerplate to build both Rails-based web app and iOS app integrated with each other.
-They are connected with JSON REST API supporting CRUD, OAuth2 authentication, pagination and caching.
+Bestmix is a simple pair of iOS app and Rails-based backend.
+You can use it as a basic structure to build your own iOS app and  backend web API integrated with each other.
+They are connected with JSON REST API supporting CRUD, pagination, caching, OAuth2 and Facebook integration.
 
-You can build your own app quickly by extending it.
+Features
+--------
+
+### Server-Side
+
+* Generating JSON from DB records
+* HTTP caching
+* Basic authentication with Email and passwrod
+* Facebook login
+* Call Facebook API using authorized token
+* OAuth2 authorization for web API
+* Admin UI
+
+### iOS App
+
+* Parsing JSON response and importing it into Core Data
+* Pagination
+* HTTP caching
+* Checking reachability and display object cache if it is offline
+* Getting OAuth2 authorization from web API
+
+These features are implemented using libraries listed below.
 
 Libraries
 ---------
-
-Bestmix uses following libraries and frameworks.
 
 ### Server-Side
 
@@ -34,6 +54,18 @@ See [Gemfile](http://github.com/yatsu/bestmix/blob/master/server/Gemfile ) for m
 * [mogenerator](https://github.com/rentzsch/mogenerator ) - Core Data Code Generation
 
 See [Podfile](http://github.com/yatsu/bestmix/blob/master/ios/Podfile ) for more details.
+
+Requirements
+------------
+
+### Server-Side
+
+* Ruby >= 1.9
+
+### iOS App
+
+* iOS >= 5.0
+  * requries ARC and Storyboard
 
 Setup
 -----
