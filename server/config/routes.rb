@@ -6,6 +6,8 @@ Bestmix::Application.routes.draw do
 
   mount Doorkeeper::Engine => '/oauth'
 
+  devise_for :users
+
   namespace :api do
     api_version(:module => "V1", :path => "/v1") do
       resources :posts, :only => [ :index, :show ]
