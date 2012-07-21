@@ -61,6 +61,7 @@ Requirements
 ### Server-Side
 
 * Ruby >= 1.9
+* MySQL (you can use another DB server by editing Gemfile)
 
 ### iOS App
 
@@ -75,7 +76,7 @@ Setup
 1. Install [Ruby on Rails](http://rubyonrails.org/ ) and [RVM](https://rvm.io/ ) if you don't have them.
 2. Copy server/config/database.yml.example to server/config/database.yml and modify it.
 3. Copy server/config/initializers/devise.rb.example to server/config/initializers/devise.rb and modify it (See [Devise](https://github.com/plataformatec/devise ) for details).
-4. `cd server; rails db:setup`
+4. `cd server; bundle; rake db:setup`
 5. `rails s` # (or setup your web server such as Apache, nginx, etc.)
 
 ### iOS App
