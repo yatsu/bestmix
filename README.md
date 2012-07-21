@@ -84,7 +84,7 @@ Setup
 1. Install [mogenerator](https://github.com/rentzsch/mogenerator ) and make it executable from Xcode (e.g. `ln -s /opt/brew/bin/mogenerator /usr/bin/mogenerator`)
 2. Install [CocoaPods](http://cocoapods.org/ )
 3. Copy ios/Bestmix/Config.h.example to ios/Bestmix/Config.h and modify it.
-4. `cd ios; pod install Bestmix.xcodeproj`
+4. `cd ios; pod install`
 5. Open Bestmix.xcworkspace and build the app
 
 License

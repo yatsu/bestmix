@@ -184,8 +184,8 @@ const NSInteger kAlertLogout = 2;
     }
 
     if ([self.tableView numberOfRowsInSection:0] == 0 && ![MBProgressHUD HUDForView:self.view]) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Loading...";
+        //MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        //hud.labelText = @"Loading...";
     }
 
     if (!_client)
