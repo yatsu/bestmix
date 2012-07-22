@@ -3,8 +3,8 @@
 
 @interface PrivatePostsViewController : PostsViewController
 
-@property (nonatomic) IBOutlet UIBarButtonItem *loginButton;
-@property (nonatomic) IBOutlet UIBarButtonItem *addButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *loginButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addButton;
 
 - (IBAction)loginTapped:(id)sender;
 
