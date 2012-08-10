@@ -94,6 +94,7 @@ const NSInteger kAlertLogout = 2;
         _skipNextFetch = NO;
         return;
     }
+
     [super fetch];
 }
 
@@ -160,6 +161,15 @@ const NSInteger kAlertLogout = 2;
     return cell;
 }
 
+- (void)becomeReachable
+{
+    NSLog(@"reachable");
+    _currentPage = 1;
+
+    if ([AuthManager loggedIn])
+        [self fetchPosts];
+}
+
 #pragma mark Local Methods
 
 - (void)clearPostsInContext:(NSManagedObjectContext *)context
@@ -184,8 +194,8 @@ const NSInteger kAlertLogout = 2;
     }
 
     if ([self.tableView numberOfRowsInSection:0] == 0 && ![MBProgressHUD HUDForView:self.view]) {
-        //MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        //hud.labelText = @"Loading...";
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Loading...";
     }
 
     if (!_client)
@@ -287,7 +297,7 @@ const NSInteger kAlertLogout = 2;
 
 - (void)login
 {
-    _skipNextFetch = YES;
+    //_skipNextFetch = YES;
     [AuthManager openLoginURL];
 }
 

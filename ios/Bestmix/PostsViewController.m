@@ -123,7 +123,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"reachable");
     _currentPage = 1;
-    [self fetch];
+    [self fetchFromWebApi];
 }
 
 - (void)becomeUnreachable
