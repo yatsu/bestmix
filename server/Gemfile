@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+def darwin_only(require_as)
+  RUBY_PLATFORM.include?('darwin') && require_as
+end
+
+gem 'rails', '3.2.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -42,6 +46,7 @@ gem 'versionist', '~> 0.2.0'
 gem 'rabl', '~> 0.6.12'
 gem "meta_search"
 gem 'haml'
+gem 'sass'
 gem 'kaminari'
 gem 'activeadmin'
 gem 'formtastic', '~> 2.1.1' # Active Admin requires 2.1
@@ -55,7 +60,21 @@ gem 'capistrano'
 gem 'capistrano_colors'
 gem 'rvm-capistrano'
 
-group :development, :test do
-  gem 'fabrication'
-  gem 'faker'
+gem 'rspec-rails', :group => [ :test, :development ]
+group :test do
+  gem 'guard-rspec'
+  gem 'spork'
+  gem 'guard-spork'
+  gem 'rb-fsevent', :require => darwin_only('rb-fsevent')
+  gem 'growl', :require => darwin_only('growl')
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'factory_girl'
+  gem 'ffaker'
+  gem 'vcr'
+  gem 'accept_values_for'
+  # gem 'simplecov', :require => false
+  # gem 'simplecov-rcov', :require => false
 end
