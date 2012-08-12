@@ -75,6 +75,6 @@ group :test do
   gem 'ffaker'
   gem 'vcr'
   gem 'accept_values_for'
-  # gem 'simplecov', :require => false
-  # gem 'simplecov-rcov', :require => false
+  gem 'simplecov', :require => false
+  gem 'simplecov-rcov', :require => false
 end
