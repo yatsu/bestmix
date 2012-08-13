@@ -2,10 +2,12 @@ require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
-# require 'simplecov'
-# SimpleCov.start 'rails' do
-#   add_filter "/spec/"
-# end
+AcceptValuesFor.class_eval do
+  # Truncate very long values to make the result message readable.
+  def description
+    "accept values #{@values.map { |v| v ? v.truncate(20).sub(/\.\.\.\Z/, "...(length: #{v.length})") : nil }.map(&:inspect).join(', ')} for #{@attribute.inspect} attribute"
+  end
+end
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
@@ -20,8 +22,11 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'capybara/rails'
   require 'capybara/rspec'
   require 'capybara/poltergeist'
+
+  # include Warden::Test::Helpers
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -63,6 +68,8 @@ Spork.prefork do
     # config.filter_run :focus => true
     # config.run_all_when_everything_filtered = true
 
+    config.include FactoryGirl::Syntax::Methods
+
     # https://github.com/plataformatec/devise#test-helpers
     config.include Devise::TestHelpers, type: :controller
 
@@ -77,6 +84,7 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
+      # Warden.test_reset!
     end
   end
 end

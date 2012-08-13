@@ -46,7 +46,6 @@ gem 'versionist', '~> 0.2.0'
 gem 'rabl', '~> 0.6.12'
 gem "meta_search"
 gem 'haml'
-gem 'sass'
 gem 'kaminari'
 gem 'activeadmin'
 gem 'formtastic', '~> 2.1.1' # Active Admin requires 2.1
@@ -59,6 +58,11 @@ gem "koala", '~> 1.5.0'
 gem 'capistrano'
 gem 'capistrano_colors'
 gem 'rvm-capistrano'
+
+group :development do
+  gem 'pry'
+  gem 'pry-rails'
+end
 
 gem 'rspec-rails', :group => [ :test, :development ]
 group :test do
@@ -76,5 +80,5 @@ group :test do
   gem 'vcr'
   gem 'accept_values_for'
   gem 'simplecov', :require => false
-  gem 'simplecov-rcov', :require => false
+  # gem 'simplecov-rcov', :require => false
 end

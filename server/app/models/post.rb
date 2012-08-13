@@ -26,12 +26,16 @@ class Post < ActiveRecord::Base
     published_at != nil
   end
 
+  def deleted
+    deleted_at != nil
+  end
+
   private
 
   def set_published_at
-    if (publish == "true" || publish == "1") && published_at.nil?
+    if (publish == true || publish == "true" || publish == "1") && published_at.nil?
       self.published_at = Time.now
-    elsif (publish != "true" && publish != "1") && published_at
+    elsif (publish != true && publish != "true" && publish != "1") && published_at
       self.published_at = nil
     end
   end
