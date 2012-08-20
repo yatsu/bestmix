@@ -1,0 +1,23 @@
+%header.page-header
+  %h2 My Posts
+
+.row
+  .span12
+    %p= link_to 'New Post', new_my_post_path, :type => "submit", :class => "btn"
+
+.row
+  %table.table.table-bordered.table-striped.span12.my-post
+    - @posts.each do |post|
+      %tr
+        %td
+          .title= post.title
+          .content= post.content
+          .published
+            - if post.published_at
+              published at
+              = post.published_at.to_s(:db)
+            - else
+              %i not published yet
+          .tasks
+            = link_to 'Edit', edit_my_post_path(post)
+            = link_to 'Destroy', my_post_path(post), data: { confirm: 'Are you sure?' }, method: :delete

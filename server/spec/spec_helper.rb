@@ -70,9 +70,6 @@ Spork.prefork do
 
     config.include FactoryGirl::Syntax::Methods
 
-    # https://github.com/plataformatec/devise#test-helpers
-    config.include Devise::TestHelpers, type: :controller
-
     # DB clean with truncation instead of transaction to avoid error with Selenium.
     config.before(:suite) do
       DatabaseCleaner.strategy = :truncation

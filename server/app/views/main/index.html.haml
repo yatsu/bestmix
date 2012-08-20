@@ -1,28 +1,23 @@
 .row
-  .column.span6
-    %header.page-header
-      %h2 Public Posts
+  .column.span9
     - if @public_posts.empty?
       no post
     - else
-      %ul
-        - @public_posts.each do |post|
-          %li{ :class => post.published ? "public" : "private" }
-            .title= post.title
-            .user= post.user.email
+      - @public_posts.each do |post|
+        .post
+          %h2.title= post.title
+          .content= post.content
+          .published
+            %span= post.published_at.to_s
+            %span= post.user.email
 
-  .column.span6
+  .column.span3
     %header.page-header
-      %h2 My Posts
+      %h2 Blog App
     - unless user_signed_in?
       Please
       = link_to "sign in", new_user_session_path
+      to compose your blog entries.
     - else
-      - if @my_posts.empty?
-        no post
-      - else
-        %ul
-          = render partial: "posts/post", collection: @my_posts
-
-        %p= link_to "New Post", new_post_path
+      %p= link_to "Compose", my_posts_path, :class => "btn btn-primary"
 

@@ -14,20 +14,25 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          -# %a.btn.btn-navbar{ :type => "button", "data-toggle" => "collapse", "data-target" => ".nav-collapse" }
-          -#   %span.icon-bar
-          -#   %span.icon-bar
-          -#   %span.icon-bar
+          - if user_signed_in?
+            %button.btn.btn-navbar{ :type => "button", "data-toggle" => "collapse", "data-target" => ".nav-collapse" }
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
           = link_to "Bestmix", "/", :class => "brand"
           %ul.nav.pull-right
-            - if user_signed_in?
-              %li= link_to "Apps", "/oauth/authorized_applications"
             - if user_signed_in?
               %li= link_to '@' + current_user.email.sub(/@.*\Z/, ''), "/users/edit"
               %li= link_to "Sign out", "/users/sign_out", :method => :delete
             - else
               %li= link_to "Sign in", "/users/sign_in"
               %li= link_to "Sign up", "/users/sign_up"
+          - if user_signed_in?
+            .nav-collapse.collapse
+              %ul.nav.pull-right
+                %li= link_to "Home", "/"
+                %li= link_to "My Posts", "/my_posts"
+                %li= link_to "Apps", "/oauth/authorized_applications"
     .container
       .row
         - flash.each do |key, message|

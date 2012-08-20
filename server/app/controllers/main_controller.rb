@@ -1,10 +1,11 @@
 class MainController < ApplicationController
   def index
+    page = (params[:page] || 1).to_i
+
     if user_signed_in?
-      @my_posts = current_user.posts
+      @my_posts = current_user.posts.page(page)
     end
 
-    page = (params[:page] || 1).to_i
     @public_posts = Post.published.page(page)
   end
 end

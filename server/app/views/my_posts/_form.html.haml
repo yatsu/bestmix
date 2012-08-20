@@ -1,6 +1,6 @@
 .row
   .span12
-    = form_for(@post, :html => { :class => "well" }) do |f|
+    = form_for(@post, :url => (@post.id ? my_post_path(@post) : my_posts_path), :html => { :class => "well" }) do |f|
       - if @post.errors.any?
         #error_explanation
           %h2

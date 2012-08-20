@@ -4,10 +4,4 @@ class PostsController < InheritedResources::Base
   def index
     redirect_to root_path
   end
-
-  def create
-    create! { root_path }
-    @post.user = current_user
-    @post.save
-  end
 end

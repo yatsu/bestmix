@@ -1,4 +1,8 @@
 Bestmix::Application.routes.draw do
+  get "my_posts/index"
+
+  get "my_posts/create"
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -17,6 +21,7 @@ Bestmix::Application.routes.draw do
   end
 
   resources :posts
+  resources :my_posts
 
   root :to => 'main#index'
 

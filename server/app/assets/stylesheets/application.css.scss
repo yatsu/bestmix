@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require posts
  *= require bootstrap
 */
 
@@ -24,6 +23,45 @@ body {
 table td {
   vertical-align: middle;
 }
+
+.post {
+  margin-bottom: 10px;
+  .content {
+    margin: 5px 0;
+  }
+  .published {
+    color: #888888;
+    span {
+      margin-right: 10px;
+    }
+  }
+}
+
+.my-post {
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .published {
+    color: #aaa;
+    margin: 5px 0;
+  }
+
+  .tasks {
+    a {
+      margin-right: 5px;
+      // color: transparent;
+    }
+  }
+}
+
+// .my-post tr:hover {
+//   .tasks a {
+//     color: #0088cc;
+//   }
+// }
 
 .error input {
   color: #B94A48;
