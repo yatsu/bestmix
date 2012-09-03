@@ -140,7 +140,7 @@ Create a new Xcode project with copying Bestmix.xcodeproj.
 Modify the top line of Podfile to use the new Xcode project.
 
 ```
-codeproj 'MyApp.xcodeproj'
+xcodeproj 'MyApp.xcodeproj'
 ```
 
 Run `pod install` and open MyApp.xcworkspace.
