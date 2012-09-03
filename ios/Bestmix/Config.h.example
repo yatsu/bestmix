@@ -1,6 +1,6 @@
 #define WebApiUrl    @"http://localhost:3000/api/v1/"
 
 #define AuthBaseURL  @"http://localhost:3000/"
-#define ClientID     @"---client id---""
-#define ClientSecret @"---client secret---""
+#define ClientID     @"---client id---"
+#define ClientSecret @"---client secret---"
 #define RedirectURL  @"bestmix://auth"
