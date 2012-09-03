@@ -76,14 +76,44 @@ Setup
 1. Install [Ruby on Rails](http://rubyonrails.org/ ) and [RVM](https://rvm.io/ ) if you don't have them.
 2. Copy server/config/database.yml.example to server/config/database.yml and modify it.
 3. Copy server/config/initializers/devise.rb.example to server/config/initializers/devise.rb and modify it (See [Devise](https://github.com/plataformatec/devise ) for details).
-4. `cd server; bundle; rake db:setup`
+    * Set `config.mailer_sender`.
+    * If you use Facebook login, enable the setting at the bottom and modify `APP_ID` and `APP_SECRET`.
+4. `cd server; bundle; rake db:setup; rake db:migrate`
 5. `rails s` # (or setup your web server such as Apache, nginx, etc.)
+6. Open URL `http://localhost:3000/` to see the web app.
+7. Open URL `http://localhost:3000/admin` to see the admin page.
+    * Email: `admin@example.com`
+    * password: `password`
+    * See [Active Admin](http://www.activeadmin.info/ ) for more information.
+    
+#### Register iOS App to Web API
+
+Open admin page: `http://localhost:3000/admin` and click "Applications".
+
+<a href="http://www.flickr.com/photos/14555412@N05/7919712900/" title="admin_dashboard by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8172/7919712900_a4355b209f.jpg" width="500" height="382" alt="admin_dashboard"></a>
+
+Click "New Application" at the bottom of the applications page, and input app information in the form:
+
+* Name: `<your iOS app name>`
+* Redirect url `bestmix://auth`
+
+If you develop your own app instead of just running the sample app, change the URL schema (`bestmix`) of the above redirect URL.
+
+<a href="http://www.flickr.com/photos/14555412@N05/7919749154/" title="admin_new_app by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8297/7919749154_ff16ea2934.jpg" width="500" height="382" alt="admin_new_app"></a>
+
+When you submit the form, app ID and secret will be published as below.
+They are used in the iOS app's config file.
+
+<a href="http://www.flickr.com/photos/14555412@N05/7919748686/" title="admin_create_app by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8444/7919748686_b099e04ccc.jpg" width="500" height="382" alt="admin_create_app"></a>
 
 ### iOS App
 
 1. Install [mogenerator](https://github.com/rentzsch/mogenerator ) and make it executable from Xcode (e.g. `ln -s /opt/brew/bin/mogenerator /usr/bin/mogenerator`)
 2. Install [CocoaPods](http://cocoapods.org/ )
 3. Copy ios/Bestmix/Config.h.example to ios/Bestmix/Config.h and modify it.
+    * Set WebApiUrl (e.g. `http://localhost:3000/api/v1/`)
+    * Set AuthBaseURL (e.g. `http://localhost:3000/`)
+    * Set ClientID, ClientSecret and RedirectURL same as you saw in the app registration page.
 4. `cd ios; pod install`
 5. Open Bestmix.xcworkspace and build the app
 
