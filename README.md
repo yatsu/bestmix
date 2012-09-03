@@ -147,11 +147,11 @@ Run `pod install` and open MyApp.xcworkspace.
 
 Open target summary tab and set bundle identifier.
 
-<a href="http://www.flickr.com/photos/14555412@N05/7921303932/" title="ios_summary by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8450/7921303932_7f1e829c75.jpg" width="500" height="321" alt="ios_summary"></a>
+<a href="http://www.flickr.com/photos/14555412@N05/7921303932/" title="ios_summary by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8450/7921303932_7f1e829c75_z.jpg" width="640" height="411" alt="ios_summary"></a>
 
 Open target info tab and set URL type identifier and URL schema.
 
-<a href="http://www.flickr.com/photos/14555412@N05/7921304526/" title="ios_url by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8443/7921304526_5b92805907.jpg" width="500" height="432" alt="ios_url"></a>
+<a href="http://www.flickr.com/photos/14555412@N05/7921304526/" title="ios_url by masaki.yatsu, on Flickr"><img src="http://farm9.staticflickr.com/8443/7921304526_5b92805907_z.jpg" width="640" height="553" alt="ios_url"></a>
 
 Then build and run your app.
 
