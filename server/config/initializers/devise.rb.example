@@ -223,14 +223,16 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.omniauth :facebook, "APP_ID", "APP_SECRET",
-    :scope => 'email,offline_access', :setup => lambda { |env|
-      request = Rack::Request.new(env)
-      mobile_device = request.user_agent =~ /Mobile|webOS/i
-      request.env['omniauth.strategy'].options[:display] = mobile_device ? "touch" : "page"
-    }
+  # Facebook Login
+  #
+  # config.omniauth :facebook, "APP_ID", "APP_SECRET",
+  #   :scope => 'email,offline_access', :setup => lambda { |env|
+  #     request = Rack::Request.new(env)
+  #     mobile_device = request.user_agent =~ /Mobile|webOS/i
+  #     request.env['omniauth.strategy'].options[:display] = mobile_device ? "touch" : "page"
+  #   }
 
-  # For Mac OS X 10.7 (Lion) and HomeBrew
+  # For Mac OS X and HomeBrew
   #
   # config.omniauth :facebook, "APP_ID", "APP_SECRET",
   #   :scope => 'email,offline_access', :setup => lambda { |env|
