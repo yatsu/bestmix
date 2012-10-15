@@ -78,7 +78,7 @@ const NSInteger kAlertLogout = 2;
 
     } else if ([controller isKindOfClass:[EditPostViewController class]]) { // edit post
         editPostVC = (EditPostViewController *)controller;
-        MyPost *post = [_fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        MyPost *post = [_fetchedRC objectAtIndexPath:self.tableView.indexPathForSelectedRow];
         editPostVC.postID = [post.myPostID integerValue];
         editPostVC.postTitle = post.title;
         editPostVC.content = post.content;
@@ -117,22 +117,21 @@ const NSInteger kAlertLogout = 2;
     [super fetchFromCoreData];
     NSLog(@"fetchFromCoreData");
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"expire = %@",
-                              [NSNumber numberWithBool:NO]];
-
-    if (_fetchedResultsController == nil) {
-        _fetchedResultsController = [MyPost MR_fetchAllGroupedBy:nil
-                                                   withPredicate:predicate
-                                                        sortedBy:@"updatedAt"
-                                                       ascending:NO];
+    if (_fetchedRC == nil) {
+        _fetchedRC = [MyPost MR_fetchAllGroupedBy:nil
+                                    withPredicate:nil
+                                         sortedBy:@"updatedAt"
+                                        ascending:NO];
     }
 
-    [_fetchedResultsController performFetch:nil];
+    [_fetchedRC performFetch:nil];
     [self.tableView reloadData];
 }
 
 - (void)clearPosts
 {
+    [super clearPosts];
+
     [self clearPostsInContext:[NSManagedObjectContext MR_defaultContext]];
 }
 
@@ -141,10 +140,10 @@ const NSInteger kAlertLogout = 2;
     UITableViewCell *cell = [super postCellForIndexPath:indexPath];
 
     id <NSFetchedResultsSectionInfo> sectionInfo =
-        [[_fetchedResultsController sections] objectAtIndex:0];
+        [[_fetchedRC sections] objectAtIndex:0];
     NSInteger count = [sectionInfo numberOfObjects];
     if (indexPath.row < count) {
-        MyPost *post = [_fetchedResultsController objectAtIndexPath:indexPath];
+        MyPost *post = [_fetchedRC objectAtIndexPath:indexPath];
 
         cell.textLabel.text = post.title;
         if (post.publishedAt)
@@ -182,7 +181,7 @@ const NSInteger kAlertLogout = 2;
     [context MR_saveNestedContexts];
 
     NSError *error;
-    [_fetchedResultsController performFetch:&error];
+    [_fetchedRC performFetch:&error];
 }
 
 - (void)fetchPosts
@@ -227,12 +226,30 @@ const NSInteger kAlertLogout = 2;
                     [MagicalRecord saveInBackgroundWithBlock:^(NSManagedObjectContext *context) {
                         // [MyPost MR_importFromArray:elem inContext:context]; // crash (issue 180)
                         for (NSDictionary *dict in elem) {
-                            id elem = [dict objectForKey:@"post"];
-                            if (elem && [elem isKindOfClass:[NSDictionary class]]) {
-                                MyPost *post = [MyPost MR_importFromObject:elem inContext:context];
-                                post.expire = [NSNumber numberWithBool:NO];
-                                // NSLog(@"post: %@", post);
+                            @autoreleasepool {
+                                id elem = [dict objectForKey:@"post"];
+                                if (elem && [elem isKindOfClass:[NSDictionary class]]) {
+                                    MyPost *post = [MyPost MR_findFirstByAttribute:@"myPostID"
+                                                                         withValue:[elem objectForKey:@"id"]
+                                                                         inContext:context];
+                                    if (post) {
+                                        [[post MR_inContext:context] MR_importValuesForKeysWithObject:elem];
+                                    } else {
+                                        post = [MyPost MR_importFromObject:elem inContext:context];
+                                    }
+                                    post.expire = [NSNumber numberWithBool:NO];
+                                }
                             }
+
+                            // If you import large number of posts at once, you should update the table
+                            // while importing.
+                            //if (count % 20 == 0) {
+                            //    [context MR_saveNestedContexts]; // save them to SQLite (issue 187)
+                            //    dispatch_async(dispatch_get_main_queue(), ^{
+                            //        [self.tableView.pullToRefreshView stopAnimating];
+                            //        [self fetchFromCoreData:NO];
+                            //    });
+                            //}
                         }
                         [MyPost MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:
                                                                @"expire = %@",

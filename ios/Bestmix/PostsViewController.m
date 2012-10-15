@@ -88,7 +88,7 @@ const NSInteger kLoadingCellTag = 9999;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedRC sections] objectAtIndex:section];
     NSInteger count = [sectionInfo numberOfObjects];
     if (count == 0)
         return 0;
@@ -111,7 +111,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:indexPath.section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedRC sections] objectAtIndex:indexPath.section];
     NSInteger count = [sectionInfo numberOfObjects];
     if (indexPath.row == count)
         return [self loadingCell];

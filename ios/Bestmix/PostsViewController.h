@@ -8,7 +8,8 @@
     NSUInteger _totalPages;
     NSUInteger _totalCount;
 
-    NSFetchedResultsController *_fetchedResultsController;
+    NSFetchedResultsController *_fetchedRC;
+    NSFetchedResultsController *_filteredFetchedRC;
 }
 
 @property (nonatomic) NSUInteger currentPage;
