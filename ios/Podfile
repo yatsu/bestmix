@@ -2,10 +2,10 @@ xcodeproj 'Bestmix.xcodeproj'
 
 platform :ios
 
-pod 'AFNetworking', '~> 1.0RC1'
+pod 'AFNetworking', '= 1.0RC1'
 #pod 'SDURLCache', '~> 1.2'
 pod do |s|
-  s.name     = 'SDURLCache'
+  s.name     = 'SDURLCache-git'
   s.version  = '1.2a'
   s.platform = :ios
   s.summary  = 'URLCache subclass with on-disk cache support on iPhone/iPad.'
@@ -16,10 +16,10 @@ pod do |s|
 end
 pod 'JSONKit', '~> 1.4'
 pod 'MBProgressHUD', '~> 0.5'
-pod 'TestFlightSDK', '~> 1.0'
+pod 'TestFlightSDK', '~> 1.1'
 pod 'MessagePack', '~> 1.0.0'
 pod 'ISO8601DateFormatter', '~> 0.6'
-pod 'SVPullToRefresh', '~> 0.1'
+pod 'SVPullToRefresh', '~> 0.3'
 pod 'Reachability', '~> 3.0.0'
 pod 'MagicalRecord', '~> 2.0.3'
 #pod 'MagicalRecord', :git => 'https://github.com/magicalpanda/MagicalRecord.git'

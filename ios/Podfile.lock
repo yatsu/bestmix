@@ -1,27 +1,43 @@
+
 PODS:
-  - AFNetworking (1.0RC1)
-  - ISO8601DateFormatter (0.6)
-  - JSONKit (1.5pre)
-  - MBProgressHUD (0.5)
-  - MagicalRecord (2.0.3)
-  - MessagePack (1.0.0)
-  - Reachability (3.0.0)
-  - SDURLCache (1.2a)
-  - SSKeychain (0.1.4)
-  - SVPullToRefresh (0.2)
-  - TPKeyboardAvoiding (0.0.1)
-  - TestFlightSDK (1.0)
+- AFNetworking (1.0RC1)
+- ISO8601DateFormatter (0.6)
+- JSONKit (1.5pre)
+- MBProgressHUD (0.5)
+- MagicalRecord (2.0.3)
+- MessagePack (1.0.0)
+- Reachability (3.0.0)
+- SDURLCache-git (1.2a)
+- SSKeychain (0.1.4)
+- SVPullToRefresh (0.3)
+- TPKeyboardAvoiding (0.0.1)
+- TestFlightSDK (1.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 1.0RC1)
-  - ISO8601DateFormatter (~> 0.6)
-  - JSONKit (~> 1.4)
-  - MBProgressHUD (~> 0.5)
-  - MagicalRecord (~> 2.0.3)
-  - MessagePack (~> 1.0.0)
-  - Reachability (~> 3.0.0)
-  - SDURLCache (defined in Podfile)
-  - SSKeychain (~> 0.1.4)
-  - SVPullToRefresh (~> 0.1)
-  - TPKeyboardAvoiding (~> 0.0.1)
-  - TestFlightSDK (~> 1.0)
+- AFNetworking (= 1.0RC1)
+- ISO8601DateFormatter (~> 0.6)
+- JSONKit (~> 1.4)
+- MBProgressHUD (~> 0.5)
+- MagicalRecord (~> 2.0.3)
+- MessagePack (~> 1.0.0)
+- Reachability (~> 3.0.0)
+- SDURLCache-git (defined in Podfile)
+- SSKeychain (~> 0.1.4)
+- SVPullToRefresh (~> 0.3)
+- TPKeyboardAvoiding (~> 0.0.1)
+- TestFlightSDK (~> 1.1)
+
+SPEC CHECKSUMS:
+  AFNetworking: b21c1252d437fd322e7db1caa93b163d76a362cb
+  ISO8601DateFormatter: dc05a2481edf49668d85d3ff8c466c32eb544780
+  JSONKit: a01a22c75f27eae76b4badd55a91c20fe6e86477
+  MBProgressHUD: b23ee11c42253d6d804e8e0bfabdc334e8b2571f
+  MagicalRecord: bab76c152f93668a25cf1b697e1f469f4c3bf691
+  MessagePack: 66a565c0c34ecdd83a84ae090d1a04ef24c88beb
+  Reachability: 500bd76bf6cd8ff2c6fb715fc5f44ef6e4c024f2
+  SSKeychain: a81ff6b65eb5e8fc1fddecf11fe167dba81d4314
+  SVPullToRefresh: f6047698fc0530e9ab42266fce4dc1882e718d0e
+  TPKeyboardAvoiding: 129e3c55ac9165d0692e66f02fd1f611d917ec1a
+  TestFlightSDK: a62347405c04307e2953eda4b8cc465ee51a6c90
+
+COCOAPODS: 0.14.0
