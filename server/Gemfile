@@ -35,18 +35,15 @@ gem 'jquery-rails', '~> 2.1.1'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'doorkeeper', '~> 0.4.2'
 gem 'versionist', '~> 0.3.1'
-gem 'rabl', '~> 0.7.1'
+gem 'rabl', '~> 0.7.2'
 gem "meta_search", '~> 1.1.3'
 gem 'haml', '~> 3.1.7'
-gem 'kaminari', '~> 0.14.0'
+gem 'kaminari', '~> 0.14.1'
 gem 'activeadmin', '~> 0.5.0'
 gem 'formtastic', '~> 2.1.1' # Active Admin requires 2.1
 gem 'thor', '~> 0.16.0'
