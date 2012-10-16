@@ -1,4 +1,10 @@
-package com.example.bestmix;
+package com.valleyport.bestmix.activity;
+
+import com.valleyport.bestmix.R;
+import com.valleyport.bestmix.R.id;
+import com.valleyport.bestmix.R.layout;
+import com.valleyport.bestmix.R.menu;
+import com.valleyport.bestmix.R.string;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -30,9 +36,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // For each of the sections in the app, add a tab to the action bar.
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_section1).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_section2).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_section3).setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.title_posts).setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.title_my_posts).setTabListener(this));  
     }
 
     @Override
