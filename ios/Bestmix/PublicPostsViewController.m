@@ -72,7 +72,7 @@
              success:^(AFHTTPRequestOperation *operation, id response) {
                 //NSLog(@"request headers: %@", operation.request.allHTTPHeaderFields);
                 //NSLog(@"response headers: %@", operation.response.allHeaderFields);
-                NSLog(@"response: %@", response);
+                //NSLog(@"response: %@", response);
                 if (_currentPage == 1)
                     [self clearPosts];
 
