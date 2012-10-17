@@ -1,26 +1,18 @@
 package com.valleyport.bestmix.activity;
 
-import com.valleyport.bestmix.R;
-import com.valleyport.bestmix.R.id;
-import com.valleyport.bestmix.R.layout;
-import com.valleyport.bestmix.R.menu;
-import com.valleyport.bestmix.R.string;
-
 import android.app.ActionBar;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.valleyport.bestmix.R;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -37,7 +29,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // For each of the sections in the app, add a tab to the action bar.
         actionBar.addTab(actionBar.newTab().setText(R.string.title_posts).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_my_posts).setTabListener(this));  
+        actionBar.addTab(actionBar.newTab().setText(R.string.title_my_posts).setTabListener(this));
     }
 
     @Override
@@ -60,7 +52,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return true;
     }
 
-    
+
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -69,6 +61,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, show the tab contents in the container
+        /*
         Fragment fragment = new DummySectionFragment();
         Bundle args = new Bundle();
         args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
@@ -76,6 +69,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+         */
+        Fragment fragment;
+        if (tab.getPosition() == 0) {
+            fragment = new PublicPostsFragment();
+        } else {
+            fragment = new PrivatePostsFragment();
+        }
+        getFragmentManager().beginTransaction()
+        .replace(R.id.container, fragment)
+        .commit();
     }
 
     @Override
