@@ -16,8 +16,10 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.valleyport.bestmix.activity.MainActivity;
 import com.valleyport.bestmix.common.Config;
+import com.valleyport.bestmix.model.Post;
 
 public class PostsResponderFragment extends RESTResponderFragment {
     private static String TAG = PostsResponderFragment.class.getName();
@@ -27,7 +29,7 @@ public class PostsResponderFragment extends RESTResponderFragment {
     // as when the user rotates their device). In a real application we would want
     // to cache this data in a more sophisticated way, probably using SQLite and
     // Content Providers, but for the demo and simple apps this will do.
-    private List<String> mPosts;
+    private List<Post> mPosts;
 
     private int mCurrentPage;
     private int mTotalCount;
@@ -71,8 +73,8 @@ public class PostsResponderFragment extends RESTResponderFragment {
 
             // Load our list adapter with our posts.
             adapter.clear();
-            for (String post : mPosts) {
-                adapter.add(post);
+            for (Post post : mPosts) {
+                adapter.add(post.getTitle());
             }
         }
     }
@@ -106,17 +108,15 @@ public class PostsResponderFragment extends RESTResponderFragment {
         }
     }
 
-    private static List<String> getPostsFromJson(JSONObject json) throws JSONException {
-        ArrayList<String> postList = new ArrayList<String>();
-
-        JSONArray posts = json.getJSONArray("posts");
-
-        for (int i = 0; i < posts.length(); i++) {
-            JSONObject post = posts.getJSONObject(i).getJSONObject("post");
-            postList.add(post.getString("title"));
+    private static List<Post> getPostsFromJson(JSONObject json) throws JSONException {
+        Gson gson = new Gson();
+        ArrayList<Post> postList = new ArrayList<Post>();
+        JSONArray postArray = json.getJSONArray("posts");
+        for (int i = 0; i < postArray.length(); i++) {
+            String post = postArray.getJSONObject(i).getString("post");
+            Log.d(TAG,  "post: " + post);
+            postList.add(gson.fromJson(post, Post.class));
         }
-
         return postList;
     }
-
 }
