@@ -19,3 +19,4 @@ local.properties
 .classpath
 .project
 
+/src/com/valleyport/bestmix/common/Config.java

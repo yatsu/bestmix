@@ -1,0 +1,10 @@
+package com.valleyport.bestmix.common;
+
+public class Config {
+    public static final String REDIRECT_URL = "bestmix://auth";
+
+    public static final String WEB_API_URL    = "http://bestmix.local/api/v1/";
+    public static final String AUTH_BASE_URL  = "http://bestmix.local/";
+    public static final String CLIENT_ID      = "1234";
+    public static final String CLIENT_SECRET  = "5678";
+}

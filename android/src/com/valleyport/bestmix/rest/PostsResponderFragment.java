@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.valleyport.bestmix.activity.MainActivity;
+import com.valleyport.bestmix.common.Config;
 
 public class PostsResponderFragment extends RESTResponderFragment {
     private static String TAG = PostsResponderFragment.class.getName();
@@ -28,9 +29,17 @@ public class PostsResponderFragment extends RESTResponderFragment {
     // Content Providers, but for the demo and simple apps this will do.
     private List<String> mPosts;
 
+    private int mCurrentPage;
+    private int mTotalCount;
+    private int mNumPages;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        mCurrentPage = 0;
+        mTotalCount = 0;
+        mNumPages = 0;
 
         // This gets called each time our Activity has finished creating itself.
         setPosts();
@@ -47,15 +56,8 @@ public class PostsResponderFragment extends RESTResponderFragment {
             // component in our app. You could do this with Intent actions as well, but you have
             // to make sure you define your intent filters correctly in your manifest.
             Intent intent = new Intent(activity, RESTService.class);
-            intent.setData(Uri.parse("http://search.twitter.com/search.json"));
+            intent.setData(Uri.parse(Config.WEB_API_URL + "posts.json"));
 
-            // Here we are going to place our REST call parameters. Note that
-            // we could have just used Uri.Builder and appendQueryParameter()
-            // here, but I wanted to illustrate how to use the Bundle params.
-            Bundle params = new Bundle();
-            params.putString("q", "android");
-
-            intent.putExtra(RESTService.EXTRA_PARAMS, params);
             intent.putExtra(RESTService.EXTRA_RESULT_RECEIVER, getResultReceiver());
 
             // Here we send our Intent to our RESTService.
@@ -77,37 +79,41 @@ public class PostsResponderFragment extends RESTResponderFragment {
 
     @Override
     public void onRESTResult(int code, String result) {
-        Log.d("Bestmix",  "onRESTResult");
+        //Log.d(TAG, "result: " + result);
         // Here is where we handle our REST response. This is similar to the
         // LoaderCallbacks<D>.onLoadFinished() call from the previous tutorial.
 
         // Check to see if we got an HTTP 200 code and have some data.
         if (code == 200 && result != null) {
-            mPosts = getPostsFromJson(result);
+            try {
+                JSONObject json = (JSONObject)new JSONTokener(result).nextValue();
+                mCurrentPage = json.getInt("current_page");
+                mTotalCount = json.getInt("total_count");
+                mNumPages = json.getInt("num_pages");
+                Log.d(TAG, "current_page: " + mCurrentPage + " total_count: " + mTotalCount + " num_pages: " + mNumPages);
+                mPosts = getPostsFromJson(json);
+            }
+            catch (JSONException e) {
+                Log.e(TAG, "Failed to parse JSON.", e);
+            }
             setPosts();
         }
         else {
             Activity activity = getActivity();
             if (activity != null) {
-                Toast.makeText(activity, "Failed to load Twitter data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private static List<String> getPostsFromJson(String json) {
+    private static List<String> getPostsFromJson(JSONObject json) throws JSONException {
         ArrayList<String> postList = new ArrayList<String>();
 
-        try {
-            JSONObject postsWrapper = (JSONObject) new JSONTokener(json).nextValue();
-            JSONArray  posts        = postsWrapper.getJSONArray("results");
+        JSONArray posts = json.getJSONArray("posts");
 
-            for (int i = 0; i < posts.length(); i++) {
-                JSONObject post = posts.getJSONObject(i);
-                postList.add(post.getString("text"));
-            }
-        }
-        catch (JSONException e) {
-            Log.e(TAG, "Failed to parse JSON.", e);
+        for (int i = 0; i < posts.length(); i++) {
+            JSONObject post = posts.getJSONObject(i).getJSONObject("post");
+            postList.add(post.getString("title"));
         }
 
         return postList;
