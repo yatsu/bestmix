@@ -1,22 +1,23 @@
 package com.valleyport.bestmix.activity;
 
 import android.app.ActionBar;
-import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
 
 import com.valleyport.bestmix.R;
+import com.valleyport.bestmix.rest.PostsResponderFragment;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+
+    private ArrayAdapter<String> mPostsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,56 +53,44 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         return true;
     }
 
-
-
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, show the tab contents in the container
-        /*
-        Fragment fragment = new DummySectionFragment();
-        Bundle args = new Bundle();
-        args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-        fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
-         */
-        Fragment fragment;
+        Log.d("Bestmix",  "onTabSelected");
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ListFragment fragment;
         if (tab.getPosition() == 0) {
             fragment = new PublicPostsFragment();
+            if (mPostsAdapter == null) {
+                mPostsAdapter = new ArrayAdapter<String>(this, R.layout.post);
+            }
+            fragment.setListAdapter(mPostsAdapter);
+
+            PostsResponderFragment responder = (PostsResponderFragment)fm.findFragmentByTag("PostsResponder");
+            if (responder == null) {
+                responder = new PostsResponderFragment();
+                // We add the fragment using a Tag since it has no views. It will make the Twitter REST call
+                // for us each time this Activity is created.
+                ft.add(responder, "PostsResponder");
+            }
+
         } else {
             fragment = new PrivatePostsFragment();
         }
-        getFragmentManager().beginTransaction()
-        .replace(R.id.container, fragment)
-        .commit();
+
+        ft.replace(R.id.container, fragment).commit();
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
-    /**
-     * A dummy fragment representing a section of the app, but that simply displays dummy text.
-     */
-    public static class DummySectionFragment extends Fragment {
-        public DummySectionFragment() {
-        }
-
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            TextView textView = new TextView(getActivity());
-            textView.setGravity(Gravity.CENTER);
-            Bundle args = getArguments();
-            textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
-            return textView;
-        }
+    public ArrayAdapter<String> getPostsAdapter() {
+        return mPostsAdapter;
     }
 }

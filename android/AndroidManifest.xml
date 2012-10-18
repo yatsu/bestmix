@@ -7,10 +7,15 @@
         android:minSdkVersion="15"
         android:targetSdkVersion="15" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <service android:name=".rest.RESTService" />
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_main" >
