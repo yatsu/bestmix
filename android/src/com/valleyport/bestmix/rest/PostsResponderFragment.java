@@ -56,9 +56,6 @@ public abstract class PostsResponderFragment extends RESTResponderFragment {
 
     public void setListener(PostsResponderListener listener) {
         mListener = listener;
-        //if (listener != null && mPosts != null) {
-        //    setPosts();
-        //}
     }
 
     protected void setPosts() {
@@ -131,7 +128,7 @@ public abstract class PostsResponderFragment extends RESTResponderFragment {
         JSONArray postArray = json.getJSONArray("posts");
         for (int i = 0; i < postArray.length(); i++) {
             String post = postArray.getJSONObject(i).getString("post");
-            Log.d(TAG,  "post: " + post);
+            //Log.d(TAG,  "post: " + post);
             postList.add(gson.fromJson(post, Post.class));
         }
         return postList;
