@@ -8,32 +8,39 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.valleyport.bestmix.activity.MainActivity;
 import com.valleyport.bestmix.common.Config;
 import com.valleyport.bestmix.model.Post;
 
-public class PostsResponderFragment extends RESTResponderFragment {
+public abstract class PostsResponderFragment extends RESTResponderFragment {
+
+    public interface PostsResponderListener {
+        public void onSuccess(List<Post> posts);
+        public void onFailure(int code, String response);
+    }
+
     private static String TAG = PostsResponderFragment.class.getName();
+
+    protected String path = "";
 
     // We cache our stored posts here so that we can return right away
     // on multiple calls to setPosts() during the Activity lifecycle events (such
     // as when the user rotates their device). In a real application we would want
     // to cache this data in a more sophisticated way, probably using SQLite and
     // Content Providers, but for the demo and simple apps this will do.
-    private List<Post> mPosts;
+    protected List<Post> mPosts;
 
-    private int mCurrentPage;
-    private int mTotalCount;
-    private int mNumPages;
+    protected int mCurrentPage;
+    protected int mTotalCount;
+    protected int mNumPages;
+
+    protected PostsResponderListener mListener;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -47,7 +54,15 @@ public class PostsResponderFragment extends RESTResponderFragment {
         setPosts();
     }
 
-    private void setPosts() {
+    public void setListener(PostsResponderListener listener) {
+        mListener = listener;
+        //if (listener != null && mPosts != null) {
+        //    setPosts();
+        //}
+    }
+
+    protected void setPosts() {
+        Log.d(TAG, "setPosts");
         MainActivity activity = (MainActivity)getActivity();
 
         if (mPosts == null && activity != null) {
@@ -58,30 +73,30 @@ public class PostsResponderFragment extends RESTResponderFragment {
             // component in our app. You could do this with Intent actions as well, but you have
             // to make sure you define your intent filters correctly in your manifest.
             Intent intent = new Intent(activity, RESTService.class);
-            intent.setData(Uri.parse(Config.WEB_API_URL + "posts.json"));
+            intent.setData(Uri.parse(Config.WEB_API_URL + path));
 
             intent.putExtra(RESTService.EXTRA_RESULT_RECEIVER, getResultReceiver());
 
             // Here we send our Intent to our RESTService.
+            Log.d(TAG, "start service");
             activity.startService(intent);
         }
-        else if (activity != null) {
+        else if (mPosts != null && activity != null) {
             // Here we check to see if our activity is null or not.
             // We only want to update our views if our activity exists.
-
-            ArrayAdapter<String> adapter = activity.getPostsAdapter();
-
-            // Load our list adapter with our posts.
-            adapter.clear();
-            for (Post post : mPosts) {
-                adapter.add(post.getTitle());
+            if (mListener != null) {
+                mListener.onSuccess(mPosts);
             }
         }
     }
 
+    public List<Post> getPosts() {
+        return mPosts;
+    }
+
     @Override
     public void onRESTResult(int code, String result) {
-        //Log.d(TAG, "result: " + result);
+        Log.d(TAG, "result: " + result);
         // Here is where we handle our REST response. This is similar to the
         // LoaderCallbacks<D>.onLoadFinished() call from the previous tutorial.
 
@@ -97,18 +112,20 @@ public class PostsResponderFragment extends RESTResponderFragment {
             }
             catch (JSONException e) {
                 Log.e(TAG, "Failed to parse JSON.", e);
+                if (mListener != null) {
+                    mListener.onFailure(code, result);
+                }
             }
             setPosts();
         }
         else {
-            Activity activity = getActivity();
-            if (activity != null) {
-                Toast.makeText(activity, "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+            if (mListener != null) {
+                mListener.onFailure(code, result);
             }
         }
     }
 
-    private static List<Post> getPostsFromJson(JSONObject json) throws JSONException {
+    protected static List<Post> getPostsFromJson(JSONObject json) throws JSONException {
         Gson gson = new Gson();
         ArrayList<Post> postList = new ArrayList<Post>();
         JSONArray postArray = json.getJSONArray("posts");

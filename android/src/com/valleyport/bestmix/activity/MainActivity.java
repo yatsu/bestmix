@@ -1,23 +1,23 @@
 package com.valleyport.bestmix.activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 
 import com.valleyport.bestmix.R;
-import com.valleyport.bestmix.rest.PostsResponderFragment;
+import com.valleyport.bestmix.rest.PrivatePostsResponderFragment;
+import com.valleyport.bestmix.rest.PublicPostsResponderFragment;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends Activity implements ActionBar.TabListener {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 
-    private ArrayAdapter<String> mPostsAdapter;
+    private PublicPostsFragment mPublicPostsFragment;
+    private PrivatePostsFragment mPrivatePostsFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,28 +59,37 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        Log.d("Bestmix",  "onTabSelected");
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
         ListFragment fragment;
         if (tab.getPosition() == 0) {
-            fragment = new PublicPostsFragment();
-            if (mPostsAdapter == null) {
-                mPostsAdapter = new ArrayAdapter<String>(this, R.layout.post);
+            if (mPublicPostsFragment == null) {
+                mPublicPostsFragment = new PublicPostsFragment();
             }
-            fragment.setListAdapter(mPostsAdapter);
-
-            PostsResponderFragment responder = (PostsResponderFragment)fm.findFragmentByTag("PostsResponder");
+            PublicPostsResponderFragment responder =
+                    (PublicPostsResponderFragment)fm.findFragmentByTag("PublicPostsResponder");
             if (responder == null) {
-                responder = new PostsResponderFragment();
-                // We add the fragment using a Tag since it has no views. It will make the Twitter REST call
-                // for us each time this Activity is created.
-                ft.add(responder, "PostsResponder");
+                responder = new PublicPostsResponderFragment();
+                ft.add(responder, "PublicPostsResponder");
             }
+            responder.setListener(mPublicPostsFragment);
+
+            fragment = mPublicPostsFragment;
 
         } else {
-            fragment = new PrivatePostsFragment();
+            if (mPrivatePostsFragment == null) {
+                mPrivatePostsFragment = new PrivatePostsFragment();
+            }
+            PrivatePostsResponderFragment responder =
+                    (PrivatePostsResponderFragment)fm.findFragmentByTag("PrivatePostsResponder");
+            if (responder == null) {
+                responder = new PrivatePostsResponderFragment();
+                ft.add(responder, "PrivatePostsResponder");
+            }
+            responder.setListener(mPrivatePostsFragment);
+
+            fragment = mPrivatePostsFragment;
         }
 
         ft.replace(R.id.container, fragment).commit();
@@ -88,9 +97,5 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    public ArrayAdapter<String> getPostsAdapter() {
-        return mPostsAdapter;
     }
 }
