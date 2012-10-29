@@ -10,6 +10,9 @@ Bestmix::Application.routes.draw do
 
   mount Doorkeeper::Engine => '/oauth'
 
+  # accept get method to support scribe-java
+  get 'oauth/token' => 'doorkeeper/tokens#create'
+
   devise_for :users
 
   namespace :api do
