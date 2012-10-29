@@ -1,11 +1,18 @@
 package com.valleyport.bestmix.auth;
 
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.oauth.OAuthService;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
+import com.valleyport.bestmix.common.Config;
+
 public class AuthManager {
+    //private static String TAG = AuthManager.class.getName();
+
     private static AuthManager instance = new AuthManager();
 
     private AuthManager() {}
@@ -35,5 +42,18 @@ public class AuthManager {
             editor.putString("token", token);
         }
         editor.commit();
+    }
+
+    public void clearToken(Context context) {
+        setToken(context, null);
+    }
+
+    public OAuthService getAuthService() {
+        return new ServiceBuilder()
+        .provider(AuthProvider.class)
+        .apiKey(Config.CLIENT_ID)
+        .apiSecret(Config.CLIENT_SECRET)
+        .callback(Config.REDIRECT_URL)
+        .build();
     }
 }

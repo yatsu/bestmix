@@ -5,16 +5,22 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.valleyport.bestmix.R;
+import com.valleyport.bestmix.auth.AuthManager;
 import com.valleyport.bestmix.rest.PrivatePostsResponderFragment;
 import com.valleyport.bestmix.rest.PublicPostsResponderFragment;
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+
+    private static String TAG = MainActivity.class.getName();
 
     private PublicPostsFragment mPublicPostsFragment;
     private PrivatePostsFragment mPrivatePostsFragment;
@@ -34,6 +40,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        invalidateOptionsMenu();
+    }
+
+    @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
             getActionBar().setSelectedNavigationItem(
@@ -50,6 +63,14 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
+
+        MenuItem item;
+        if (AuthManager.getInstance().getToken(this) == null)
+            item = menu.findItem(R.id.menu_logout);
+        else
+            item = menu.findItem(R.id.menu_login);
+        item.setVisible(false);
+
         return true;
     }
 
@@ -97,5 +118,39 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.menu_refresh:
+            Log.d(TAG, "refresh");
+            return true;
+
+        case R.id.menu_login:
+            login();
+            return true;
+
+        case R.id.menu_logout:
+            logout();
+            return true;
+
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void login() {
+        if (AuthManager.getInstance().isLoggedIn(this)) {
+            // logout
+        } else {
+            Intent intent = new Intent(this, AuthActivity.class);
+            startActivityForResult(intent, 1);
+        }
+    }
+
+    private void logout() {
+        AuthManager.getInstance().clearToken(this);
+        invalidateOptionsMenu();
     }
 }

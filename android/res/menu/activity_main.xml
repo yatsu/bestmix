@@ -3,4 +3,14 @@
         android:title="@string/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/menu_refresh"
+          android:icon="@drawable/ic_menu_refresh"
+          android:title="@string/menu_refresh"
+          android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_login"
+          android:title="@string/menu_login"
+          android:showAsAction="always" />
+    <item android:id="@+id/menu_logout"
+          android:title="@string/menu_logout"
+          android:showAsAction="always" />
 </menu>

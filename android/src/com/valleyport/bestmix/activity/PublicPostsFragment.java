@@ -46,13 +46,13 @@ public class PublicPostsFragment extends ListFragment implements PostsResponderL
         //Toast.makeText(getActivity(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
         //setListShown(true);
 
-        if (code == 401) {
-            setEmptyText("Login Required");
-        } else {
-            setEmptyText(response);
-        }
-
         if (getActivity() != null) {
+            if (code == 401) {
+                setEmptyText("Login Required");
+            } else {
+                setEmptyText(response);
+            }
+
             setPostsAdapter();
         }
     }
