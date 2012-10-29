@@ -6,7 +6,6 @@ import android.app.ListFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.valleyport.bestmix.R;
 import com.valleyport.bestmix.model.Post;
@@ -43,8 +42,19 @@ public class PublicPostsFragment extends ListFragment implements PostsResponderL
 
     @Override
     public void onFailure(int code, String response) {
-        Log.d(TAG, "onFailure");
-        Toast.makeText(getActivity(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "onFailure - code: " + code + " response: " + response);
+        //Toast.makeText(getActivity(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
+        //setListShown(true);
+
+        if (code == 401) {
+            setEmptyText("Login Required");
+        } else {
+            setEmptyText(response);
+        }
+
+        if (getActivity() != null) {
+            setPostsAdapter();
+        }
     }
 
     private void setPostsAdapter() {
@@ -55,8 +65,10 @@ public class PublicPostsFragment extends ListFragment implements PostsResponderL
 
         // Load our list adapter with our posts.
         mPostsAdapter.clear();
-        for (Post post : mPosts) {
-            mPostsAdapter.add(post.getTitle());
+        if (mPosts != null) {
+            for (Post post : mPosts) {
+                mPostsAdapter.add(post.getTitle());
+            }
         }
     }
 }

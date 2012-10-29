@@ -5,5 +5,5 @@ public class PrivatePostsResponderFragment extends PostsResponderFragment {
     public PrivatePostsResponderFragment() {
         super();
 
-        path = "posts.json";
+        path = "my_posts.json";
     }}
