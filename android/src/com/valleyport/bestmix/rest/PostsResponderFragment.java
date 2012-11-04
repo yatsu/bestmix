@@ -58,6 +58,11 @@ public abstract class PostsResponderFragment extends RESTResponderFragment {
         mListener = listener;
     }
 
+    public void reload() {
+        clearPosts();
+        setPosts();
+    }
+
     protected void setPosts() {
         Log.d(TAG, "setPosts");
         MainActivity activity = (MainActivity)getActivity();
@@ -89,6 +94,10 @@ public abstract class PostsResponderFragment extends RESTResponderFragment {
 
     public List<Post> getPosts() {
         return mPosts;
+    }
+
+    public void clearPosts() {
+        mPosts = null;
     }
 
     @Override

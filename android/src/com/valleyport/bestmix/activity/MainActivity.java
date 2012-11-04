@@ -40,10 +40,24 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
         invalidateOptionsMenu();
+
+        if (intent.getBooleanExtra("authenticated", false)) {
+            /*
+            PrivatePostsResponderFragment responder =
+                    (PrivatePostsResponderFragment)fm.findFragmentByTag("PrivatePostsResponder");
+            if (responder == null) {
+            }
+             */
+            /*
+            if (mPrivatePostsFragment != null) {
+                mPrivatePostsFragment.getListAdapter()
+            }
+             */
+        }
     }
 
     @Override
@@ -93,6 +107,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             if (responder == null) {
                 responder = new PublicPostsResponderFragment();
                 ft.add(responder, "PublicPostsResponder");
+            } else {
+                responder.reload();
             }
             responder.setListener(mPublicPostsFragment);
 
@@ -107,6 +123,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             if (responder == null) {
                 responder = new PrivatePostsResponderFragment();
                 ft.add(responder, "PrivatePostsResponder");
+            } else {
+                responder.reload();
             }
             responder.setListener(mPrivatePostsFragment);
 
