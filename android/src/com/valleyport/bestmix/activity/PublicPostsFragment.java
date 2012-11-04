@@ -37,6 +37,7 @@ public class PublicPostsFragment extends ListFragment implements PostsResponderL
         mPosts = posts;
         if (getActivity() != null) {
             setPostsAdapter();
+            setListShown(true);
         }
     }
 
@@ -54,6 +55,7 @@ public class PublicPostsFragment extends ListFragment implements PostsResponderL
             }
 
             setPostsAdapter();
+            setListShown(true);
         }
     }
 

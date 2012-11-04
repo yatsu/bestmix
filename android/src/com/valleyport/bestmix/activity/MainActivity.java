@@ -46,17 +46,15 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         invalidateOptionsMenu();
 
         if (intent.getBooleanExtra("authenticated", false)) {
-            /*
+            Log.d(TAG, "reload");
+            FragmentManager fm = getFragmentManager();
             PrivatePostsResponderFragment responder =
                     (PrivatePostsResponderFragment)fm.findFragmentByTag("PrivatePostsResponder");
-            if (responder == null) {
+            if (responder != null) {
+                mPrivatePostsFragment.setListShown(false);
+                responder.reload();
+                //responder.setListener(mPrivatePostsFragment);
             }
-             */
-            /*
-            if (mPrivatePostsFragment != null) {
-                mPrivatePostsFragment.getListAdapter()
-            }
-             */
         }
     }
 
@@ -142,7 +140,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.menu_refresh:
-            Log.d(TAG, "refresh");
+            refresh();
             return true;
 
         case R.id.menu_login:
@@ -170,5 +168,26 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     private void logout() {
         AuthManager.getInstance().clearToken(this);
         invalidateOptionsMenu();
+    }
+
+    private void refresh() {
+        ActionBar.Tab tab = getActionBar().getSelectedTab();
+        FragmentManager fm = getFragmentManager();
+
+        if (tab.getPosition() == 0) {
+            mPublicPostsFragment.setListShown(false);
+            PublicPostsResponderFragment responder =
+                    (PublicPostsResponderFragment)fm.findFragmentByTag("PublicPostsResponder");
+            if (responder != null) {
+                responder.reload();
+            }
+        } else {
+            mPrivatePostsFragment.setListShown(false);
+            PrivatePostsResponderFragment responder =
+                    (PrivatePostsResponderFragment)fm.findFragmentByTag("PrivatePostsResponder");
+            if (responder != null) {
+                responder.reload();
+            }
+        }
     }
 }
