@@ -29,6 +29,8 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import com.valleyport.bestmix.auth.AuthManager;
+
 public class RESTService extends IntentService {
     private static final String TAG = RESTService.class.getName();
 
@@ -122,6 +124,12 @@ public class RESTService extends IntentService {
             }
 
             if (request != null) {
+                String token = AuthManager.getInstance().getToken(this);
+                Log.d(TAG,  "token: " + token);
+                if (token != null) {
+                    request.setHeader("Authorization", "Bearer " + token);
+                }
+
                 HttpClient client = new DefaultHttpClient();
 
                 // Let's send some useful debug information so we can monitor things

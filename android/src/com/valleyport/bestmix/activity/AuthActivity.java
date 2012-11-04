@@ -73,6 +73,7 @@ public class AuthActivity extends Activity {
         AuthManager.getInstance().setToken(activity, token.getToken());
 
         Intent intent = new Intent();
+        intent.putExtra("authenticated", true);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

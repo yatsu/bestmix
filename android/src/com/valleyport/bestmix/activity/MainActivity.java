@@ -168,6 +168,14 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     private void logout() {
         AuthManager.getInstance().clearToken(this);
         invalidateOptionsMenu();
+
+        FragmentManager fm = getFragmentManager();
+        mPrivatePostsFragment.setListShown(false);
+        PrivatePostsResponderFragment responder =
+                (PrivatePostsResponderFragment)fm.findFragmentByTag("PrivatePostsResponder");
+        if (responder != null) {
+            responder.reload();
+        }
     }
 
     private void refresh() {

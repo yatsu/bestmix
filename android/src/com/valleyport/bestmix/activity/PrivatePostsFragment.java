@@ -47,6 +47,8 @@ public class PrivatePostsFragment extends ListFragment implements PostsResponder
         //Toast.makeText(getActivity(), "Failed to load data. Check your internet settings.", Toast.LENGTH_SHORT).show();
         //setListShown(true);
 
+        mPosts = null;
+
         if (getActivity() != null) {
             if (code == 401) {
                 setEmptyText("Login Required");
@@ -60,7 +62,6 @@ public class PrivatePostsFragment extends ListFragment implements PostsResponder
     }
 
     private void setPostsAdapter() {
-        Log.d(TAG, "setPostsAdapter");
         if (mPostsAdapter == null) {
             mPostsAdapter = new ArrayAdapter<String>(getActivity(), R.layout.post);
             setListAdapter(mPostsAdapter);
