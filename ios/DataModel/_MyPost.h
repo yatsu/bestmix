@@ -43,7 +43,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* content;
+
 
 
 //- (BOOL)validateContent:(id*)value_ error:(NSError**)error_;
@@ -51,7 +53,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* createdAt;
+
 
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
@@ -59,7 +63,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSNumber* expire;
+
 
 
 @property BOOL expireValue;
@@ -71,7 +77,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSNumber* myPostID;
+
 
 
 @property int64_t myPostIDValue;
@@ -83,7 +91,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* publishedAt;
+
 
 
 //- (BOOL)validatePublishedAt:(id*)value_ error:(NSError**)error_;
@@ -91,7 +101,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* title;
+
 
 
 //- (BOOL)validateTitle:(id*)value_ error:(NSError**)error_;
@@ -99,7 +111,9 @@ extern const struct MyPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* updatedAt;
+
 
 
 //- (BOOL)validateUpdatedAt:(id*)value_ error:(NSError**)error_;
@@ -108,7 +122,7 @@ extern const struct MyPostFetchedProperties {
 
 
 
-@property (nonatomic, strong) User* user;
+@property (nonatomic, strong) User *user;
 
 //- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
 

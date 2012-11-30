@@ -36,6 +36,9 @@
 		1C842A74159B47DD009198C8 /* PublicPostsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A6F159B47DD009198C8 /* PublicPostsViewController.m */; };
 		1C842A7F159C25AD009198C8 /* _MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A7C159C25AD009198C8 /* _MyPost.m */; };
 		1C842A80159C25AD009198C8 /* MyPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C842A7E159C25AD009198C8 /* MyPost.m */; };
+		1C8496A5164CD13E00123FDB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8496A4164CD13E00123FDB /* Default.png */; };
+		1C8496A8164CD14F00123FDB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8496A7164CD14F00123FDB /* Default@2x.png */; };
+		1C8496AA164CD15100123FDB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8496A9164CD15100123FDB /* Default-568h@2x.png */; };
 		1CA74BFB15837C5900DDE84D /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */; };
 		1CA8E748157A2A670062C93F /* Bestmix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8E746157A2A670062C93F /* Bestmix.xcdatamodeld */; };
 		1CE166E11595835800ED8736 /* UIAlertView+SimpleAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CE166E01595835800ED8736 /* UIAlertView+SimpleAlert.m */; };
@@ -97,6 +100,9 @@
 		1C842A7C159C25AD009198C8 /* _MyPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _MyPost.m; sourceTree = "<group>"; };
 		1C842A7D159C25AD009198C8 /* MyPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost.h; sourceTree = "<group>"; };
 		1C842A7E159C25AD009198C8 /* MyPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost.m; sourceTree = "<group>"; };
+		1C8496A4164CD13E00123FDB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		1C8496A7164CD14F00123FDB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1C8496A9164CD15100123FDB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1CA74BF915837C5900DDE84D /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		1CA74BFA15837C5900DDE84D /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		1CA8E747157A2A670062C93F /* Bestmix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bestmix.xcdatamodel; sourceTree = "<group>"; };
@@ -139,6 +145,9 @@
 		1C7ABC7915775C6700327DEB = {
 			isa = PBXGroup;
 			children = (
+				1C8496A9164CD15100123FDB /* Default-568h@2x.png */,
+				1C8496A7164CD14F00123FDB /* Default@2x.png */,
+				1C8496A4164CD13E00123FDB /* Default.png */,
 				1CA8E745157A2A2E0062C93F /* DataModel */,
 				1CA8E7381579FD320062C93F /* Categories */,
 				1C7ABC8E15775C6700327DEB /* Bestmix */,
@@ -318,6 +327,9 @@
 				1C7ABCA615775C6700327DEB /* first@2x.png in Resources */,
 				1C7ABCAB15775C6700327DEB /* second.png in Resources */,
 				1C7ABCAD15775C6700327DEB /* second@2x.png in Resources */,
+				1C8496A5164CD13E00123FDB /* Default.png in Resources */,
+				1C8496A8164CD14F00123FDB /* Default@2x.png in Resources */,
+				1C8496AA164CD15100123FDB /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

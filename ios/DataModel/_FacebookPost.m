@@ -43,7 +43,7 @@ const struct FacebookPostFetchedProperties FacebookPostFetchedProperties = {
 	return (FacebookPostID*)[super objectID];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 

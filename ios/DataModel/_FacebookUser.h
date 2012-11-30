@@ -41,7 +41,9 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* facebookUserID;
+
 
 
 //- (BOOL)validateFacebookUserID:(id*)value_ error:(NSError**)error_;
@@ -49,7 +51,9 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* firstName;
+
 
 
 //- (BOOL)validateFirstName:(id*)value_ error:(NSError**)error_;
@@ -57,7 +61,9 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* gender;
+
 
 
 //- (BOOL)validateGender:(id*)value_ error:(NSError**)error_;
@@ -65,7 +71,9 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* lastName;
+
 
 
 //- (BOOL)validateLastName:(id*)value_ error:(NSError**)error_;
@@ -73,7 +81,9 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* name;
+
 
 
 //- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
@@ -81,7 +91,9 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* username;
+
 
 
 //- (BOOL)validateUsername:(id*)value_ error:(NSError**)error_;
@@ -90,7 +102,7 @@ extern const struct FacebookUserFetchedProperties {
 
 
 
-@property (nonatomic, strong) User* user;
+@property (nonatomic, strong) User *user;
 
 //- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
 

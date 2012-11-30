@@ -43,16 +43,18 @@ const struct MyPostFetchedProperties MyPostFetchedProperties = {
 	return (MyPostID*)[super objectID];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
++ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
 	if ([key isEqualToString:@"expireValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"expire"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
 	}
 	if ([key isEqualToString:@"myPostIDValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"myPostID"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
 	}
 
 	return keyPaths;

@@ -41,7 +41,9 @@ extern const struct UserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* createdAt;
+
 
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
@@ -49,7 +51,9 @@ extern const struct UserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* email;
+
 
 
 //- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
@@ -57,7 +61,9 @@ extern const struct UserFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSNumber* userID;
+
 
 
 @property int64_t userIDValue;
@@ -70,28 +76,28 @@ extern const struct UserFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSSet* facebookPosts;
+@property (nonatomic, strong) NSSet *facebookPosts;
 
 - (NSMutableSet*)facebookPostsSet;
 
 
 
 
-@property (nonatomic, strong) FacebookUser* facebookUser;
+@property (nonatomic, strong) FacebookUser *facebookUser;
 
 //- (BOOL)validateFacebookUser:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, strong) NSSet* myPosts;
+@property (nonatomic, strong) NSSet *myPosts;
 
 - (NSMutableSet*)myPostsSet;
 
 
 
 
-@property (nonatomic, strong) NSSet* posts;
+@property (nonatomic, strong) NSSet *posts;
 
 - (NSMutableSet*)postsSet;
 

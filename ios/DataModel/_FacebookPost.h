@@ -43,7 +43,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* createdAt;
+
 
 
 //- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
@@ -51,7 +53,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* facebookPostID;
+
 
 
 //- (BOOL)validateFacebookPostID:(id*)value_ error:(NSError**)error_;
@@ -59,7 +63,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* from;
+
 
 
 //- (BOOL)validateFrom:(id*)value_ error:(NSError**)error_;
@@ -67,7 +73,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* message;
+
 
 
 //- (BOOL)validateMessage:(id*)value_ error:(NSError**)error_;
@@ -75,7 +83,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* to;
+
 
 
 //- (BOOL)validateTo:(id*)value_ error:(NSError**)error_;
@@ -83,7 +93,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSString* type;
+
 
 
 //- (BOOL)validateType:(id*)value_ error:(NSError**)error_;
@@ -91,7 +103,9 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
+
 @property (nonatomic, strong) NSDate* updatedAt;
+
 
 
 //- (BOOL)validateUpdatedAt:(id*)value_ error:(NSError**)error_;
@@ -100,7 +114,7 @@ extern const struct FacebookPostFetchedProperties {
 
 
 
-@property (nonatomic, strong) User* user;
+@property (nonatomic, strong) User *user;
 
 //- (BOOL)validateUser:(id*)value_ error:(NSError**)error_;
 
