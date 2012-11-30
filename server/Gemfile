@@ -50,6 +50,7 @@ gem 'thor', '~> 0.16.0'
 gem 'oauth2', '~> 0.8.0'
 gem "omniauth-facebook", '~> 1.4.1'
 gem "koala", '~> 1.5.0'
+gem 'rack-cors', :require => 'rack/cors'
 # gem 'msgpack', '~> 0.4.7'
 
 gem 'capistrano'

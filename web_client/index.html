@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>OAuth 2 User Agent Authentication Flow Demo</title>
+    <script type="text/javascript" charset="utf-8" src="javascript/jquery-1.6.3.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      $(function () {
+        var extractToken = function(hash) {
+          var match = hash.match(/access_token=(\w+)/);
+          return !!match && match[1];
+        };
+
+        var setting =
+          {
+            'host':     "bestmix.local",
+            'clientId': "a8d2c99c5582370972c2500176e9949a1257a35a9186b25818229cebf49f5de2"
+          };
+
+        var authHost     = "http://" + setting.host;
+        var resourceHost = "http://" + setting.host;
+
+        var endUserAuthorizationEndpoint = authHost + "/oauth/authorize";
+
+        var token = extractToken(document.location.hash);
+        if (token) {
+          $('div.authenticated').show();
+
+          $('#token').text(token);
+
+          $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: resourceHost + '/api/v1/my_posts.json',
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader('Authorization', "Bearer " + token);
+              xhr.setRequestHeader('Accept',        "application/json");
+            },
+            success: function (response) {
+              if (response) {
+                $('#response').text(JSON.stringify(response));
+              } else {
+                container.text("An error occurred.");
+              }
+            }
+          });
+        } else {
+          $('div.authenticate').show();
+
+          var authUrl = endUserAuthorizationEndpoint +
+            "?response_type=token" +
+            "&client_id="    + setting.clientId +
+            "&redirect_uri=" + window.location;
+
+          $("a.connect").attr("href", authUrl);
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="authenticate">
+      <a class="connect" href="">Connect</a>
+    </div>
+
+    <div class="authenticated" style="display: none;">
+      <p>
+        Token:<br/>
+        <span id="token">[no token]</span>
+      </p>
+
+      <p>
+        Response:<br/>
+        <span id="response">[no response]</span>
+      </p>
+    </div>
+  </body>
+</html>

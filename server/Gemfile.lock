@@ -200,6 +200,8 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-cors (0.2.7)
+      rack
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -314,6 +316,7 @@ DEPENDENCIES
   pry
   pry-rails
   rabl (~> 0.7.2)
+  rack-cors
   rails (= 3.2.8)
   rb-fsevent
   rspec-rails
