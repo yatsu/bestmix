@@ -2,7 +2,7 @@ Bestmix
 =======
 
 Bestmix is a boilerplate code of iOS app, Android app and Rails-based backend.
-You can use it as a basic structure to build your own iOS app and backend web API integrated with each other.
+You can use it as a basic structure to build your own mobile app and backend web API integrated with each other.
 They are connected with JSON REST API supporting CRUD, pagination, caching, OAuth2 and Facebook integration.
 
 The sample app is a simple blog engine.
@@ -39,7 +39,7 @@ Features
 * Getting OAuth2 token and refreshing it behind the scenes
 * Storing authorized token in Keychain
 * Parsing JSON response
-* Importing JSON ojbjects into Core Data as local cache
+* Importing JSON objects into Core Data as local cache
 * Pagination and incremental loading
 * HTTP caching
 * Checking reachability and display object cache if it is offline
